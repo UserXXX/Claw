@@ -12,7 +12,7 @@ namespace Claw.Commands
     {
         private const string ACTION_BLOCK_CHILD_NODE = "actionblock";
 
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             NAME_ATTRIBUTE,
@@ -65,7 +65,9 @@ namespace Claw.Commands
             foreach (var child in node.Children)
             {
                 if (child.Name.ToLower() == "actionblock")
+                {
                     actionBlocks.AddLast(new ActionBlock(validator, child));
+                }
             }
         }
     }

@@ -14,7 +14,7 @@ namespace Claw.Controllers.Controls
         protected uint identifier;
         protected string name;
         
-        #region Check Stuff
+        #region Validation
         
         internal sealed override TagUsage TagUsageType
 		{
@@ -31,8 +31,14 @@ namespace Claw.Controllers.Controls
         internal Control(NodeValidator validator, Node node)
         	: base(validator, node)
         {
-            identifier = ConversionHelper.ParseHexUint(node.Tag);
-            name = node.Attributes[NAME_ATTRIBUTE];
+            if (!string.IsNullOrEmpty(node.Tag))
+            {
+                identifier = ConversionHelper.ParseHexUint(node.Tag);
+            }
+            if (node.Attributes.ContainsKey(NAME_ATTRIBUTE))
+            {
+                name = node.Attributes[NAME_ATTRIBUTE];
+            }
         }
     }
 }

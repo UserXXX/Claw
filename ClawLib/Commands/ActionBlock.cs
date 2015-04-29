@@ -8,13 +8,13 @@ namespace Claw.Commands
     /// <summary>
     /// A block of actions.
     /// </summary>
-    public class ActionBlock : NodeParser
+    public class ActionBlock : NodeListParser<Action>
     {
         private const string TYPE_ATTRIBUTE = "type";
 
         private const string ACTION_CHILD_NODE = "action";
 
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = { };
         private static readonly string[] OPTIONAL_ATTRIBUTES = {
@@ -55,8 +55,6 @@ namespace Claw.Commands
         private ActionBlockType blockType = ActionBlockType.Default;
         private ActionBlockUsageType type = ActionBlockUsageType.Press;
 
-        private LinkedList<Action> actions = new LinkedList<Action>();
-
         /// <summary>
         /// Creates a new ActionBlock.
         /// </summary>
@@ -66,15 +64,20 @@ namespace Claw.Commands
         	: base(validator, node)
         {
             if (!string.IsNullOrEmpty(node.Tag))
+            {
                 blockType = ActionBlockTypeHelper.TryParse(node.Tag);
-
+            }
             if (node.Attributes.ContainsKey(TYPE_ATTRIBUTE))
+            {
                 type = ActionBlockUsageTypeHelper.TryParse(node.Attributes[TYPE_ATTRIBUTE]);
+            }
 
             foreach (var child in node.Children)
             {
                 if (child.Name.ToLower() == ACTION_CHILD_NODE)
-                    actions.AddLast(new Action(validator, child));
+                {
+                    Add(new Action(validator, child));
+                }
             }
         }
     }

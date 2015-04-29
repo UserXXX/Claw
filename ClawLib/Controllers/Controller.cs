@@ -19,12 +19,7 @@ namespace Claw.Controllers
         private const string CONTROLS_CHILD_NODE = "controls";
         private const string SHIFTS_CHILD_NODE = "shifts";
         
-        private const string MOUSE_POINTER_CHILD_NODE = "mousepointer";
-        private const string MOUSE_AXIS_CHILD_NODE = "mouseaxis";
-        private const string BUTTON_CHILD_NODE = "button";
-        private const string SLIDER_CHILD_NODE = "slider";
-        
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             GROUP_ATTRIBUTE,
@@ -66,9 +61,13 @@ namespace Claw.Controllers
         
         private Guid uuid;
         private DeviceGroup group;
+        /// <summary>
+        /// List of members (=devices) of this group.
+        /// Use LinkedList here as a Controller has members and the usage of this node is not to store members.
+        /// </summary>
         private LinkedList<Member> members = new LinkedList<Member>();
-        private LinkedList<Control> controls = new LinkedList<Control>();
-        private LinkedList<Shift> shifts = new LinkedList<Shift>();
+        private ControlList controls;
+        private ShiftList shifts;
 
         /// <summary>
         /// Creates a new controller from the given node.
@@ -78,10 +77,14 @@ namespace Claw.Controllers
         internal Controller(NodeValidator validator, Node node)
         	: base(validator, node)
         {
-            uuid = new Guid(node.Tag);
-            group = DeviceGroupHelper.TryParse(node.Attributes[GROUP_ATTRIBUTE]);
-
-            bool loadedControls = false;
+            if (!string.IsNullOrEmpty(node.Tag))
+            {
+                uuid = new Guid(node.Tag);
+            }
+            if (node.Attributes.ContainsKey(GROUP_ATTRIBUTE))
+            {
+                group = DeviceGroupHelper.TryParse(node.Attributes[GROUP_ATTRIBUTE]);
+            }
 
             foreach (var child in node.Children)
             {
@@ -92,58 +95,11 @@ namespace Claw.Controllers
                         break;
 
                     case CONTROLS_CHILD_NODE:
-                        if (loadedControls)
-                            Trace.WriteLine("Found multiple \"controls\" nodes in \"controller\" node.");
-                        else
-                        {
-                            LoadControls(validator, child);
-                            loadedControls = true;
-                        }
+                        controls = new ControlList(validator, child);
                         break;
 
                     case SHIFTS_CHILD_NODE:
-                        LoadShifts(validator, child);
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Loads the shifts from a given node.
-        /// </summary>
-        /// <param name="validator">The validator to use for validation.</param>
-        /// <param name="node">The "shifts" node.</param>
-        private void LoadShifts(NodeValidator validator, Node node)
-        {
-            foreach (var child in node.Children)
-                shifts.AddLast(new Shift(validator, child));
-        }
-
-        /// <summary>
-        /// Loads the controls from a given Node.
-        /// </summary>
-        /// <param name="validator">The validator to use for validation.</param>
-        /// <param name="node">The "controls" node.</param>
-        private void LoadControls(NodeValidator validator, Node node)
-        {
-            foreach (var child in node.Children)
-            {
-                switch (child.Name.ToLower())
-                {
-                    case MOUSE_POINTER_CHILD_NODE:
-                        controls.AddLast(new MousePointerControl(validator, child));
-                        break;
-
-                    case MOUSE_AXIS_CHILD_NODE:
-                        controls.AddLast(new MouseAxisControl(validator, child));
-                        break;
-
-                    case BUTTON_CHILD_NODE:
-                        controls.AddLast(new ButtonControl(validator, child));
-                        break;
-
-                    case SLIDER_CHILD_NODE:
-                        controls.AddLast(new SliderControl(validator, child));
+                        shifts = new ShiftList(validator, child);
                         break;
                 }
             }

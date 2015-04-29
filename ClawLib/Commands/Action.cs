@@ -15,7 +15,7 @@ namespace Claw.Commands
         private const string PAGE_ATTRIBUTE = "page";
         private const string VALUE_ATTRIBUTE = "value";
 
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             DEVICE_ATTRIBUTE,
@@ -79,16 +79,26 @@ namespace Claw.Commands
         internal Action(NodeValidator validator, Node node)
         	: base(validator, node)
         {
-            device = ActionDeviceHelper.TryParse(node.Attributes[DEVICE_ATTRIBUTE]);
-
+            if (node.Attributes.ContainsKey(DEVICE_ATTRIBUTE))
+            {
+                device = ActionDeviceHelper.TryParse(node.Attributes[DEVICE_ATTRIBUTE]);
+            }
             if (node.Attributes.ContainsKey(TIME_ATTRIBUTE))
+            {
                 time = ConversionHelper.ParseHexUint(node.Attributes[TIME_ATTRIBUTE]);
-
-            usage = (ActionKey)ConversionHelper.ParseHexUint(node.Attributes[USAGE_ATTRIBUTE]);
-            page = ConversionHelper.ParseHexUint(node.Attributes[PAGE_ATTRIBUTE]);
-
+            }
+            if (node.Attributes.ContainsKey(USAGE_ATTRIBUTE))
+            {
+                usage = (ActionKey)ConversionHelper.ParseHexUint(node.Attributes[USAGE_ATTRIBUTE]);
+            }
+            if (node.Attributes.ContainsKey(PAGE_ATTRIBUTE))
+            {
+                page = ConversionHelper.ParseHexUint(node.Attributes[PAGE_ATTRIBUTE]);
+            }
             if (node.Attributes.ContainsKey(VALUE_ATTRIBUTE))
+            {
                 value = (ActionValue)ConversionHelper.ParseHexUint(node.Attributes[VALUE_ATTRIBUTE]);
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Claw.Controllers.Assignments
     {
         private const string ENVELOPE_ATTRIBUTE = "envelope";
 
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             ENVELOPE_ATTRIBUTE,
@@ -65,15 +65,22 @@ namespace Claw.Controllers.Assignments
         internal MouseAxisAssignment(NodeValidator validator, Node node)
             : base(validator, node)
         {
-            string envelopeName = node.Attributes[ENVELOPE_ATTRIBUTE];
-            envelope = MouseAxisEnvelopeHelper.TryParse(envelopeName);
-
-            foreach (var child in node.Children)
+            string envelopeName = null;
+            if (node.Attributes.ContainsKey(ENVELOPE_ATTRIBUTE))
             {
-                if (child.Name.ToLower() == envelopeName)
-                    value = int.Parse(child.Tag);
-                else
-                    Trace.WriteLine("Unknown node type in \"mouseaxis\"(assignment) node: " + child.Name);
+                envelopeName = node.Attributes[ENVELOPE_ATTRIBUTE].ToLower();
+                envelope = MouseAxisEnvelopeHelper.TryParse(envelopeName);
+            }
+
+            if (!string.IsNullOrEmpty(envelopeName))
+            {
+                foreach (var child in node.Children)
+                {
+                    if (child.Name.ToLower() == envelopeName)
+                    {
+                        value = int.Parse(child.Tag);
+                    }
+                }
             }
         }
     }

@@ -2,26 +2,25 @@
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Claw.Controllers.Controls
+namespace Claw.Blasts
 {
     /// <summary>
-    /// Represents a control with multiple states. This can be a button with multiple states (like R.A.T.9 mode switch button).
+    /// A list of blasts (=images).
     /// </summary>
-    public class SliderControl : Control
+    public class BlastList : NodeListParser<Blast>
     {
-    	private const string BUTTON_CHILD_NODE = "button";
-    	
-    	#region Validation
+        private const string BLAST_CHILD_NODE = "blast";
 
-        private static readonly string[] REQUIRED_ATTRIBUTES = {
-            NAME_ATTRIBUTE,
-        };
+        #region Validation
+
+        private static readonly string[] REQUIRED_ATTRIBUTES = { };
         private static readonly string[] OPTIONAL_ATTRIBUTES = { };
-        private static readonly string[] REQUIRED_CHILD_NODES = {
-        	BUTTON_CHILD_NODE,
+        private static readonly string[] REQUIRED_CHILD_NODES = { };
+        private static readonly string[] OPTIONAL_CHILD_NODES = {
+        	BLAST_CHILD_NODE,
         };
-        private static readonly string[] OPTIONAL_CHILD_NODES = { };
 
         internal override string[] RequiredAttributes
         {
@@ -43,23 +42,26 @@ namespace Claw.Controllers.Controls
             get { return OPTIONAL_CHILD_NODES; }
         }
 
+        internal override TagUsage TagUsageType
+        {
+            get { return TagUsage.NotAllowed; }
+        }
+
         #endregion
-    	
-        private LinkedList<ButtonControl> buttons = new LinkedList<ButtonControl>();
 
         /// <summary>
-        /// Creates a new Slider.
+        /// Creates a new BlastList from the given node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>
-        /// <param name="node">The "slider" node.</param>
-        internal SliderControl(NodeValidator validator, Node node)
+        /// <param name="node">The node.</param>
+        internal BlastList(NodeValidator validator, Node node)
             : base(validator, node)
         {
             foreach (var child in node.Children)
             {
-                if (child.Name.ToLower() == BUTTON_CHILD_NODE)
+                if (child.Name.ToLower() == BLAST_CHILD_NODE)
                 {
-                    buttons.AddLast(new ButtonControl(validator, child));
+                    Add(new Blast(validator, child));
                 }
             }
         }

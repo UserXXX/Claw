@@ -27,11 +27,18 @@ namespace Claw.Commands
         internal Command(NodeValidator validator, Node node)
         	: base(validator, node)
         {
-            identifier = new Guid(node.Tag);
-            name = node.Attributes[NAME_ATTRIBUTE];
-
+            if (!string.IsNullOrEmpty(node.Tag))
+            {
+                identifier = new Guid(node.Tag);
+            }
+            if (node.Attributes.ContainsKey(NAME_ATTRIBUTE))
+            {
+                name = node.Attributes[NAME_ATTRIBUTE];
+            }
             if (node.Attributes.ContainsKey(ICON_ATTRIBUTE))
+            {
                 iconIdentifier = new Guid(node.Attributes[ICON_ATTRIBUTE]);
+            }
         }
     }
 }

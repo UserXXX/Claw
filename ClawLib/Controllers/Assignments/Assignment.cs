@@ -19,7 +19,10 @@ namespace Claw.Controllers.Assignments
         internal Assignment(NodeValidator validator, Node node)
             : base(validator, node)
         {
-            identifier = ConversionHelper.ParseHexUint(node.Tag);
+            if (!string.IsNullOrEmpty(node.Tag))
+            {
+                identifier = ConversionHelper.ParseHexUint(node.Tag);
+            }
         }
     }
 }

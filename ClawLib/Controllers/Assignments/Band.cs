@@ -11,7 +11,7 @@ namespace Claw.Controllers.Assignments
     {
         private const string COMMAND_UUID_ATTRIBUTE = "command";
 
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             COMMAND_UUID_ATTRIBUTE,
@@ -56,11 +56,16 @@ namespace Claw.Controllers.Assignments
         /// <param name="validator">The validator to use for validation.</param>
         /// <param name="node">The "band" node.</param>
         internal Band(NodeValidator validator, Node node)
-        	: base(validator, node)
+            : base(validator, node)
         {
-            identifier = uint.Parse(node.Tag);
-
-            commandUuid = new Guid(node.Attributes[COMMAND_UUID_ATTRIBUTE]);
+            if (!string.IsNullOrEmpty(node.Tag))
+            {
+                identifier = uint.Parse(node.Tag);
+            }
+            if (node.Attributes.ContainsKey(COMMAND_UUID_ATTRIBUTE))
+            {
+                commandUuid = new Guid(node.Attributes[COMMAND_UUID_ATTRIBUTE]);
+            }
         }
     }
 }

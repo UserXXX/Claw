@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using System.IO;
 
-namespace Claw
+namespace Claw.Blasts
 {
     /// <summary>
     /// Represents an icon. The icon data encoding is as folows:
@@ -16,7 +16,7 @@ namespace Claw
     {
         private const string DATA_ATTRIBUTE = "data";
 
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             DATA_ATTRIBUTE,
@@ -63,12 +63,16 @@ namespace Claw
         internal Blast(NodeValidator validator, Node node)
         	: base(validator, node)
         {
-            uuid = new Guid(node.Tag);
+            if (!string.IsNullOrEmpty(node.Tag))
+                uuid = new Guid(node.Tag);
 
-            byte[] data = Convert.FromBase64String(node.Attributes[DATA_ATTRIBUTE]);
-            using (var stream = new MemoryStream(data))
+            if (node.Attributes.ContainsKey(DATA_ATTRIBUTE))
             {
-            	image = new Bitmap(stream);
+                byte[] data = Convert.FromBase64String(node.Attributes[DATA_ATTRIBUTE]);
+                using (var stream = new MemoryStream(data))
+                {
+                    image = new Bitmap(stream);
+                }
             }
         }
     }

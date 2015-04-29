@@ -2,26 +2,25 @@
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Claw.Controllers.Controls
+namespace Claw.Commands
 {
     /// <summary>
-    /// Represents a control with multiple states. This can be a button with multiple states (like R.A.T.9 mode switch button).
+    /// A list of commands.
     /// </summary>
-    public class SliderControl : Control
+    public class CommandList : NodeListParser<Command>
     {
-    	private const string BUTTON_CHILD_NODE = "button";
-    	
-    	#region Validation
+        private const string ACTION_COMMAND_CHILD_NODE = "actioncommand";
 
-        private static readonly string[] REQUIRED_ATTRIBUTES = {
-            NAME_ATTRIBUTE,
-        };
+        #region Validation
+
+        private static readonly string[] REQUIRED_ATTRIBUTES = { };
         private static readonly string[] OPTIONAL_ATTRIBUTES = { };
-        private static readonly string[] REQUIRED_CHILD_NODES = {
-        	BUTTON_CHILD_NODE,
+        private static readonly string[] REQUIRED_CHILD_NODES = { };
+        private static readonly string[] OPTIONAL_CHILD_NODES = {
+        	ACTION_COMMAND_CHILD_NODE,
         };
-        private static readonly string[] OPTIONAL_CHILD_NODES = { };
 
         internal override string[] RequiredAttributes
         {
@@ -43,23 +42,26 @@ namespace Claw.Controllers.Controls
             get { return OPTIONAL_CHILD_NODES; }
         }
 
+        internal override TagUsage TagUsageType
+        {
+            get { return TagUsage.NotAllowed; }
+        }
+
         #endregion
-    	
-        private LinkedList<ButtonControl> buttons = new LinkedList<ButtonControl>();
 
         /// <summary>
-        /// Creates a new Slider.
+        /// Creates a new CommandList from the given node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>
-        /// <param name="node">The "slider" node.</param>
-        internal SliderControl(NodeValidator validator, Node node)
+        /// <param name="node">The "commands" node.</param>
+        internal CommandList(NodeValidator validator, Node node)
             : base(validator, node)
         {
             foreach (var child in node.Children)
             {
-                if (child.Name.ToLower() == BUTTON_CHILD_NODE)
+                if (child.Name.ToLower() == ACTION_COMMAND_CHILD_NODE)
                 {
-                    buttons.AddLast(new ButtonControl(validator, child));
+                    Add(new ActionCommand(validator, child));
                 }
             }
         }

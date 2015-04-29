@@ -11,7 +11,7 @@ namespace Claw.Controllers.Controls
     {
         private const string LATCHABLE_ATTRIBUTE = "latchable";
 
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             NAME_ATTRIBUTE,
@@ -58,7 +58,9 @@ namespace Claw.Controllers.Controls
             : base(validator, node)
         {
             if (node.Attributes.ContainsKey(LATCHABLE_ATTRIBUTE))
+            {
                 latchable = bool.Parse(node.Attributes[LATCHABLE_ATTRIBUTE]);
+            }
         }
     }
 }

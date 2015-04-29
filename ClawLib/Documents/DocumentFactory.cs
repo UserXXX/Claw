@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Claw.Documents
 {
@@ -22,11 +23,11 @@ namespace Claw.Documents
         /// <summary>
         /// Loads a profile from the specified file and returns the root node.
         /// </summary>
-        /// <param name="filename">Name of the file to load from.</param>
+        /// <param name="stream">The stream to load from.</param>
         /// <returns>The loaded Node.</returns>
-        internal Node Load(string filename)
+        internal Node Load(Stream stream)
         {
-            var reader = new PR0Reader(filename);
+            var reader = new PR0Reader(stream);
             var node = new Node(reader, false);
             reader.Close();
             return node;

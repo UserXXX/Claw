@@ -43,8 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blast.cs" />
+    <Compile Include="Blasts\Blast.cs" />
+    <Compile Include="Blasts\BlastList.cs" />
+    <Compile Include="Commands\CommandList.cs" />
+    <Compile Include="Controllers\Assignments\AssignmentList.cs" />
+    <Compile Include="Controllers\Assignments\BandList.cs" />
     <Compile Include="Controllers\ControllerList.cs" />
+    <Compile Include="Controllers\Controls\ControlList.cs" />
+    <Compile Include="Controllers\ShiftList.cs" />
     <Compile Include="ConversionHelper.cs" />
     <Compile Include="Documents\DocumentFactory.cs" />
     <Compile Include="Documents\PR0Reader.cs" />
@@ -78,9 +84,11 @@
     <Compile Include="NodeParser.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Controllers\Shift.cs" />
+    <Compile Include="ProfileFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\BranchReport.cs" />
     <Compile Include="Validation\DebugReport.cs" />
+    <Compile Include="Validation\EmptyReport.cs" />
     <Compile Include="Validation\NodeValidator.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

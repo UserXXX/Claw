@@ -12,7 +12,7 @@ namespace Claw.Controllers
         private const string NAME_ATTRIBUTE = "name";
         private const string SHORT_NAME_ATTRIBUTE = "shortname";
 
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             NAME_ATTRIBUTE,

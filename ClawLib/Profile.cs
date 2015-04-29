@@ -1,4 +1,5 @@
-﻿using Claw.Commands;
+﻿using Claw.Blasts;
+using Claw.Commands;
 using Claw.Controllers;
 using Claw.Documents;
 using Claw.Validation;
@@ -63,8 +64,8 @@ namespace Claw
         private uint version;
 
         private ControllerList controllers;
-        private LinkedList<Command> commands = new LinkedList<Command>();
-        private LinkedList<Blast> blasts = new LinkedList<Blast>();
+        private CommandList commands;
+        private BlastList blasts;
 
         /// <summary>
         /// Creates a new profile from a node.
@@ -75,7 +76,10 @@ namespace Claw
         	: base(validator, node)
         {
             name = node.Tag;
-            version = ConversionHelper.ParseHexUint(node.Attributes[VERSION_ATTRIBUTE]);
+            if (node.Attributes.ContainsKey(VERSION_ATTRIBUTE))
+            {
+                version = ConversionHelper.ParseHexUint(node.Attributes[VERSION_ATTRIBUTE]);
+            }
 
             foreach (var child in node.Children)
             {
@@ -86,37 +90,13 @@ namespace Claw
                         break;
 
                     case COMMANDS_CHILD_NODE:
-                        LoadCommands(validator, child);
+                        commands = new CommandList(validator, child);
                         break;
 
                     case BLASTS_CHILD_NODE:
-                        LoadBlasts(validator, child);
+                        blasts = new BlastList(validator, child);
                         break;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Loads the blasts from a node.
-        /// </summary>
-        /// <param name="validator">The validator to use for validation.</param>
-        /// <param name="node">The node.</param>
-        private void LoadBlasts(NodeValidator validator, Node node)
-        {
-            foreach (var child in node.Children)
-                blasts.AddLast(new Blast(validator, child));
-        }
-
-        /// <summary>
-        /// Loads the commands from a node.
-        /// </summary>
-        /// <param name="validator">The validator to use for validation.</param>
-        /// <param name="node">The "commands" node.</param>
-        private void LoadCommands(NodeValidator validator, Node node)
-        {
-            foreach (var child in node.Children)
-            {
-                commands.AddLast(new ActionCommand(validator, child));
             }
         }
     }

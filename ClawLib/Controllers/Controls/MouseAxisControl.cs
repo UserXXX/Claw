@@ -9,7 +9,7 @@ namespace Claw.Controllers.Controls
     /// </summary>
     public class MouseAxisControl : Control
     {
-    	#region Check Stuff
+    	#region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             NAME_ATTRIBUTE,

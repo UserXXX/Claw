@@ -7,7 +7,7 @@ namespace Claw.Validation
 	/// <summary>
 	/// A validator for Nodes.
 	/// </summary>
-	public class NodeValidator
+	internal class NodeValidator
 	{
 		private ValidationReport report;
 		
@@ -23,7 +23,7 @@ namespace Claw.Validation
 		/// Creates a new NodeValidator.
 		/// </summary>
 		/// <param name="report">The ValidationReport to fill.</param>
-		public NodeValidator(ValidationReport report)
+		internal NodeValidator(ValidationReport report)
 		{
 			#if DEBUG
 			

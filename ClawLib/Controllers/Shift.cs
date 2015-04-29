@@ -17,11 +17,8 @@ namespace Claw.Controllers
         
         private const string SELECTIONSET_CHILD_NODE = "selectionset";
         private const string ASSIGNMENTS_CHILD_NODE = "assignments";
-        
-        private const string MOUSE_POINTER_CHILD_NODE = "mousepointer";
-        private const string BUTTON_CHILD_NODE = "button";
 
-        #region Check Stuff
+        #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             NAME_ATTRIBUTE,
@@ -75,7 +72,7 @@ namespace Claw.Controllers
         /// </summary>
         private Node selectionset;
 
-        private LinkedList<Assignment> assignments = new LinkedList<Assignment>();
+        private AssignmentList assignments;
 
         /// <summary>
         /// Creates a new Shift from the given node.
@@ -85,11 +82,18 @@ namespace Claw.Controllers
         internal Shift(NodeValidator validator, Node node)
         	: base(validator, node)
         {
-            uuid = new Guid(node.Tag);
-            name = node.Attributes[NAME_ATTRIBUTE];
-
+            if (!string.IsNullOrEmpty(node.Tag))
+            {
+                uuid = new Guid(node.Tag);
+            }
+            if (node.Attributes.ContainsKey(NAME_ATTRIBUTE))
+            {
+                name = node.Attributes[NAME_ATTRIBUTE];
+            }
             if (node.Attributes.ContainsKey(FALLBACK_ATTRIBUTE))
+            {
                 fallback = new Guid(node.Attributes[FALLBACK_ATTRIBUTE]);
+            }
 
             foreach (var child in node.Children)
             {
@@ -100,33 +104,7 @@ namespace Claw.Controllers
                         break;
 
                     case ASSIGNMENTS_CHILD_NODE:
-                        LoadAssignments(validator, child);
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Loads the assignments.
-        /// </summary>
-        /// <param name="validator">The validator to use for validation.</param>
-        /// <param name="node">The "assignments" node.</param>
-        private void LoadAssignments(NodeValidator validator, Node node)
-        {
-            foreach (var child in node.Children)
-            {
-                switch (child.Name.ToLower())
-                {
-                    case MOUSE_POINTER_CHILD_NODE:
-                        assignments.AddLast(new MousePointerAssignment(validator, child));
-                        break;
-
-                    case BUTTON_CHILD_NODE:
-                        assignments.AddLast(new ButtonAssignment(validator, child));
-                        break;
-
-                    default:
-                        Trace.WriteLine("Unknown node type in \"assignments\" node: " + child.Name);
+                        assignments = new AssignmentList(validator, child);
                         break;
                 }
             }

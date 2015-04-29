@@ -12,9 +12,9 @@ namespace Claw.Documents
         /// <summary>
         /// Initializes a new PR0Reader.
         /// </summary>
-        /// <param name="filename">The name of the file to read from.</param>
-        internal PR0Reader(string filename)
-            : base(filename)
+        /// <param name="stream">The stream to read from.</param>
+        internal PR0Reader(Stream stream)
+            : base(stream)
         { }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace Claw.Controllers.Controls
     {
     	private const string MOUSE_AXIS_CHILD_NODE = "mouseaxis";
     	
-    	#region Check Stuff
+    	#region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             NAME_ATTRIBUTE,
@@ -56,7 +56,12 @@ namespace Claw.Controllers.Controls
             : base(validator, node)
         {
             foreach (var child in node.Children)
-                axes.AddLast(new MouseAxisControl(validator, child));
+            {
+                if (child.Name == MOUSE_AXIS_CHILD_NODE)
+                {
+                    axes.AddLast(new MouseAxisControl(validator, child));
+                }
+            }
         }
     }
 }
