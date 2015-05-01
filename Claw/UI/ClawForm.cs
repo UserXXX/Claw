@@ -10,6 +10,10 @@ using System.Windows.Forms;
 
 namespace Claw.UI
 {
+    /// <summary>
+    /// Base class of all forms used by Claw.
+    /// This class is not allowed to be abstract because the designer doesn't allow it.
+    /// </summary>
     public class ClawForm : Form
     {
         private readonly Color[] TransparentColors = {
@@ -24,6 +28,9 @@ namespace Claw.UI
         private int maxScreenWidth = 0;
         private int maxScreenHeight = 0;
 
+        private const int EDGE_WIDTH = 20;
+        private const int EDGE_HEIGHT = 60;
+
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
 
@@ -32,6 +39,9 @@ namespace Claw.UI
         [DllImportAttribute("user32.dll")]
         private static extern bool ReleaseCapture();
 
+        /// <summary>
+        /// Image that will get tiled over the background.
+        /// </summary>
         public Image TileImage
         {
             get { return tileImage; }
@@ -52,14 +62,33 @@ namespace Claw.UI
             }
         }
 
+        /// <summary>
+        /// The style of the window borders.
+        /// </summary>
         public new FormBorderStyle FormBorderStyle
         {
             get { return base.FormBorderStyle; }
             set { }
         }
 
+        public override Size MaximumSize
+        {
+            get { return base.MaximumSize; }
+            set { base.MaximumSize = new Size(Math.Min(value.Width, maxScreenWidth), Math.Min(value.Height, maxScreenHeight)); }
+        }
+
+        public override Size MinimumSize
+        {
+            get { return base.MinimumSize; }
+            set { base.MinimumSize = new Size(Math.Max(value.Width, 2 * EDGE_WIDTH), Math.Max(value.Height, 2 * EDGE_HEIGHT)); }
+        }
+
+        /// <summary>
+        /// Creates a new ClawForm.
+        /// </summary>
         protected ClawForm()
         {
+            // Create a dummy tile image
             tileImage = new Bitmap(100, 100, PixelFormat.Format32bppArgb);
             using (Graphics graph = Graphics.FromImage(tileImage))
             {
@@ -79,17 +108,35 @@ namespace Claw.UI
 
             BackColor = Color.Black;
             ForeColor = Color.Red;
+            TransparencyKey = GetTransparentColor();
         }
 
         private void ClawFormMouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && IsFormVisibleAt(e.Location))
             {
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
 
+        /// <summary>
+        /// Checks whether the form is visible at the given point.
+        /// </summary>
+        /// <param name="point">The location to check. This is assumed to be the position relative to the top left corner of the form.</param>
+        /// <returns>Whether the form is visible at <paramref name="point"/></returns>
+        private bool IsFormVisibleAt(Point point)
+        {
+            return (point.X > EDGE_WIDTH && point.X < Width - EDGE_WIDTH) ||
+                (point.Y > EDGE_HEIGHT && point.Y < Height - EDGE_HEIGHT) ||
+                (point.X <= EDGE_WIDTH && point.Y > EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * point.X && point.Y < Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * point.X)) ||
+                (point.X >= Width - EDGE_WIDTH && point.Y > (EDGE_HEIGHT / EDGE_WIDTH) * point.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width && point.Y < Height - ((EDGE_HEIGHT / EDGE_WIDTH) * point.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width));
+        }
+
+        /// <summary>
+        /// Processes the tile image. This method creates a back buffer in size of the maximum screen components the tile image is tiled over.
+        /// Because of the size restrictions of the form, it gets quite simple to draw the background: Select a rectangle from this huge background and draw it.
+        /// </summary>
         private void ProcessTileImage()
         {
             using (var imageCopy = new Bitmap(tileImage))
@@ -144,29 +191,27 @@ namespace Claw.UI
                     }
 
                     // Draw the edges
-                    float widthDiff = Width * 0.01f;
-                    float heightDiff = Height * 0.1f;
                     using (var brush = new SolidBrush(transparentColor))
                     {
                         graph.FillPolygon(brush, new PointF[] {
                             new PointF(0, 0),
-                            new PointF(widthDiff, 0),
-                            new PointF(0, heightDiff),
+                            new PointF(EDGE_WIDTH, 0),
+                            new PointF(0, EDGE_HEIGHT),
                         });
                         graph.FillPolygon(brush, new PointF[] {
                             new PointF(Width, 0),
-                            new PointF(Width - widthDiff, 0),
-                            new PointF(Width, heightDiff),
+                            new PointF(Width - EDGE_WIDTH, 0),
+                            new PointF(Width, EDGE_HEIGHT),
                         });
                         graph.FillPolygon(brush, new PointF[] {
                             new PointF(0, Height),
-                            new PointF(widthDiff, Height),
-                            new PointF(0, Height - heightDiff),
+                            new PointF(EDGE_WIDTH, Height),
+                            new PointF(0, Height - EDGE_HEIGHT),
                         });
                         graph.FillPolygon(brush, new PointF[] {
                             new PointF(Width, Height),
-                            new PointF(Width - widthDiff, Height),
-                            new PointF(Width, Height - heightDiff),
+                            new PointF(Width - EDGE_WIDTH, Height),
+                            new PointF(Width, Height - EDGE_HEIGHT),
                         });
                     }
 
@@ -174,14 +219,14 @@ namespace Claw.UI
                     using (var pen = new Pen(ForeColor))
                     {
                         graph.DrawPolygon(pen, new PointF[] {
-                            new PointF(widthDiff, 0),
-                            new PointF(Width - widthDiff, 0),
-                            new PointF(Width - 1, heightDiff),
-                            new PointF(Width - 1, Height - heightDiff),
-                            new PointF(Width - widthDiff, Height- 1),
-                            new PointF(widthDiff, Height - 1),
-                            new PointF(0, Height - heightDiff),
-                            new PointF(0, heightDiff),
+                            new PointF(EDGE_WIDTH, 0),
+                            new PointF(Width - EDGE_WIDTH, 0),
+                            new PointF(Width - 1, EDGE_HEIGHT),
+                            new PointF(Width - 1, Height - EDGE_HEIGHT),
+                            new PointF(Width - EDGE_WIDTH, Height- 1),
+                            new PointF(EDGE_WIDTH, Height - 1),
+                            new PointF(0, Height - EDGE_HEIGHT),
+                            new PointF(0, EDGE_HEIGHT),
                         });
                     }
                 }
