@@ -12,7 +12,7 @@ namespace Claw.UI
 {
     /// <summary>
     /// Base class of all forms used by Claw.
-    /// This class is not allowed to be abstract because the designer doesn't allow it.
+    /// This class is not allowed to be abstract because the designer doesn't allo
     /// </summary>
     public class ClawForm : Form
     {
@@ -30,6 +30,22 @@ namespace Claw.UI
 
         private const int EDGE_WIDTH = 20;
         private const int EDGE_HEIGHT = 60;
+
+        private const int RESIZE_BORDER = 4;
+
+        private CursorLocation cursorLocation = CursorLocation.Default;
+        private enum CursorLocation
+        {
+            Top,
+            Left,
+            Right,
+            Bottom,
+            TopLeft,
+            TopRight,
+            BottomLeft,
+            BottomRight,
+            Default,
+        }
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
@@ -96,6 +112,7 @@ namespace Claw.UI
             }
 
             MouseDown += new MouseEventHandler(ClawFormMouseDown);
+            MouseMove += new MouseEventHandler(ClawFormMouseMove);
             base.FormBorderStyle = FormBorderStyle.None;
 
             foreach (Screen screen in Screen.AllScreens)
@@ -109,14 +126,140 @@ namespace Claw.UI
             BackColor = Color.Black;
             ForeColor = Color.Red;
             TransparencyKey = GetTransparentColor();
+            DoubleBuffered = true;
+        }
+
+        private void ClawFormMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && cursorLocation != CursorLocation.Default)
+            {
+                ResizeForm(e.X, e.Y);
+            }
+            else
+            {
+                if (e.X > EDGE_WIDTH && e.X < Width - EDGE_WIDTH)
+                {
+                    if (e.Y < RESIZE_BORDER)
+                    {
+                        cursorLocation = CursorLocation.Top;
+                        Cursor = Cursors.SizeNS;
+                        return;
+                    }
+                    if (e.Y > Height - (RESIZE_BORDER + 1))
+                    {
+                        cursorLocation = CursorLocation.Bottom;
+                        Cursor = Cursors.SizeNS;
+                        return;
+                    }
+                }
+                if (e.Y > EDGE_HEIGHT && e.Y < Height - EDGE_HEIGHT)
+                {
+                    if (e.X < RESIZE_BORDER)
+                    {
+                        cursorLocation = CursorLocation.Left;
+                        Cursor = Cursors.SizeWE;
+                        return;
+                    }
+                    if (e.X > Width - (RESIZE_BORDER + 1))
+                    {
+                        cursorLocation = CursorLocation.Right;
+                        Cursor = Cursors.SizeWE;
+                        return;
+                    }
+                }
+                if (e.X < EDGE_WIDTH && e.Y < EDGE_HEIGHT && e.Y >= EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * e.X && e.Y <= EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * e.X + RESIZE_BORDER)
+                {
+                    cursorLocation = CursorLocation.TopLeft;
+                    Cursor = Cursors.SizeNWSE;
+                    return;
+                }
+                if (e.X > Width - EDGE_WIDTH && e.Y < EDGE_HEIGHT && e.Y >= (EDGE_HEIGHT / EDGE_WIDTH) * e.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width && e.Y <= (EDGE_HEIGHT / EDGE_WIDTH) * e.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width + RESIZE_BORDER)
+                {
+                    cursorLocation = CursorLocation.TopRight;
+                    Cursor = Cursors.SizeNESW;
+                    return;
+                }
+                if (e.X < EDGE_WIDTH && e.Y > Height - EDGE_HEIGHT && e.Y <= Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * e.X) && e.Y >= Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * e.X) - RESIZE_BORDER)
+                {
+                    cursorLocation = CursorLocation.BottomLeft;
+                    Cursor = Cursors.SizeNESW;
+                    return;
+                }
+                if (e.X > Width - EDGE_WIDTH && e.Y > Height - EDGE_HEIGHT && e.Y <= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * e.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width) && e.Y >= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * e.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width) - RESIZE_BORDER)
+                {
+                    cursorLocation = CursorLocation.BottomRight;
+                    Cursor = Cursors.SizeNWSE;
+                    return;
+                }
+
+                cursorLocation = CursorLocation.Default;
+                Cursor = Cursors.Default;
+            }
+        }
+
+        /// <summary>
+        /// Handles the resize logic.
+        /// </summary>
+        /// <param name="x">Mouse x coordinate.</param>
+        /// <param name="y">Mouse y coordinate.</param>
+        private void ResizeForm(int x, int y)
+        {
+            switch (cursorLocation)
+            {
+                case CursorLocation.Bottom:
+                    Height = y;
+                    break;
+
+                case CursorLocation.Left:
+                    Width -= x;
+                    Left += x;
+                    break;
+
+                case CursorLocation.Right:
+                    Width = x;
+                    break;
+
+                case CursorLocation.Top:
+                    Height -= y;
+                    Top += y;
+                    break;
+
+                case CursorLocation.BottomLeft:
+                    Height = y;
+                    Width -= x;
+                    Left += x;
+                    break;
+
+                case CursorLocation.BottomRight:
+                    Height = y;
+                    Width = x;
+                    break;
+
+                case CursorLocation.TopLeft:
+                    Width -= x;
+                    Left += x;
+                    Height -= y;
+                    Top += y;
+                    break;
+
+                case CursorLocation.TopRight:
+                    Height -= y;
+                    Top += y;
+                    Width = x;
+                    break;
+            }
+            Invalidate();
         }
 
         private void ClawFormMouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && IsFormVisibleAt(e.Location))
+            if (e.Button == MouseButtons.Left)
             {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                if (cursorLocation == CursorLocation.Default && IsFormVisibleAt(e.Location))
+                {
+                    ReleaseCapture();
+                    SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                }
             }
         }
 

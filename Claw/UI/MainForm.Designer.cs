@@ -35,9 +35,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1148, 534);
+            this.MinimumSize = new System.Drawing.Size(40, 120);
             this.Name = "MainForm";
             this.Text = "MainForm";
-            this.TransparencyKey = System.Drawing.Color.Pink;
             this.ResumeLayout(false);
 
         }
