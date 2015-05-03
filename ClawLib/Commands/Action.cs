@@ -100,5 +100,26 @@ namespace Claw.Commands
                 value = (ActionValue)ConversionHelper.ParseHexUint(node.Attributes[VALUE_ATTRIBUTE]);
             }
         }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(ActionBlock.ACTION_CHILD_NODE);
+            node.Attributes.Add(DEVICE_ATTRIBUTE, ActionDeviceHelper.ToString(device));
+            if (time != 0)
+            {
+                node.Attributes.Add(TIME_ATTRIBUTE, ConversionHelper.FormatHexUInt(time));
+            }
+            node.Attributes.Add(USAGE_ATTRIBUTE, ConversionHelper.FormatHexUInt((uint)usage));
+            node.Attributes.Add(PAGE_ATTRIBUTE, ConversionHelper.FormatHexUInt(page));
+            if (value != 0)
+            {
+                node.Attributes.Add(VALUE_ATTRIBUTE, ConversionHelper.FormatHexUInt((uint)value));
+            }
+            return node;
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Claw.Controllers
     /// </summary>
     public class ShiftList : NodeListParser<Shift>
     {
-        private const string SHIFT_CHILD_NODE = "shift";
+        internal const string SHIFT_CHILD_NODE = "shift";
 
         #region Validation
 
@@ -64,6 +64,20 @@ namespace Claw.Controllers
                     Add(new Shift(validator, child));
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(Controller.SHIFTS_CHILD_NODE);
+            foreach (Shift shift in elements)
+            {
+                node.Children.AddLast(shift.CreateNodes());
+            }
+            return node;
         }
     }
 }

@@ -42,5 +42,15 @@ namespace Claw.Controllers.Assignments
                     throw new ArgumentException("Could not parse ButtonAssigmentRole from \"" + role + "\".");
             }
         }
+
+        /// <summary>
+        /// Converts the given role to a string.
+        /// </summary>
+        /// <param name="role">The role to convert.</param>
+        /// <returns>The created string.</returns>
+        internal static string ToString(ButtonAssignmentRole role)
+        {
+            return role.ToString("G").ToLower();
+        }
     }
 }

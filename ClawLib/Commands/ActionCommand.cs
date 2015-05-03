@@ -10,7 +10,7 @@ namespace Claw.Commands
     /// </summary>
     public class ActionCommand : Command
     {
-        private const string ACTION_BLOCK_CHILD_NODE = "actionblock";
+        internal const string ACTION_BLOCK_CHILD_NODE = "actionblock";
 
         #region Validation
 
@@ -54,6 +54,11 @@ namespace Claw.Commands
 
         private LinkedList<ActionBlock> actionBlocks = new LinkedList<ActionBlock>();
 
+        protected override string NodeName
+        {
+            get { return CommandList.ACTION_COMMAND_CHILD_NODE; }
+        }
+
         /// <summary>
         /// Creates a new ActionCommand.
         /// </summary>
@@ -68,6 +73,14 @@ namespace Claw.Commands
                 {
                     actionBlocks.AddLast(new ActionBlock(validator, child));
                 }
+            }
+        }
+
+        internal override void FillNode(Node node)
+        {
+            foreach (ActionBlock block in actionBlocks)
+            {
+                node.Children.AddLast(block.CreateNodes());
             }
         }
     }

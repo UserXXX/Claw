@@ -10,7 +10,7 @@ namespace Claw.Controllers.Assignments
     /// </summary>
     public class MousePointerAssignment : Assignment
     {
-    	private const string MOUSE_AXIS_CHILD_NODE = "mouseaxis";
+    	internal const string MOUSE_AXIS_CHILD_NODE = "mouseaxis";
     	
     	#region Validation
 
@@ -50,6 +50,11 @@ namespace Claw.Controllers.Assignments
         
         private LinkedList<MouseAxisAssignment> mouseAxes = new LinkedList<MouseAxisAssignment>();
 
+        protected override string NodeName
+        {
+            get { return AssignmentList.MOUSE_POINTER_CHILD_NODE; }
+        }
+
         /// <summary>
         /// Creates a new MousePointerAssignment.
         /// </summary>
@@ -64,6 +69,14 @@ namespace Claw.Controllers.Assignments
             	{
                 	mouseAxes.AddLast(new MouseAxisAssignment(validator, child));
                 }
+            }
+        }
+
+        internal override void FillNode(Node node)
+        {
+            foreach (MouseAxisAssignment mouseAxis in mouseAxes)
+            {
+                node.Children.AddLast(mouseAxis.CreateNodes());
             }
         }
     }

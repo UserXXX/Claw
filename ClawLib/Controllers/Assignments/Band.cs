@@ -67,5 +67,20 @@ namespace Claw.Controllers.Assignments
                 commandUuid = new Guid(node.Attributes[COMMAND_UUID_ATTRIBUTE]);
             }
         }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNode()
+        {
+            var node = new Node(BandList.BAND_CHILD_NODE);
+            node.Tag = identifier.ToString();
+            if (commandUuid != null)
+            {
+                node.Attributes.Add(COMMAND_UUID_ATTRIBUTE, commandUuid.ToString());
+            }
+            return node;
+        }
     }
 }

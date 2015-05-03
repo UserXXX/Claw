@@ -13,7 +13,7 @@ namespace Claw.Controllers.Assignments
         private const string NAME_ATTRIBUTE = "name";
         private const string ROLE_ATTRIBUTE = "role";
         
-        private const string BANDS_CHILD_NODE = "bands";
+        internal const string BANDS_CHILD_NODE = "bands";
         
 		#region Validation
 
@@ -60,6 +60,11 @@ namespace Claw.Controllers.Assignments
 
         private BandList bands;
 
+        protected override string NodeName
+        {
+            get { return AssignmentList.BUTTON_CHILD_NODE; }
+        }
+
         /// <summary>
         /// Creates a new ButtonAssignment.
         /// </summary>
@@ -83,6 +88,19 @@ namespace Claw.Controllers.Assignments
                 {
                     bands = new BandList(validator, child);
                 }
+            }
+        }
+
+        internal override void FillNode(Node node)
+        {
+            if (name != null)
+            {
+                node.Attributes.Add(NAME_ATTRIBUTE, name);
+            }
+            node.Attributes.Add(ROLE_ATTRIBUTE, ButtonAssignmentRoleHelper.ToString(role));
+            if (bands != null)
+            {
+                node.Children.AddLast(bands.CreateNodes());
             }
         }
     }

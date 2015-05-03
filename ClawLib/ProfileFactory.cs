@@ -76,5 +76,36 @@ namespace Claw
             NodeValidator validator = new NodeValidator(report);
             return new Profile(validator, node);
         }
+
+        /// <summary>
+        /// Saves a profile.
+        /// </summary>
+        /// <param name="filename">Name of the file to save to.</param>
+        /// <param name="profile">The profile to save.</param>
+        public static void Save(string filename, Profile profile)
+        {
+            Save(new FileStream(filename, FileMode.Create), profile);
+        }
+
+        /// <summary>
+        /// Saves a profile.
+        /// </summary>
+        /// <param name="file">File to save to.</param>
+        /// <param name="profile">The profile to save.</param>
+        public static void Save(FileInfo file, Profile profile)
+        {
+            Save(file.Open(FileMode.Create), profile);
+        }
+
+        /// <summary>
+        /// Saves a profile.
+        /// </summary>
+        /// <param name="stream">Stream to save to.</param>
+        /// <param name="profile">The profile to save.</param>
+        public static void Save(Stream stream, Profile profile)
+        {
+            Node node = profile.CreateNodes();
+            DocumentFactory.Instance.Save(node, stream);
+        }
     }
 }

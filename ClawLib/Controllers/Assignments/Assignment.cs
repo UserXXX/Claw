@@ -24,5 +24,31 @@ namespace Claw.Controllers.Assignments
                 identifier = ConversionHelper.ParseHexUint(node.Tag);
             }
         }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(NodeName);
+            node.Tag = ConversionHelper.FormatHexUInt(identifier);
+            FillNode(node);
+            return node;
+        }
+
+        /// <summary>
+        /// The node name used in *.pr0 files.
+        /// </summary>
+        protected abstract string NodeName
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Fills th given node with data.
+        /// </summary>
+        /// <param name="node">The node to fill.</param>
+        internal abstract void FillNode(Node node);
     }
 }

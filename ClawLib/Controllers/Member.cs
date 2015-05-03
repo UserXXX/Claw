@@ -59,12 +59,42 @@ namespace Claw.Controllers
         /// <param name="validator">The validator to use for validation.</param>
         /// <param name="node">The node to parse from.</param>
         internal Member(NodeValidator validator, Node node)
-        	: base(validator, node)
+            : base(validator, node)
         {
-            uuid = new Guid(node.Tag);
+            if (node.Tag != null)
+            {
+                uuid = new Guid(node.Tag);
+            }
+            if (node.Attributes.ContainsKey(NAME_ATTRIBUTE))
+            {
+                name = node.Attributes[NAME_ATTRIBUTE];
+            }
+            if (node.Attributes.ContainsKey(SHORT_NAME_ATTRIBUTE))
+            {
+                shortName = node.Attributes[SHORT_NAME_ATTRIBUTE];
+            }
+        }
 
-            name = node.Attributes[NAME_ATTRIBUTE];
-            shortName = node.Attributes[SHORT_NAME_ATTRIBUTE];
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(Controller.MEMBER_CHILD_NODE);
+            if (uuid != null)
+            {
+                node.Tag = uuid.ToString();
+            }
+            if (name != null)
+            {
+                node.Attributes.Add(NAME_ATTRIBUTE, name);
+            }
+            if (shortName != null)
+            {
+                node.Attributes.Add(SHORT_NAME_ATTRIBUTE, shortName);
+            }
+            return node;
         }
     }
 }

@@ -37,5 +37,15 @@ namespace Claw.Controllers
             else
                 throw new ArgumentException("Could not parse \"" + group + "\" to device group.");
         }
+
+        /// <summary>
+        /// Converts the group to a string representation.
+        /// </summary>
+        /// <param name="group">The group to handle.</param>
+        /// <returns>The created string.</returns>
+        internal static string ToString(DeviceGroup group)
+        {
+            return group.ToString("G");
+        }
     }
 }

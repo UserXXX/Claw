@@ -12,12 +12,12 @@ namespace Claw.Commands
         protected const string NAME_ATTRIBUTE = "name";
         protected const string ICON_ATTRIBUTE = "icon";
 
-        protected Guid identifier;
+        protected Guid uuid;
         protected string name;
         /// <summary>
         /// Uuid referring the icon, this is optional.
         /// </summary>
-        protected Guid iconIdentifier;
+        protected Guid iconUuid;
 
         /// <summary>
         /// Creates a new Command from the given node.
@@ -29,7 +29,7 @@ namespace Claw.Commands
         {
             if (!string.IsNullOrEmpty(node.Tag))
             {
-                identifier = new Guid(node.Tag);
+                uuid = new Guid(node.Tag);
             }
             if (node.Attributes.ContainsKey(NAME_ATTRIBUTE))
             {
@@ -37,8 +37,45 @@ namespace Claw.Commands
             }
             if (node.Attributes.ContainsKey(ICON_ATTRIBUTE))
             {
-                iconIdentifier = new Guid(node.Attributes[ICON_ATTRIBUTE]);
+                iconUuid = new Guid(node.Attributes[ICON_ATTRIBUTE]);
             }
         }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(NodeName);
+            if (uuid != null)
+            {
+                node.Tag = uuid.ToString();
+            }
+            if (name != null)
+            {
+                node.Attributes.Add(NAME_ATTRIBUTE, name);
+            }
+            if (iconUuid != null)
+            {
+                node.Attributes.Add(ICON_ATTRIBUTE, iconUuid.ToString());
+            }
+            FillNode(node);
+            return node;
+        }
+
+        /// <summary>
+        /// The name of the node in *.pr0 files.
+        /// </summary>
+        protected abstract string NodeName
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Fills the node with data.
+        /// </summary>
+        /// <param name="node">Node to fill.</param>
+        internal abstract void FillNode(Node node);
     }
 }

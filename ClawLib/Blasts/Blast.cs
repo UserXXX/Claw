@@ -2,6 +2,7 @@
 using Claw.Validation;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 
 namespace Claw.Blasts
@@ -74,6 +75,29 @@ namespace Claw.Blasts
                     image = new Bitmap(stream);
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(BlastList.BLAST_CHILD_NODE);
+            if (uuid != null)
+            {
+                node.Tag = uuid.ToString();
+            }
+            if (image != null)
+            {
+                using (var stream = new MemoryStream())
+                {
+                    image.Save(stream, ImageFormat.Png);
+                    string data = Convert.ToBase64String(stream.GetBuffer());
+                    node.Attributes.Add(DATA_ATTRIBUTE, data);
+                }
+            }
+            return node;
         }
     }
 }

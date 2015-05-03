@@ -10,7 +10,7 @@ namespace Claw.Controllers
 	/// </summary>
 	public class ControllerList : NodeListParser<Controller>
     {
-        private const string CONTROLLER_CHILD_NODE = "controller";
+        internal const string CONTROLLER_CHILD_NODE = "controller";
 
         #region Validation
 
@@ -64,5 +64,19 @@ namespace Claw.Controllers
                 }
             }
         }
-	}
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(Profile.CONTROLLERS_CHILD_NODE);
+            foreach (Controller controller in elements)
+            {
+                node.Children.AddLast(controller.CreateNodes());
+            }
+            return node;
+        }
+    }
 }

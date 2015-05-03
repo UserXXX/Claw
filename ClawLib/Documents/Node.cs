@@ -49,6 +49,15 @@ namespace Claw.Documents
         }
 
         /// <summary>
+        /// Creates a new empty Node.
+        /// </summary>
+        /// <param name="name">The name of the node.</param>
+        internal Node(string name)
+        {
+            this.name = name;
+        }
+
+        /// <summary>
         /// Reads the node from the given reader.
         /// </summary>
         /// <param name="reader">The reader to read from.</param>

@@ -39,7 +39,12 @@ namespace Claw.Controllers.Controls
         }
 
         #endregion
-    	
+
+        protected override string NodeName
+        {
+            get { return ControlList.MOUSE_AXIS_CHILD_NODE; }
+        }
+
         /// <summary>
         /// Creates a new MouseAxis from a node.
         /// </summary>
@@ -48,5 +53,7 @@ namespace Claw.Controllers.Controls
         internal MouseAxisControl(NodeValidator validator, Node node)
             : base(validator, node)
         { }
+
+        internal override void FillNode(Node node) { }
     }
 }

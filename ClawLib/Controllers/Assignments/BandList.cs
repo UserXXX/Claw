@@ -11,7 +11,7 @@ namespace Claw.Controllers.Assignments
     /// </summary>
     public class BandList : NodeListParser<Band>
     {
-        private const string BAND_CHILD_NODE = "band";
+        internal const string BAND_CHILD_NODE = "band";
 
         #region Validation
 
@@ -65,6 +65,20 @@ namespace Claw.Controllers.Assignments
                     Add(new Band(validator, node));
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(ButtonAssignment.BANDS_CHILD_NODE);
+            foreach (Band band in elements)
+            {
+                node.Children.AddLast(band.CreateNode());
+            }
+            return node;
         }
     }
 }

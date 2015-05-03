@@ -42,5 +42,15 @@ namespace Claw.Commands
                     throw new ArgumentException("Could not parse ActionDevice from \"" + device + "\".");
             }
         }
+
+        /// <summary>
+        /// Converts the given device to a string.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <returns>The string.</returns>
+        internal static string ToString(ActionDevice device)
+        {
+            return device.ToString("G").ToLower();
+        }
     }
 }

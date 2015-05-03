@@ -11,10 +11,10 @@ namespace Claw.Controllers.Controls
     /// </summary>
     public class ControlList : NodeListParser<Control>
     {
-        private const string MOUSE_POINTER_CHILD_NODE = "mousepointer";
-        private const string MOUSE_AXIS_CHILD_NODE = "mouseaxis";
-        private const string BUTTON_CHILD_NODE = "button";
-        private const string SLIDER_CHILD_NODE = "slider";
+        internal const string MOUSE_POINTER_CHILD_NODE = "mousepointer";
+        internal const string MOUSE_AXIS_CHILD_NODE = "mouseaxis";
+        internal const string BUTTON_CHILD_NODE = "button";
+        internal const string SLIDER_CHILD_NODE = "slider";
 
         #region Validation
 
@@ -84,6 +84,20 @@ namespace Claw.Controllers.Controls
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(Controller.CONTROLS_CHILD_NODE);
+            foreach (Control control in elements)
+            {
+                node.Children.AddLast(control.CreateNodes());
+            }
+            return node;
         }
     }
 }

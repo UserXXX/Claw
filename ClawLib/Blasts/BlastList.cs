@@ -11,7 +11,7 @@ namespace Claw.Blasts
     /// </summary>
     public class BlastList : NodeListParser<Blast>
     {
-        private const string BLAST_CHILD_NODE = "blast";
+        internal const string BLAST_CHILD_NODE = "blast";
 
         #region Validation
 
@@ -64,6 +64,20 @@ namespace Claw.Blasts
                     Add(new Blast(validator, child));
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(Profile.BLASTS_CHILD_NODE);
+            foreach (Blast blast in elements)
+            {
+                node.Children.AddLast(blast.CreateNodes());
+            }
+            return node;
         }
     }
 }

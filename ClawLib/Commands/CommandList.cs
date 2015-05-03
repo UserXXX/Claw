@@ -11,7 +11,7 @@ namespace Claw.Commands
     /// </summary>
     public class CommandList : NodeListParser<Command>
     {
-        private const string ACTION_COMMAND_CHILD_NODE = "actioncommand";
+        internal const string ACTION_COMMAND_CHILD_NODE = "actioncommand";
 
         #region Validation
 
@@ -64,6 +64,20 @@ namespace Claw.Commands
                     Add(new ActionCommand(validator, child));
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(Profile.COMMANDS_CHILD_NODE);
+            foreach (Command command in elements)
+            {
+                node.Children.AddLast(command.CreateNodes());
+            }
+            return node;
         }
     }
 }

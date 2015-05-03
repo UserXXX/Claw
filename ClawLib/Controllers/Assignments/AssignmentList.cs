@@ -11,8 +11,8 @@ namespace Claw.Controllers.Assignments
     /// </summary>
     public class AssignmentList : NodeListParser<Assignment>
     {
-        private const string MOUSE_POINTER_CHILD_NODE = "mousepointer";
-        private const string BUTTON_CHILD_NODE = "button";
+        internal const string MOUSE_POINTER_CHILD_NODE = "mousepointer";
+        internal const string BUTTON_CHILD_NODE = "button";
 
         #region Validation
 
@@ -72,6 +72,20 @@ namespace Claw.Controllers.Assignments
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(Shift.ASSIGNMENTS_CHILD_NODE);
+            foreach (Assignment assignment in elements)
+            {
+                node.Children.AddLast(assignment.CreateNodes());
+            }
+            return node;
         }
     }
 }

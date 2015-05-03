@@ -12,7 +12,7 @@ namespace Claw.Commands
     {
         private const string TYPE_ATTRIBUTE = "type";
 
-        private const string ACTION_CHILD_NODE = "action";
+        internal const string ACTION_CHILD_NODE = "action";
 
         #region Validation
 
@@ -79,6 +79,25 @@ namespace Claw.Commands
                     Add(new Action(validator, child));
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(ActionCommand.ACTION_BLOCK_CHILD_NODE);
+            if (blockType != ActionBlockType.Default)
+            {
+                node.Tag = ActionBlockTypeHelper.ToString(blockType);
+            }
+            node.Attributes.Add(TYPE_ATTRIBUTE, ActionBlockUsageTypeHelper.ToString(type));
+            foreach (Action action in elements)
+            {
+                node.Children.AddLast(action.CreateNodes());
+            }
+            return node;
         }
     }
 }

@@ -50,5 +50,15 @@ namespace Claw.Commands
                     throw new ArgumentException("Could not parse \"" + type + "\" to ActionBlockType.");
             }
         }
+
+        /// <summary>
+        /// Converts the given type to a string.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>The string.</returns>
+        internal static string ToString(ActionBlockUsageType type)
+        {
+            return type.ToString("G").ToLower();
+        }
     }
 }

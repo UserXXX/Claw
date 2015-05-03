@@ -20,5 +20,21 @@ namespace Claw
 
             return uint.Parse(text, NumberStyles.HexNumber);
         }
+
+        /// <summary>
+        /// Converts an uint to a hex string.
+        /// </summary>
+        /// <param name="value">uint to convert.</param>
+        /// <returns>The created string with leading "0x".</returns>
+        internal static string FormatHexUInt(uint value)
+        {
+            string hex = value.ToString("X");
+            // *.pr0 files use 8 hex signs in each uint.
+            while (hex.Length < 8)
+            {
+                hex = "0" + hex;
+            }
+            return "0x" + hex;
+        }
     }
 }

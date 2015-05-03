@@ -15,9 +15,9 @@ namespace Claw
     {
         private const string VERSION_ATTRIBUTE = "version";
 
-        private const string CONTROLLERS_CHILD_NODE = "controllers";
-        private const string COMMANDS_CHILD_NODE = "commands";
-        private const string BLASTS_CHILD_NODE = "blasts";
+        internal const string CONTROLLERS_CHILD_NODE = "controllers";
+        internal const string COMMANDS_CHILD_NODE = "commands";
+        internal const string BLASTS_CHILD_NODE = "blasts";
         
         #region Validation
 
@@ -98,6 +98,24 @@ namespace Claw
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure for this profile.
+        /// </summary>
+        /// <returns>The root 'profile' node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node("profile");
+            node.Tag = name;
+            node.Attributes.Add(VERSION_ATTRIBUTE, ConversionHelper.FormatHexUInt(version));
+            if (controllers != null)
+                node.Children.AddLast(controllers.CreateNodes());
+            if (commands != null)
+                node.Children.AddLast(commands.CreateNodes());
+            if (blasts != null)
+                node.Children.AddLast(blasts.CreateNodes());
+            return node;
         }
     }
 }

@@ -15,8 +15,8 @@ namespace Claw.Controllers
         private const string NAME_ATTRIBUTE = "name";
         private const string FALLBACK_ATTRIBUTE = "fallback";
         
-        private const string SELECTIONSET_CHILD_NODE = "selectionset";
-        private const string ASSIGNMENTS_CHILD_NODE = "assignments";
+        internal const string SELECTIONSET_CHILD_NODE = "selectionset";
+        internal const string ASSIGNMENTS_CHILD_NODE = "assignments";
 
         #region Validation
 
@@ -108,6 +108,36 @@ namespace Claw.Controllers
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(ShiftList.SHIFT_CHILD_NODE);
+            if (uuid != null)
+            {
+                node.Tag = uuid.ToString();
+            }
+            if (name != null)
+            {
+                node.Attributes.Add(NAME_ATTRIBUTE, name);
+            }
+            if (fallback != null)
+            {
+                node.Attributes.Add(FALLBACK_ATTRIBUTE, fallback.ToString());
+            }
+            if (selectionset != null)
+            {
+                node.Children.AddLast(selectionset);
+            }
+            if (assignments != null)
+            {
+                node.Children.AddLast(assignments.CreateNodes());
+            }
+            return node;
         }
     }
 }

@@ -40,5 +40,35 @@ namespace Claw.Controllers.Controls
                 name = node.Attributes[NAME_ATTRIBUTE];
             }
         }
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(NodeName);
+            node.Tag = ConversionHelper.FormatHexUInt(identifier);
+            if (name != null)
+            {
+                node.Attributes.Add(NAME_ATTRIBUTE, name);
+            }
+            FillNode(node);
+            return node;
+        }
+
+        /// <summary>
+        /// Name of the node in *pr0 files.
+        /// </summary>
+        protected abstract string NodeName
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Fills the node with data.
+        /// </summary>
+        /// <param name="node">The node to fill.</param>
+        internal abstract void FillNode(Node node);
     }
 }

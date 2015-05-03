@@ -49,6 +49,11 @@ namespace Claw.Controllers.Controls
         /// </summary>
         private bool latchable = true;
 
+        protected override string NodeName
+        {
+            get { return ControlList.BUTTON_CHILD_NODE; }
+        }
+
         /// <summary>
         /// Creates a new button from a given node.
         /// </summary>
@@ -61,6 +66,11 @@ namespace Claw.Controllers.Controls
             {
                 latchable = bool.Parse(node.Attributes[LATCHABLE_ATTRIBUTE]);
             }
+        }
+
+        internal override void FillNode(Node node)
+        {
+            node.Attributes.Add(LATCHABLE_ATTRIBUTE, latchable.ToString().ToLower());
         }
     }
 }

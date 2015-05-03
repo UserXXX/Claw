@@ -33,7 +33,12 @@ namespace Claw.Documents
             return node;
         }
 
-        internal void Save(Node node, string filename)
+        /// <summary>
+        /// Saves the node strcture to the given stream.
+        /// </summary>
+        /// <param name="node">The node to save.</param>
+        /// <param name="stream">The stream to save to.</param>
+        internal void Save(Node node, Stream stream)
         {
         	throw new NotImplementedException();
         }

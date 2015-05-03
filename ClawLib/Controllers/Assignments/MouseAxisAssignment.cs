@@ -12,6 +12,8 @@ namespace Claw.Controllers.Assignments
     {
         private const string ENVELOPE_ATTRIBUTE = "envelope";
 
+        private const string SENSITIVITY_ENVELOPE = "sensitivity";
+
         #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
@@ -57,6 +59,11 @@ namespace Claw.Controllers.Assignments
 
         private int value;
 
+        protected override string NodeName
+        {
+            get { return MousePointerAssignment.MOUSE_AXIS_CHILD_NODE; }
+        }
+
         /// <summary>
         /// Creates a new MouseAxisAssignment.
         /// </summary>
@@ -81,6 +88,17 @@ namespace Claw.Controllers.Assignments
                         value = int.Parse(child.Tag);
                     }
                 }
+            }
+        }
+
+        internal override void FillNode(Node node)
+        {
+            if (envelope == MouseAxisEnvelope.Sensitivity)
+            {
+                node.Attributes.Add(ENVELOPE_ATTRIBUTE, SENSITIVITY_ENVELOPE);
+                Node envelopeNode = new Node(SENSITIVITY_ENVELOPE);
+                envelopeNode.Tag = value.ToString();
+                node.Children.AddLast(envelopeNode);
             }
         }
     }

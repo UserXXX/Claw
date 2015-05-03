@@ -47,6 +47,11 @@ namespace Claw.Controllers.Controls
     	
         private LinkedList<ButtonControl> buttons = new LinkedList<ButtonControl>();
 
+        protected override string NodeName
+        {
+            get { return ControlList.SLIDER_CHILD_NODE; }
+        }
+
         /// <summary>
         /// Creates a new Slider.
         /// </summary>
@@ -61,6 +66,14 @@ namespace Claw.Controllers.Controls
                 {
                     buttons.AddLast(new ButtonControl(validator, child));
                 }
+            }
+        }
+
+        internal override void FillNode(Node node)
+        {
+            foreach (ButtonControl button in buttons)
+            {
+                node.Children.AddLast(button.CreateNodes());
             }
         }
     }

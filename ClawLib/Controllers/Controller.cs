@@ -15,9 +15,9 @@ namespace Claw.Controllers
     {
         private const string GROUP_ATTRIBUTE = "group";
         
-        private const string MEMBER_CHILD_NODE = "member";
-        private const string CONTROLS_CHILD_NODE = "controls";
-        private const string SHIFTS_CHILD_NODE = "shifts";
+        internal const string MEMBER_CHILD_NODE = "member";
+        internal const string CONTROLS_CHILD_NODE = "controls";
+        internal const string SHIFTS_CHILD_NODE = "shifts";
         
         #region Validation
 
@@ -103,6 +103,41 @@ namespace Claw.Controllers
                         break;
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Creates the node structure.
+        /// </summary>
+        /// <returns>The node.</returns>
+        internal Node CreateNodes()
+        {
+            var node = new Node(ControllerList.CONTROLLER_CHILD_NODE);
+            if (uuid != null)
+            {
+                node.Tag = uuid.ToString();
+            }
+            node.Attributes.Add(GROUP_ATTRIBUTE, DeviceGroupHelper.ToString(group));
+                      
+            // *.pr0 files have the first member as the first node and the others listed at the end of the node list.
+            if (members.Count > 0)
+            {
+                node.Children.AddLast(members.First.Value.CreateNodes());
+            }
+
+            node.Children.AddLast(controls.CreateNodes());
+            node.Children.AddLast(shifts.CreateNodes());
+            
+            if (members.Count > 1)
+            {
+                LinkedList<Member>.Enumerator enumerator = members.GetEnumerator();
+                enumerator.MoveNext();
+                while (enumerator.MoveNext())
+                {
+                    node.Children.AddLast(enumerator.Current.CreateNodes());
+                }
+            }
+            return node;
         }
     }
 }

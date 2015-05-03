@@ -47,6 +47,11 @@ namespace Claw.Controllers.Controls
     	
         private LinkedList<MouseAxisControl> axes = new LinkedList<MouseAxisControl>();
 
+        protected override string NodeName
+        {
+            get { return ControlList.MOUSE_POINTER_CHILD_NODE; }
+        }
+
         /// <summary>
         /// Creates a new MousePointer from a node.
         /// </summary>
@@ -61,6 +66,14 @@ namespace Claw.Controllers.Controls
                 {
                     axes.AddLast(new MouseAxisControl(validator, child));
                 }
+            }
+        }
+
+        internal override void FillNode(Node node)
+        {
+            foreach (MouseAxisControl mouseAxis in axes)
+            {
+                node.Children.AddLast(mouseAxis.CreateNodes());
             }
         }
     }
