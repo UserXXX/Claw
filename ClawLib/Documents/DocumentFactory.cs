@@ -40,7 +40,9 @@ namespace Claw.Documents
         /// <param name="stream">The stream to save to.</param>
         internal void Save(Node node, Stream stream)
         {
-        	throw new NotImplementedException();
+            var writer = new StreamWriter(stream);
+            writer.Write(node.ToString());
+            writer.Close();
         }
     }
 }

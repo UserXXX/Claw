@@ -8,6 +8,11 @@ namespace Claw.Documents
     /// </summary>
     internal class Node
     {
+        /// <summary>
+        /// Signs per line in an "data" attribute.
+        /// </summary>
+        private const int DATA_SIGNS_PER_LINE = 76;
+
         private string name;
         private string tag;
         private Dictionary<string, string> attributes = new Dictionary<string, string>();
@@ -90,6 +95,68 @@ namespace Claw.Documents
                 }
                 current = reader.SkipWhiteSpace(current);
             }
+        }
+
+        public override string ToString()
+        {
+            string ret = "[" + name;
+            if (!string.IsNullOrEmpty(tag))
+            {
+                ret += "=" + tag;
+            }
+            foreach (string attributeName in attributes.Keys)
+            {
+                if (attributeName != "data")
+                {
+                    ret += " " + attributeName + "=" + attributes[attributeName];
+                }
+                else
+                {
+                    string value = attributes["data"];
+                    ret += "\ndata<" + value.Length + "\n";
+                    for (var i = 0; i < value.Length / DATA_SIGNS_PER_LINE; i++)
+                    {
+                        ret += value.Substring(i * DATA_SIGNS_PER_LINE, (i + 1) * DATA_SIGNS_PER_LINE) + "\n";
+                    }
+                    ret += value.Substring(value.Length / DATA_SIGNS_PER_LINE) + "\n>\n";
+                }
+            }
+            foreach (Node child in children)
+            {
+                string childString = child.ToString();
+                string[] splitted = childString.Split(new char[] { '\n' });
+                bool inDataAttribute = false;
+                childString = "";
+                for (var i = 0; i < splitted.Length; i++)
+                {
+                    if (inDataAttribute)
+                    {
+                        if (splitted[i].StartsWith(">"))
+                        {
+                            inDataAttribute = false;
+                        }
+                    }
+                    else
+                    {
+                        if (splitted[i].StartsWith("data<"))
+                        {
+                            inDataAttribute = true;
+                        }
+                        else
+                        {
+                            splitted[i] = "  " + splitted[i];
+                        }
+                    }
+                    childString += splitted[i] + "\n";
+                }
+                ret += childString;
+            }
+            // Trim away the last newline
+            if (children.Count > 0)
+            {
+                ret = ret.Substring(0, ret.Length - 1);
+            }
+            return ret;
         }
     }
 }
