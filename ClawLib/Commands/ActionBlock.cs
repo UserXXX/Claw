@@ -92,7 +92,10 @@ namespace Claw.Commands
             {
                 node.Tag = ActionBlockTypeHelper.ToString(blockType);
             }
-            node.Attributes.Add(TYPE_ATTRIBUTE, ActionBlockUsageTypeHelper.ToString(type));
+            if (type != ActionBlockUsageType.Press)
+            {
+                node.Attributes.Add(TYPE_ATTRIBUTE, ActionBlockUsageTypeHelper.ToString(type));
+            }
             foreach (Action action in elements)
             {
                 node.Children.AddLast(action.CreateNodes());

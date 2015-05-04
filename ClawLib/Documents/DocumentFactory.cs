@@ -41,7 +41,7 @@ namespace Claw.Documents
         internal void Save(Node node, Stream stream)
         {
             var writer = new StreamWriter(stream);
-            writer.Write(node.ToString());
+            writer.Write(node.ToString().Replace("\n", Environment.NewLine));
             writer.Close();
         }
     }

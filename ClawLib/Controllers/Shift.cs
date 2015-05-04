@@ -117,17 +117,17 @@ namespace Claw.Controllers
         internal Node CreateNodes()
         {
             var node = new Node(ShiftList.SHIFT_CHILD_NODE);
-            if (uuid != null)
+            if (uuid != null && uuid != Guid.Empty)
             {
                 node.Tag = uuid.ToString();
+            }
+            if (fallback != null && fallback != Guid.Empty)
+            {
+                node.Attributes.Add(FALLBACK_ATTRIBUTE, fallback.ToString());
             }
             if (name != null)
             {
                 node.Attributes.Add(NAME_ATTRIBUTE, name);
-            }
-            if (fallback != null)
-            {
-                node.Attributes.Add(FALLBACK_ATTRIBUTE, fallback.ToString());
             }
             if (selectionset != null)
             {

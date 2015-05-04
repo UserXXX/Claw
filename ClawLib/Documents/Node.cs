@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Claw.Documents
 {
@@ -104,11 +105,20 @@ namespace Claw.Documents
             {
                 ret += "=" + tag;
             }
+            bool hasDataAttr = false;
             foreach (string attributeName in attributes.Keys)
             {
                 if (attributeName != "data")
                 {
-                    ret += " " + attributeName + "=" + attributes[attributeName];
+                    string attributeValue = attributes[attributeName];
+                    if (attributeValue.Contains(" "))
+                    {
+                        ret += " " + attributeName + "='" + attributeValue + "'";
+                    }
+                    else
+                    {
+                        ret += " " + attributeName + "=" + attributeValue;
+                    }
                 }
                 else
                 {
@@ -116,10 +126,15 @@ namespace Claw.Documents
                     ret += "\ndata<" + value.Length + "\n";
                     for (var i = 0; i < value.Length / DATA_SIGNS_PER_LINE; i++)
                     {
-                        ret += value.Substring(i * DATA_SIGNS_PER_LINE, (i + 1) * DATA_SIGNS_PER_LINE) + "\n";
+                        ret += value.Substring(i * DATA_SIGNS_PER_LINE, DATA_SIGNS_PER_LINE) + "\n";
                     }
-                    ret += value.Substring(value.Length / DATA_SIGNS_PER_LINE) + "\n>\n";
+                    ret += value.Substring((value.Length / DATA_SIGNS_PER_LINE) * DATA_SIGNS_PER_LINE) + "\n>";
+                    hasDataAttr = true;
                 }
+            }
+            if (!ret.EndsWith("\n"))
+            {
+                ret += "\n";
             }
             foreach (Node child in children)
             {
@@ -152,11 +167,11 @@ namespace Claw.Documents
                 ret += childString;
             }
             // Trim away the last newline
-            if (children.Count > 0)
+            if (!hasDataAttr)
             {
-                ret = ret.Substring(0, ret.Length - 1);
+                ret = ret.TrimEnd(new char[] { '\n' });
             }
-            return ret;
+            return ret + "]";
         }
     }
 }

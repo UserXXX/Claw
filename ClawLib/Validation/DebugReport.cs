@@ -15,12 +15,12 @@ namespace Claw.Validation
 		
 		internal override void AddWarning(string message)
 		{
-			Trace.WriteLine("[DEBUG][WARNING][INFO]: " + message);
+            Trace.WriteLine("[DEBUG][VALIDATION][WARNING]: " + message);
 		}
 		
 		internal override void AddError(string message)
 		{
-			Trace.WriteLine("[DEBUG][ERROR][INFO]: " + message);
+			Trace.WriteLine("[DEBUG][VALIDATION][ERROR]: " + message);
 		}
 	}
 }

@@ -10,6 +10,7 @@ namespace Claw.Controllers.Controls
     public class ButtonControl : Control
     {
         private const string LATCHABLE_ATTRIBUTE = "latchable";
+        private const string LATCHED_ATTRIBUTE = "latched";
 
         #region Validation
 
@@ -18,6 +19,7 @@ namespace Claw.Controllers.Controls
         };
         private static readonly string[] OPTIONAL_ATTRIBUTES = {
         	LATCHABLE_ATTRIBUTE,
+            LATCHED_ATTRIBUTE,
         };
         private static readonly string[] REQUIRED_CHILD_NODES = { };
         private static readonly string[] OPTIONAL_CHILD_NODES = { };
@@ -45,9 +47,13 @@ namespace Claw.Controllers.Controls
         #endregion
         
         /// <summary>
-        /// Attribute with default value false. Whether the button can be latched, meaning that a press will virtually hold it until the next press.
+        /// Attribute with default value true. Whether the button can be latched, meaning that a press will virtually hold it until the next press.
         /// </summary>
         private bool latchable = true;
+        /// <summary>
+        /// Attribute with default value false. Whether the button is a latched button.
+        /// </summary>
+        private bool latched = false;
 
         protected override string NodeName
         {
@@ -66,11 +72,22 @@ namespace Claw.Controllers.Controls
             {
                 latchable = bool.Parse(node.Attributes[LATCHABLE_ATTRIBUTE]);
             }
+            if (node.Attributes.ContainsKey(LATCHED_ATTRIBUTE))
+            {
+                latched = bool.Parse(node.Attributes[LATCHED_ATTRIBUTE]);
+            }
         }
 
         internal override void FillNode(Node node)
         {
-            node.Attributes.Add(LATCHABLE_ATTRIBUTE, latchable.ToString().ToLower());
+            if (!latchable)
+            {
+                node.Attributes.Add(LATCHABLE_ATTRIBUTE, latchable.ToString().ToLower());
+            }
+            if (latched)
+            {
+                node.Attributes.Add(LATCHED_ATTRIBUTE, latchable.ToString().ToLower());
+            }
         }
     }
 }

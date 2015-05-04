@@ -76,7 +76,7 @@ namespace Claw.Controllers.Assignments
         {
             var node = new Node(BandList.BAND_CHILD_NODE);
             node.Tag = identifier.ToString();
-            if (commandUuid != null)
+            if (commandUuid != null && commandUuid != Guid.Empty)
             {
                 node.Attributes.Add(COMMAND_UUID_ATTRIBUTE, commandUuid.ToString());
             }

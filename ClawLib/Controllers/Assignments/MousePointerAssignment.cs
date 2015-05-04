@@ -40,11 +40,6 @@ namespace Claw.Controllers.Assignments
         {
             get { return OPTIONAL_CHILD_NODES; }
         }
-        
-		internal override TagUsage TagUsageType
-		{
-			get { return TagUsage.NotAllowed; }
-		}
 
         #endregion
         

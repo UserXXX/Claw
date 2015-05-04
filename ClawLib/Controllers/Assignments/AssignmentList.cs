@@ -46,7 +46,7 @@ namespace Claw.Controllers.Assignments
 
         internal override TagUsage TagUsageType
         {
-            get { return TagUsage.Required; }
+            get { return TagUsage.NotAllowed; }
         }
 
         #endregion

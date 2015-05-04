@@ -62,7 +62,7 @@ namespace Claw.Controllers.Assignments
                 // Ignore the first empty tag, whatever it is for
                 if (child.Name.ToLower() == BAND_CHILD_NODE && !string.IsNullOrEmpty(child.Tag))
                 {
-                    Add(new Band(validator, node));
+                    Add(new Band(validator, child));
                 }
             }
         }
@@ -74,6 +74,7 @@ namespace Claw.Controllers.Assignments
         internal Node CreateNodes()
         {
             var node = new Node(ButtonAssignment.BANDS_CHILD_NODE);
+            node.Children.AddLast(new Node(BAND_CHILD_NODE));
             foreach (Band band in elements)
             {
                 node.Children.AddLast(band.CreateNode());

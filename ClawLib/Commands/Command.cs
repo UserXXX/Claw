@@ -12,6 +12,15 @@ namespace Claw.Commands
         protected const string NAME_ATTRIBUTE = "name";
         protected const string ICON_ATTRIBUTE = "icon";
 
+        #region Validation
+
+        internal sealed override TagUsage TagUsageType
+        {
+            get { return TagUsage.Required; }
+        }
+
+        #endregion
+
         protected Guid uuid;
         protected string name;
         /// <summary>
@@ -48,7 +57,7 @@ namespace Claw.Commands
         internal Node CreateNodes()
         {
             var node = new Node(NodeName);
-            if (uuid != null)
+            if (uuid != null && uuid != Guid.Empty)
             {
                 node.Tag = uuid.ToString();
             }
@@ -56,7 +65,7 @@ namespace Claw.Commands
             {
                 node.Attributes.Add(NAME_ATTRIBUTE, name);
             }
-            if (iconUuid != null)
+            if (iconUuid != null && iconUuid != Guid.Empty)
             {
                 node.Attributes.Add(ICON_ATTRIBUTE, iconUuid.ToString());
             }

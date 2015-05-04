@@ -16,6 +16,11 @@ namespace Claw.Commands
         /// The action is performed on the mouse.
         /// </summary>
         Mouse,
+
+        /// <summary>
+        /// ???
+        /// </summary>
+        Hotkey,
     }
 
     /// <summary>
@@ -37,6 +42,9 @@ namespace Claw.Commands
 
                 case "mouse":
                     return ActionDevice.Mouse;
+
+                case "hotkey":
+                    return ActionDevice.Hotkey;
 
                 default:
                     throw new ArgumentException("Could not parse ActionDevice from \"" + device + "\".");

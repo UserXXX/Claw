@@ -11,6 +11,15 @@ namespace Claw.Controllers.Assignments
     {
         protected uint identifier;
 
+        #region Validation
+
+        internal sealed override TagUsage TagUsageType
+        {
+            get { return TagUsage.Required; }
+        }
+
+        #endregion
+
         /// <summary>
         /// Creates a new Assignment.
         /// </summary>
