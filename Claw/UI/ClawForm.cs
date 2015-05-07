@@ -359,7 +359,8 @@ namespace Claw.UI
                     }
 
                     // Draw the border
-                    using (var pen = new Pen(ForeColor))
+                    int borderWidth = 3;
+                    using (var pen = new Pen(ForeColor, borderWidth))
                     {
                         graph.DrawPolygon(pen, new PointF[] {
                             new PointF(EDGE_WIDTH, 0),
