@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Claw.UI
+namespace Claw.UI.Controls
 {
     /// <summary>
     /// Base class of all forms used by Claw.

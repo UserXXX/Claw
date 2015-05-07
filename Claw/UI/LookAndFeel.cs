@@ -31,6 +31,8 @@ namespace Claw.UI
         private Color foreColor;
         private Color backColor;
         private Image tileImage;
+        private Color hoverColor;
+        private Color interactColor;
 
         /// <summary>
         /// The default foreground color for all controls.
@@ -72,6 +74,32 @@ namespace Claw.UI
         }
 
         /// <summary>
+        /// Color used when hovering over a control (i.e. a Button).
+        /// </summary>
+        public Color HoverColor
+        {
+            get { return hoverColor; }
+            set
+            {
+                hoverColor = value;
+                FireChanged();
+            }
+        }
+
+        /// <summary>
+        /// A color used for interaction events, such as mouse button presses.
+        /// </summary>
+        public Color InteractColor
+        {
+            get { return interactColor; }
+            set
+            {
+                interactColor = value;
+                FireChanged();
+            }
+        }
+
+        /// <summary>
         /// Event for a change of the LookAndFeel.
         /// This is fired whenever there is a change of an attribute of this LookAndFeel.
         /// </summary>
@@ -85,6 +113,8 @@ namespace Claw.UI
             foreColor = Color.Red;
             backColor = Color.FromArgb(255, 30, 30, 30);
             tileImage = (Image)(Resources.ResourceManager.GetObject("Tile"));
+            hoverColor = Color.FromArgb(255, 60, 60, 60);
+            interactColor = Color.Black;
         }
 
         /// <summary>
