@@ -38,7 +38,6 @@
             this.MinimumSize = new System.Drawing.Size(40, 120);
             this.Name = "MainForm";
             this.Text = "MainForm";
-            this.TileImage = global::Claw.Properties.Resources.Tile;
             this.ResumeLayout(false);
 
         }

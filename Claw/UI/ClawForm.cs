@@ -123,10 +123,26 @@ namespace Claw.UI
                     maxScreenHeight = screen.WorkingArea.Height;
             }
 
-            BackColor = Color.Black;
-            ForeColor = Color.Red;
+            MinimumSize = new Size(2 * EDGE_WIDTH, 2 * EDGE_HEIGHT);
+            MaximumSize = new Size(maxScreenWidth, maxScreenHeight);
+
+            LookAndFeel lAndF = LookAndFeel.Instance;
+            base.BackColor = lAndF.BackColor;
+            base.ForeColor = lAndF.ForeColor;
+            tileImage = lAndF.TileImage;
             TransparencyKey = GetTransparentColor();
             DoubleBuffered = true;
+
+            ProcessTileImage();
+            lAndF.Changed += LookChanged;
+        }
+
+        private void LookChanged(object sender, EventArgs e)
+        {
+            LookAndFeel lAndF = LookAndFeel.Instance;
+            base.BackColor = lAndF.BackColor;
+            base.ForeColor = lAndF.ForeColor;
+            ProcessTileImage();
         }
 
         private void ClawFormMouseMove(object sender, MouseEventArgs e)
@@ -204,51 +220,64 @@ namespace Claw.UI
         /// <param name="y">Mouse y coordinate.</param>
         private void ResizeForm(int x, int y)
         {
+            int newLeft = Left;
+            int newTop = Top;
+            int newWidth = Width;
+            int newHeight = Height;
             switch (cursorLocation)
             {
                 case CursorLocation.Bottom:
-                    Height = y;
+                    newHeight = y;
                     break;
 
                 case CursorLocation.Left:
-                    Width -= x;
-                    Left += x;
+                    newWidth -= x;
+                    newLeft += x;
                     break;
 
                 case CursorLocation.Right:
-                    Width = x;
+                    newWidth = x;
                     break;
 
                 case CursorLocation.Top:
-                    Height -= y;
-                    Top += y;
+                    newHeight -= y;
+                    newTop += y;
                     break;
 
                 case CursorLocation.BottomLeft:
-                    Height = y;
-                    Width -= x;
-                    Left += x;
+                    newHeight = y;
+                    newWidth -= x;
+                    newLeft += x;
                     break;
 
                 case CursorLocation.BottomRight:
-                    Height = y;
-                    Width = x;
+                    newHeight = y;
+                    newWidth = x;
                     break;
 
                 case CursorLocation.TopLeft:
-                    Width -= x;
-                    Left += x;
-                    Height -= y;
-                    Top += y;
+                    newWidth -= x;
+                    newLeft += x;
+                    newHeight -= y;
+                    newTop += y;
                     break;
 
                 case CursorLocation.TopRight:
-                    Height -= y;
-                    Top += y;
-                    Width = x;
+                    newHeight -= y;
+                    newTop += y;
+                    newWidth = x;
                     break;
             }
-            Invalidate();
+
+            if (newWidth >= MinimumSize.Width && newWidth <= MaximumSize.Width &&
+                newHeight >= MinimumSize.Height && newHeight <= MaximumSize.Height)
+            {
+                Left = newLeft;
+                Top = newTop;
+                Width = newWidth;
+                Height = newHeight;
+                Invalidate();
+            }
         }
 
         private void ClawFormMouseDown(object sender, MouseEventArgs e)
