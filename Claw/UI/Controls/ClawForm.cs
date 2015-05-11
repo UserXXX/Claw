@@ -119,10 +119,6 @@ namespace Claw.UI.Controls
                 graph.FillEllipse(new SolidBrush(Color.White), new Rectangle(0, 0, 100, 100));
             }
 
-            MouseDown += new MouseEventHandler(ClawFormMouseDown);
-            MouseMove += new MouseEventHandler(ClawFormMouseMove);
-            base.FormBorderStyle = FormBorderStyle.None;
-
             foreach (Screen screen in Screen.AllScreens)
             {
                 if (screen.WorkingArea.Width > maxScreenWidth)
@@ -131,20 +127,18 @@ namespace Claw.UI.Controls
                     maxScreenHeight = screen.WorkingArea.Height;
             }
 
+            MouseDown += new MouseEventHandler(ClawFormMouseDown);
+            MouseMove += new MouseEventHandler(ClawFormMouseMove);
+            base.FormBorderStyle = FormBorderStyle.None;
             MinimumSize = new Size(2 * painter.EdgeWidth, 2 * painter.EdgeHeight);
             MaximumSize = new Size(maxScreenWidth, maxScreenHeight);
-
-            LookAndFeel lAndF = LookAndFeel.Instance;
-            base.BackColor = lAndF.BackColor;
-            base.ForeColor = lAndF.ForeColor;
-            tileImage = lAndF.TileImage;
-            TransparencyKey = painter.GetTransparentColor(this);
             DoubleBuffered = true;
 
-            ProcessTileImage();
-            lAndF.Changed += LookChanged;
-
             CreateFormButtons();
+            LookChanged(this, new EventArgs());
+            TransparencyKey = painter.GetTransparentColor(this);
+
+            LookAndFeel.Instance.Changed += LookChanged;
         }
 
         /// <summary>
@@ -248,78 +242,84 @@ namespace Claw.UI.Controls
         {
             LookAndFeel lAndF = LookAndFeel.Instance;
             base.BackColor = lAndF.BackColor;
-            base.ForeColor = lAndF.ForeColor;
+            base.ForeColor = lAndF.MidColor;
+            tileImage = lAndF.TileImage;
             ProcessTileImage();
 
             ClawFormFactory.CreateImageForButton(btClose, lAndF.CloseImage, ForeColor);
             ClawFormFactory.CreateImageForButton(btMaximize, lAndF.MaximizeImage, ForeColor);
+            ClawFormFactory.CreateImageForButton(btNormalize, lAndF.NormalizeImage, ForeColor);
+            ClawFormFactory.CreateImageForButton(btMinimize, lAndF.MinimizeImage, ForeColor);
         }
 
         private void ClawFormMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && cursorLocation != CursorLocation.Default)
+            if (WindowState != FormWindowState.Maximized)
             {
-                ResizeForm(e.X, e.Y);
-            }
-            else
-            {
-                if (e.X > painter.EdgeWidth && e.X < Width - painter.EdgeHeight)
+                if (e.Button == MouseButtons.Left && cursorLocation != CursorLocation.Default)
                 {
-                    if (e.Y < RESIZE_BORDER)
+                    ResizeForm(e.X, e.Y);
+                }
+                else
+                {
+                    if (e.X > painter.EdgeWidth && e.X < Width - painter.EdgeHeight)
                     {
-                        cursorLocation = CursorLocation.Top;
-                        Cursor = Cursors.SizeNS;
+                        if (e.Y < RESIZE_BORDER)
+                        {
+                            cursorLocation = CursorLocation.Top;
+                            Cursor = Cursors.SizeNS;
+                            return;
+                        }
+                        if (e.Y > Height - (RESIZE_BORDER + 1))
+                        {
+                            cursorLocation = CursorLocation.Bottom;
+                            Cursor = Cursors.SizeNS;
+                            return;
+                        }
+                    }
+                    if (e.Y > painter.EdgeHeight && e.Y < Height - painter.EdgeHeight)
+                    {
+                        if (e.X < RESIZE_BORDER)
+                        {
+                            cursorLocation = CursorLocation.Left;
+                            Cursor = Cursors.SizeWE;
+                            return;
+                        }
+                        if (e.X > Width - (RESIZE_BORDER + 1))
+                        {
+                            cursorLocation = CursorLocation.Right;
+                            Cursor = Cursors.SizeWE;
+                            return;
+                        }
+                    }
+                    if (e.X < painter.EdgeWidth && e.Y < painter.EdgeHeight && e.Y >= painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X && e.Y <= painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X + RESIZE_BORDER)
+                    {
+                        cursorLocation = CursorLocation.TopLeft;
+                        Cursor = Cursors.SizeNWSE;
                         return;
                     }
-                    if (e.Y > Height - (RESIZE_BORDER + 1))
+                    if (e.X > Width - painter.EdgeWidth && e.Y < painter.EdgeHeight && e.Y >= (painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width && e.Y <= (painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width + RESIZE_BORDER)
                     {
-                        cursorLocation = CursorLocation.Bottom;
-                        Cursor = Cursors.SizeNS;
+                        cursorLocation = CursorLocation.TopRight;
+                        Cursor = Cursors.SizeNESW;
                         return;
                     }
-                }
-                if (e.Y > painter.EdgeHeight && e.Y < Height - painter.EdgeHeight)
-                {
-                    if (e.X < RESIZE_BORDER)
+                    if (e.X < painter.EdgeWidth && e.Y > Height - painter.EdgeHeight && e.Y <= Height - (painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X) && e.Y >= Height - (painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X) - RESIZE_BORDER)
                     {
-                        cursorLocation = CursorLocation.Left;
-                        Cursor = Cursors.SizeWE;
+                        cursorLocation = CursorLocation.BottomLeft;
+                        Cursor = Cursors.SizeNESW;
                         return;
                     }
-                    if (e.X > Width - (RESIZE_BORDER + 1))
+                    if (e.X > Width - painter.EdgeWidth && e.Y > Height - painter.EdgeHeight && e.Y <= Height - ((painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width) && e.Y >= Height - ((painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width) - RESIZE_BORDER)
                     {
-                        cursorLocation = CursorLocation.Right;
-                        Cursor = Cursors.SizeWE;
+                        cursorLocation = CursorLocation.BottomRight;
+                        Cursor = Cursors.SizeNWSE;
                         return;
                     }
-                }
-                if (e.X < painter.EdgeWidth && e.Y < painter.EdgeHeight && e.Y >= painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X && e.Y <= painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X + RESIZE_BORDER)
-                {
-                    cursorLocation = CursorLocation.TopLeft;
-                    Cursor = Cursors.SizeNWSE;
-                    return;
-                }
-                if (e.X > Width - painter.EdgeWidth && e.Y < painter.EdgeHeight && e.Y >= (painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width && e.Y <= (painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width + RESIZE_BORDER)
-                {
-                    cursorLocation = CursorLocation.TopRight;
-                    Cursor = Cursors.SizeNESW;
-                    return;
-                }
-                if (e.X < painter.EdgeWidth && e.Y > Height - painter.EdgeHeight && e.Y <= Height - (painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X) && e.Y >= Height - (painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X) - RESIZE_BORDER)
-                {
-                    cursorLocation = CursorLocation.BottomLeft;
-                    Cursor = Cursors.SizeNESW;
-                    return;
-                }
-                if (e.X > Width - painter.EdgeWidth && e.Y > Height - painter.EdgeHeight && e.Y <= Height - ((painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width) && e.Y >= Height - ((painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width) - RESIZE_BORDER)
-                {
-                    cursorLocation = CursorLocation.BottomRight;
-                    Cursor = Cursors.SizeNWSE;
-                    return;
-                }
 
-                cursorLocation = CursorLocation.Default;
-                Cursor = Cursors.Default;
+                    cursorLocation = CursorLocation.Default;
+                    Cursor = Cursors.Default;
+                }
             }
         }
 
@@ -394,7 +394,7 @@ namespace Claw.UI.Controls
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (cursorLocation == CursorLocation.Default && IsFormVisibleAt(e.Location))
+                if (cursorLocation == CursorLocation.Default && IsFormVisibleAt(e.Location) && WindowState != FormWindowState.Maximized)
                 {
                     ReleaseCapture();
                     SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);

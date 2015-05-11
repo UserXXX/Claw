@@ -23,12 +23,13 @@ namespace Claw.UI.Controls
         private const int EDGE_HEIGHT = 60;
 
         /// <summary>
-        /// Possible colors for transparency keys. Need to be at least three, because two could be used by Fore- and BackColor.
+        /// Possible colors for transparency keys. Need to be at least four, because three could be used by Fore-, Mid- and BackColor.
         /// </summary>
         private static readonly Color[] TransparentColors = {
                                                          Color.Pink,
                                                          Color.Violet,
                                                          Color.LightGreen,
+                                                         Color.YellowGreen,
                                                      };
 
         /// <summary>

@@ -29,6 +29,7 @@ namespace Claw.UI
         }
 
         private Color foreColor;
+        private Color midColor;
         private Color backColor;
         private Image tileImage;
         private Color hoverColor;
@@ -47,6 +48,19 @@ namespace Claw.UI
             set
             {
                 foreColor = value;
+                FireChanged();
+            }
+        }
+
+        /// <summary>
+        /// The mid color functions as an accent for the background color.
+        /// </summary>
+        public Color MidColor
+        {
+            get { return midColor; }
+            set
+            {
+                midColor = value;
                 FireChanged();
             }
         }
@@ -166,7 +180,8 @@ namespace Claw.UI
         /// </summary>
         private LookAndFeel()
         {
-            foreColor = Color.Red;
+            foreColor = Color.White;
+            midColor = Color.Red;
             backColor = Color.FromArgb(255, 30, 30, 30);
             tileImage = (Image)(Resources.ResourceManager.GetObject("Tile"));
             hoverColor = Color.FromArgb(255, 60, 60, 60);

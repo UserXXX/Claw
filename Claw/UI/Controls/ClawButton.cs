@@ -173,7 +173,7 @@ namespace Claw.UI.Controls
         {
             if (Focused && !mouseDown)
             {
-                using (var pen = new Pen(Color.FromArgb(100, ForeColor), 3))
+                using (var pen = new Pen(Color.FromArgb(100, LookAndFeel.Instance.MidColor), 3))
                 {
                     graphics.DrawRectangle(pen, new Rectangle(2, 2, Width - 5, Height - 5));
                 }
@@ -199,7 +199,7 @@ namespace Claw.UI.Controls
         /// <param name="graphics">The graphics to draw to.</param>
         private void DrawBorder(Graphics graphics)
         {
-            using (var pen = new Pen(ForeColor))
+            using (var pen = new Pen(LookAndFeel.Instance.MidColor))
             {
                 graphics.DrawRectangle(pen, new Rectangle(0, 0, Width - 1, Height - 1));
             }
