@@ -90,10 +90,79 @@ namespace Claw.UI.Controls
             Graphics graphics = pevent.Graphics;
 
             DrawBackgroundColor(graphics);
-            DrawBackground(graphics);
+            DrawBackgroundImage(graphics);
             DrawBorder(graphics);
+            DrawImage(graphics);
             DrawText(graphics);
             DrawFocusBorder(graphics);
+        }
+
+        /// <summary>
+        /// Draws the background image.
+        /// </summary>
+        /// <param name="graphics">Graphics to draw to.</param>
+        private void DrawBackgroundImage(Graphics graphics)
+        {
+            if (BackgroundImage != null)
+            {
+                Rectangle[] rect = null;
+                switch (BackgroundImageLayout)
+                {
+                    case ImageLayout.Center:
+                        rect = new Rectangle[1];
+                        rect[0] = new Rectangle((Width - BackgroundImage.Width) / 2, (Height - BackgroundImage.Height) / 2, BackgroundImage.Width, BackgroundImage.Height);
+                        break;
+
+                    case ImageLayout.None:
+                        rect = new Rectangle[1];
+                        rect[0] = new Rectangle(0, 0, BackgroundImage.Width, BackgroundImage.Height);
+                        break;
+
+                    case ImageLayout.Stretch:
+                        rect = new Rectangle[1];
+                        rect[0] = new Rectangle(0, 0, Width - 1, Height - 1);
+                        break;
+
+                    case ImageLayout.Tile:
+                        int sizeX = Width / BackgroundImage.Width + 1;
+                        int sizeY = Height / BackgroundImage.Height + 1;
+                        rect = new Rectangle[sizeX * sizeY];
+                        for (var x = 0; x < sizeX; x++)
+                        {
+                            for (var y = 0; y < sizeY; y++)
+                            {
+                                rect[x + y * sizeX] = new Rectangle(x * BackgroundImage.Width, y * BackgroundImage.Height, BackgroundImage.Width, BackgroundImage.Height);
+                            }
+                        }
+                        break;
+
+                    case ImageLayout.Zoom:
+                        rect = new Rectangle[1];
+                        if (BackgroundImage.Width == BackgroundImage.Height)
+                        {
+                            rect[0] = new Rectangle(0, 0, Width, Height);
+                        }
+                        else if (BackgroundImage.Width > BackgroundImage.Height)
+                        {
+                            double scaleFactor = ((double)Height) / ((double)BackgroundImage.Height);
+                            double width = BackgroundImage.Width * scaleFactor;
+                            double xPos = (Width - width) / 2;
+                            rect[0] = new Rectangle((int)xPos, 0, (int)width, Height - 1);
+                        }
+                        else
+                        {
+                            double scaleFactor = ((double)Width) / ((double)BackgroundImage.Width);
+                            double height = BackgroundImage.Height * scaleFactor;
+                            double yPos = (Height - height) / 2;
+                            rect[0] = new Rectangle(0, (int)yPos, Width - 1, (int)height);
+                        }
+                        break;
+                }
+                for (var i = 0; i < rect.Length; i++)
+                {
+                    graphics.DrawImage(BackgroundImage, rect[i]);
+                }
+            }
         }
 
         /// <summary>
@@ -140,7 +209,7 @@ namespace Claw.UI.Controls
         /// Draws the background image if one is set.
         /// </summary>
         /// <param name="graphics">The graphics to draw to.</param>
-        private void DrawBackground(Graphics graphics)
+        private void DrawImage(Graphics graphics)
         {
             if (Image != null)
             {

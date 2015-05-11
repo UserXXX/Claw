@@ -48,6 +48,8 @@
     <Compile Include="UI\Controls\ClawForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UI\Controls\ClawFormFactory.cs" />
+    <Compile Include="UI\Controls\ClawFormPainter.cs" />
     <Compile Include="UI\Helper\BitmapHelper.cs" />
     <Compile Include="UI\LookAndFeel.cs" />
     <Compile Include="UI\MainForm.cs">
@@ -79,9 +81,20 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Close.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Tile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Maximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Normalize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Minimize.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

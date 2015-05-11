@@ -28,21 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.clawButton1 = new Claw.UI.Controls.ClawButton();
             this.clawButton2 = new Claw.UI.Controls.ClawButton();
             this.clawButton3 = new Claw.UI.Controls.ClawButton();
             this.SuspendLayout();
-            // 
-            // clawButton1
-            // 
-            this.clawButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.clawButton1.ForeColor = System.Drawing.Color.Red;
-            this.clawButton1.Location = new System.Drawing.Point(43, 28);
-            this.clawButton1.Name = "clawButton1";
-            this.clawButton1.Size = new System.Drawing.Size(99, 34);
-            this.clawButton1.TabIndex = 0;
-            this.clawButton1.Text = "clawButton1";
-            this.clawButton1.UseVisualStyleBackColor = false;
             // 
             // clawButton2
             // 
@@ -73,16 +61,16 @@
             this.ClientSize = new System.Drawing.Size(1148, 534);
             this.Controls.Add(this.clawButton3);
             this.Controls.Add(this.clawButton2);
-            this.Controls.Add(this.clawButton1);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.Controls.SetChildIndex(this.clawButton2, 0);
+            this.Controls.SetChildIndex(this.clawButton3, 0);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Controls.ClawButton clawButton1;
         private Controls.ClawButton clawButton2;
         private Controls.ClawButton clawButton3;
     }

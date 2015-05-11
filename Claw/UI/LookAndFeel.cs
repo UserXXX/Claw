@@ -33,6 +33,10 @@ namespace Claw.UI
         private Image tileImage;
         private Color hoverColor;
         private Color interactColor;
+        private Image closeImage;
+        private Image maximizeImage;
+        private Image normalizeImage;
+        private Image minimizeImage;
 
         /// <summary>
         /// The default foreground color for all controls.
@@ -100,6 +104,58 @@ namespace Claw.UI
         }
 
         /// <summary>
+        /// The image used for the close button in forms.
+        /// </summary>
+        public Image CloseImage
+        {
+            get { return closeImage; }
+            set
+            {
+                closeImage = value;
+                FireChanged();
+            }
+        }
+
+        /// <summary>
+        /// The image used for the maximize button in forms.
+        /// </summary>
+        public Image MaximizeImage
+        {
+            get { return maximizeImage; }
+            set
+            {
+                maximizeImage = value;
+                FireChanged();
+            }
+        }
+
+        /// <summary>
+        /// The image used for the normalize button in forms.
+        /// </summary>
+        public Image NormalizeImage
+        {
+            get { return normalizeImage; }
+            set
+            {
+                normalizeImage = value;
+                FireChanged();
+            }
+        }
+
+        /// <summary>
+        /// The image used for the minimize button in forms.
+        /// </summary>
+        public Image MinimizeImage
+        {
+            get { return minimizeImage; }
+            set
+            {
+                minimizeImage = value;
+                FireChanged();
+            }
+        }
+
+        /// <summary>
         /// Event for a change of the LookAndFeel.
         /// This is fired whenever there is a change of an attribute of this LookAndFeel.
         /// </summary>
@@ -115,6 +171,10 @@ namespace Claw.UI
             tileImage = (Image)(Resources.ResourceManager.GetObject("Tile"));
             hoverColor = Color.FromArgb(255, 60, 60, 60);
             interactColor = Color.Black;
+            closeImage = (Image)(Resources.ResourceManager.GetObject("Close"));
+            maximizeImage = (Image)(Resources.ResourceManager.GetObject("Maximize"));
+            normalizeImage = (Image)(Resources.ResourceManager.GetObject("Normalize"));
+            minimizeImage = (Image)(Resources.ResourceManager.GetObject("Minimize"));
         }
 
         /// <summary>

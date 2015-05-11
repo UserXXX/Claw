@@ -16,20 +16,13 @@ namespace Claw.UI.Controls
     /// </summary>
     public class ClawForm : Form
     {
-        private readonly Color[] TransparentColors = {
-                                                         Color.Pink,
-                                                         Color.Violet,
-                                                         Color.LightGreen,
-                                                     };
+        private ClawFormPainter painter;
 
         private Image tileImage;
         private Image processedTileImage;
 
         private int maxScreenWidth = 0;
         private int maxScreenHeight = 0;
-
-        private const int EDGE_WIDTH = 20;
-        private const int EDGE_HEIGHT = 60;
 
         private const int RESIZE_BORDER = 4;
 
@@ -46,6 +39,11 @@ namespace Claw.UI.Controls
             BottomRight,
             Default,
         }
+
+        private ClawButton btClose;
+        private ClawButton btMaximize;
+        private ClawButton btNormalize;
+        private ClawButton btMinimize;
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
@@ -96,7 +94,15 @@ namespace Claw.UI.Controls
         public override Size MinimumSize
         {
             get { return base.MinimumSize; }
-            set { base.MinimumSize = new Size(Math.Max(value.Width, 2 * EDGE_WIDTH), Math.Max(value.Height, 2 * EDGE_HEIGHT)); }
+            set { base.MinimumSize = new Size(Math.Max(value.Width, 2 * painter.EdgeWidth), Math.Max(value.Height, 2 * painter.EdgeHeight)); }
+        }
+
+        /// <summary>
+        /// The processed tile image, prepared for rendering.
+        /// </summary>
+        public Image ProcessedTileImage
+        {
+            get { return processedTileImage; }
         }
 
         /// <summary>
@@ -104,6 +110,8 @@ namespace Claw.UI.Controls
         /// </summary>
         protected ClawForm()
         {
+            painter = new ClawFormPainter();
+
             // Create a dummy tile image
             tileImage = new Bitmap(100, 100, PixelFormat.Format32bppArgb);
             using (Graphics graph = Graphics.FromImage(tileImage))
@@ -123,18 +131,117 @@ namespace Claw.UI.Controls
                     maxScreenHeight = screen.WorkingArea.Height;
             }
 
-            MinimumSize = new Size(2 * EDGE_WIDTH, 2 * EDGE_HEIGHT);
+            MinimumSize = new Size(2 * painter.EdgeWidth, 2 * painter.EdgeHeight);
             MaximumSize = new Size(maxScreenWidth, maxScreenHeight);
 
             LookAndFeel lAndF = LookAndFeel.Instance;
             base.BackColor = lAndF.BackColor;
             base.ForeColor = lAndF.ForeColor;
             tileImage = lAndF.TileImage;
-            TransparencyKey = GetTransparentColor();
+            TransparencyKey = painter.GetTransparentColor(this);
             DoubleBuffered = true;
 
             ProcessTileImage();
             lAndF.Changed += LookChanged;
+
+            CreateFormButtons();
+        }
+
+        /// <summary>
+        /// Creates the buttons for form control, such as close, maximize, minimize etc.
+        /// </summary>
+        private void CreateFormButtons()
+        {
+            LookAndFeel lAndF = LookAndFeel.Instance;
+
+            btClose = ClawFormFactory.CreateButton(lAndF.CloseImage, ForeColor);
+            btClose.TabIndex = int.MaxValue;
+            btClose.Location = new Point(Width - 45, 10);
+            btClose.Click += btCloseClick;
+            Controls.Add(btClose);
+
+            btMaximize = ClawFormFactory.CreateButton(lAndF.MaximizeImage, ForeColor);
+            btMaximize.TabIndex = int.MaxValue - 1;
+            btMaximize.Location = new Point(Width - 70, 10);
+            btMaximize.Click += btMaximizeClick;
+            Controls.Add(btMaximize);
+
+            btNormalize = ClawFormFactory.CreateButton(lAndF.NormalizeImage, ForeColor);
+            btNormalize.TabIndex = int.MaxValue - 1;
+            btNormalize.Location = new Point(Width - 55, 10);
+            btNormalize.Visible = false;
+            btNormalize.Click += btNormalizeClick;
+            Controls.Add(btNormalize);
+
+            btMinimize = ClawFormFactory.CreateButton(lAndF.MinimizeImage, ForeColor);
+            btMinimize.TabIndex = int.MaxValue - 2;
+            btMinimize.Location = new Point(Width - 95, 10);
+            btMinimize.Click += btMinimizeClick;
+            Controls.Add(btMinimize);
+        }
+
+        /// <summary>
+        /// Called when the minimize button is clicked. Event handler method for Button.Click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event.</param>
+        void btMinimizeClick(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        /// <summary>
+        /// Called when the normalize button is clicked. Event handler method for Button.Click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event.</param>
+        void btNormalizeClick(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
+            Invalidate();
+        }
+
+        /// <summary>
+        /// Called when the maximize button is clicked. Event handler method for Button.Click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event.</param>
+        private void btMaximizeClick(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Maximized;
+            Invalidate();
+        }
+
+        /// <summary>
+        /// Called when the close button is clicked. Event handler method for Button.Click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event.</param>
+        private void btCloseClick(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            if (WindowState == FormWindowState.Maximized)
+            {
+                btClose.Location = new Point(Width - 30, 10);
+                btMaximize.Visible = false;
+                btNormalize.Location = new Point(Width - 55, 10);
+                btNormalize.Visible = true;
+                btMinimize.Location = new Point(Width - 80, 10);
+            }
+            else
+            {
+                btClose.Location = new Point(Width - 45, 10);
+                btMaximize.Location = new Point(Width - 70, 10);
+                btMaximize.Visible = true;
+                btNormalize.Visible = false;
+                btMinimize.Location = new Point(Width - 95, 10);
+            }
+
+            base.OnSizeChanged(e);
         }
 
         private void LookChanged(object sender, EventArgs e)
@@ -143,6 +250,9 @@ namespace Claw.UI.Controls
             base.BackColor = lAndF.BackColor;
             base.ForeColor = lAndF.ForeColor;
             ProcessTileImage();
+
+            ClawFormFactory.CreateImageForButton(btClose, lAndF.CloseImage, ForeColor);
+            ClawFormFactory.CreateImageForButton(btMaximize, lAndF.MaximizeImage, ForeColor);
         }
 
         private void ClawFormMouseMove(object sender, MouseEventArgs e)
@@ -153,7 +263,7 @@ namespace Claw.UI.Controls
             }
             else
             {
-                if (e.X > EDGE_WIDTH && e.X < Width - EDGE_WIDTH)
+                if (e.X > painter.EdgeWidth && e.X < Width - painter.EdgeHeight)
                 {
                     if (e.Y < RESIZE_BORDER)
                     {
@@ -168,7 +278,7 @@ namespace Claw.UI.Controls
                         return;
                     }
                 }
-                if (e.Y > EDGE_HEIGHT && e.Y < Height - EDGE_HEIGHT)
+                if (e.Y > painter.EdgeHeight && e.Y < Height - painter.EdgeHeight)
                 {
                     if (e.X < RESIZE_BORDER)
                     {
@@ -183,25 +293,25 @@ namespace Claw.UI.Controls
                         return;
                     }
                 }
-                if (e.X < EDGE_WIDTH && e.Y < EDGE_HEIGHT && e.Y >= EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * e.X && e.Y <= EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * e.X + RESIZE_BORDER)
+                if (e.X < painter.EdgeWidth && e.Y < painter.EdgeHeight && e.Y >= painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X && e.Y <= painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X + RESIZE_BORDER)
                 {
                     cursorLocation = CursorLocation.TopLeft;
                     Cursor = Cursors.SizeNWSE;
                     return;
                 }
-                if (e.X > Width - EDGE_WIDTH && e.Y < EDGE_HEIGHT && e.Y >= (EDGE_HEIGHT / EDGE_WIDTH) * e.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width && e.Y <= (EDGE_HEIGHT / EDGE_WIDTH) * e.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width + RESIZE_BORDER)
+                if (e.X > Width - painter.EdgeWidth && e.Y < painter.EdgeHeight && e.Y >= (painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width && e.Y <= (painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width + RESIZE_BORDER)
                 {
                     cursorLocation = CursorLocation.TopRight;
                     Cursor = Cursors.SizeNESW;
                     return;
                 }
-                if (e.X < EDGE_WIDTH && e.Y > Height - EDGE_HEIGHT && e.Y <= Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * e.X) && e.Y >= Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * e.X) - RESIZE_BORDER)
+                if (e.X < painter.EdgeWidth && e.Y > Height - painter.EdgeHeight && e.Y <= Height - (painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X) && e.Y >= Height - (painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * e.X) - RESIZE_BORDER)
                 {
                     cursorLocation = CursorLocation.BottomLeft;
                     Cursor = Cursors.SizeNESW;
                     return;
                 }
-                if (e.X > Width - EDGE_WIDTH && e.Y > Height - EDGE_HEIGHT && e.Y <= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * e.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width) && e.Y >= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * e.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width) - RESIZE_BORDER)
+                if (e.X > Width - painter.EdgeWidth && e.Y > Height - painter.EdgeHeight && e.Y <= Height - ((painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width) && e.Y >= Height - ((painter.EdgeHeight / painter.EdgeWidth) * e.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width) - RESIZE_BORDER)
                 {
                     cursorLocation = CursorLocation.BottomRight;
                     Cursor = Cursors.SizeNWSE;
@@ -299,10 +409,10 @@ namespace Claw.UI.Controls
         /// <returns>Whether the form is visible at <paramref name="point"/></returns>
         private bool IsFormVisibleAt(Point point)
         {
-            return (point.X > EDGE_WIDTH && point.X < Width - EDGE_WIDTH) ||
-                (point.Y > EDGE_HEIGHT && point.Y < Height - EDGE_HEIGHT) ||
-                (point.X <= EDGE_WIDTH && point.Y > EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * point.X && point.Y < Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * point.X)) ||
-                (point.X >= Width - EDGE_WIDTH && point.Y > (EDGE_HEIGHT / EDGE_WIDTH) * point.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width && point.Y < Height - ((EDGE_HEIGHT / EDGE_WIDTH) * point.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width));
+            return (point.X > painter.EdgeWidth && point.X < Width - painter.EdgeWidth) ||
+                (point.Y > painter.EdgeHeight && point.Y < Height - painter.EdgeHeight) ||
+                (point.X <= painter.EdgeWidth && point.Y > painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * point.X && point.Y < Height - (painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * point.X)) ||
+                (point.X >= Width - painter.EdgeWidth && point.Y > (painter.EdgeHeight / painter.EdgeWidth) * point.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width && point.Y < Height - ((painter.EdgeHeight / painter.EdgeWidth) * point.X + painter.EdgeHeight - (painter.EdgeHeight / painter.EdgeWidth) * Width));
         }
 
         /// <summary>
@@ -340,93 +450,7 @@ namespace Claw.UI.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            using (var background = new Bitmap(Width, Height, PixelFormat.Format32bppArgb))
-            {
-                Color transparentColor = GetTransparentColor();
-
-                using (Graphics graph = Graphics.FromImage(background))
-                {
-                    graph.Clear(BackColor);
-
-                    Rectangle srcRectangle = new Rectangle((processedTileImage.Width - Width) / 2, (processedTileImage.Height - Height) / 2, Width, Height);
-                    Rectangle destRectangle = new Rectangle(0, 0, Width, Height);
-                    graph.DrawImage(processedTileImage, destRectangle, srcRectangle, GraphicsUnit.Pixel);
-
-                    Rectangle gradientRectangle = new Rectangle(0, 0, Width, Height);
-                    Color gradientSrcColor = Color.FromArgb(50, BackColor);
-                    // 191 is about 3/4 of 255.
-                    Color gradientDestColor = Color.FromArgb(191, BackColor);
-
-                    using (var gradientBrush = new LinearGradientBrush(gradientRectangle, gradientSrcColor, gradientDestColor, LinearGradientMode.Horizontal))
-                    {
-                        graph.FillRectangle(gradientBrush, gradientRectangle);
-                    }
-
-                    // Draw the edges
-                    using (var brush = new SolidBrush(transparentColor))
-                    {
-                        graph.FillPolygon(brush, new PointF[] {
-                            new PointF(0, 0),
-                            new PointF(EDGE_WIDTH, 0),
-                            new PointF(0, EDGE_HEIGHT),
-                        });
-                        graph.FillPolygon(brush, new PointF[] {
-                            new PointF(Width, 0),
-                            new PointF(Width - EDGE_WIDTH, 0),
-                            new PointF(Width, EDGE_HEIGHT),
-                        });
-                        graph.FillPolygon(brush, new PointF[] {
-                            new PointF(0, Height),
-                            new PointF(EDGE_WIDTH, Height),
-                            new PointF(0, Height - EDGE_HEIGHT),
-                        });
-                        graph.FillPolygon(brush, new PointF[] {
-                            new PointF(Width, Height),
-                            new PointF(Width - EDGE_WIDTH, Height),
-                            new PointF(Width, Height - EDGE_HEIGHT),
-                        });
-                    }
-
-                    // Draw the border
-                    int borderWidth = 3;
-                    using (var pen = new Pen(ForeColor, borderWidth))
-                    {
-                        graph.DrawPolygon(pen, new PointF[] {
-                            new PointF(EDGE_WIDTH, 0),
-                            new PointF(Width - EDGE_WIDTH, 0),
-                            new PointF(Width - 1, EDGE_HEIGHT),
-                            new PointF(Width - 1, Height - EDGE_HEIGHT),
-                            new PointF(Width - EDGE_WIDTH, Height- 1),
-                            new PointF(EDGE_WIDTH, Height - 1),
-                            new PointF(0, Height - EDGE_HEIGHT),
-                            new PointF(0, EDGE_HEIGHT),
-                        });
-                    }
-                }
-
-                // Set the transparency key, so everything drawn in that color will be completely transparent.
-                TransparencyKey = transparentColor;
-                e.Graphics.DrawImageUnscaled(background, new Point(0, 0));
-            }
-        }
-
-        /// <summary>
-        /// Gets the best transparent color based on the fore and back colors.
-        /// </summary>
-        /// <returns>The selected color.</returns>
-        private Color GetTransparentColor()
-        {
-            var ret = Color.Pink;
-            var found = false;
-            for (var i = 0; i < TransparentColors.Length && !found; i++)
-            {
-                if (TransparentColors[i] != ForeColor && TransparentColors[i] != BackColor)
-                {
-                    found = true;
-                    ret = TransparentColors[i];
-                }
-            }
-            return ret;
+            painter.Paint(this, e.Graphics);
         }
     }
 }
