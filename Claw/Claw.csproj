@@ -50,6 +50,10 @@
     </Compile>
     <Compile Include="UI\Controls\ClawFormFactory.cs" />
     <Compile Include="UI\Controls\ClawFormPainter.cs" />
+    <Compile Include="UI\Controls\ClawListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\ClawListViewItem.cs" />
     <Compile Include="UI\Helper\BitmapHelper.cs" />
     <Compile Include="UI\LookAndFeel.cs" />
     <Compile Include="UI\MainForm.cs">
