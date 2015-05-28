@@ -1,0 +1,30 @@
+﻿<!-- Resource dictionary for global objects regarding the look and feel of the application. -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Basic colors used by the application. -->
+    <Color x:Key="BackColor" R="30" G="30" B="30" A="255"/>
+    <Color x:Key="MidColor" R="255" G="0" B="0" A="255"/>
+    <Color x:Key="ForeColor" R="255" G="255" B="255" A="255"/>
+
+    <Color x:Key="InteractColor" R="0" G="0" B="0" A="255"/>
+    <Color x:Key="HoverColor" R="60" G="60" B="60" A="255"/>
+    <Color x:Key="DisabledMidColor" R="90" G="90" B="90" A="255"/>
+
+    <!-- Brushes for the basic colors. -->
+    <SolidColorBrush x:Key="BackBrush" Color="{DynamicResource BackColor}"/>
+    <SolidColorBrush x:Key="MidBrush" Color="{DynamicResource MidColor}"/>
+    <SolidColorBrush x:Key="ForeBrush" Color="{DynamicResource ForeColor}"/>
+    <SolidColorBrush x:Key="InteractBrush" Color="{DynamicResource InteractColor}"/>
+    <SolidColorBrush x:Key="HoverBrush" Color="{DynamicResource HoverColor}"/>
+    <SolidColorBrush x:Key="DisabledMidBrush" Color="{DynamicResource DisabledMidColor}"/>
+
+    <!-- Images for the ClawWindow. -->
+    <BitmapImage x:Key="TileImage" UriSource="../../Resources/Tile.png"/>
+    <BitmapImage x:Key="WETopLeftImage" UriSource="../../Resources/Window Edge Top Left.png"/>
+    <BitmapImage x:Key="WETopRightImage" UriSource="../../Resources/Window Edge Top Right.png"/>
+    <BitmapImage x:Key="WEBotLeftImage" UriSource="../../Resources/Window Edge Bottom Left.png"/>
+    <BitmapImage x:Key="WEBotRightImage" UriSource="../../Resources/Window Edge Bottom Right.png"/>
+    <BitmapImage x:Key="SolidImage" UriSource="../../Resources/Solid.png"/>
+
+</ResourceDictionary>
