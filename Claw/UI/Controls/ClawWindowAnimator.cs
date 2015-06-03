@@ -77,11 +77,24 @@ namespace Claw.UI.Controls
         private void OnWindowShown()
         {
             Storyboard storyboard = CreateOpenWindowAnimation();
+            storyboard.Completed += OnOpenCompleted;
             storyboard.Freeze();
+            window.Opening = true;
             storyboard.Begin(window, true);
 
             // Start the highlight animation.
             RestartHighlightAnimation(null, null);
+        }
+
+        /// <summary>
+        /// Called when the window completed it's opening.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnOpenCompleted(object sender, EventArgs e)
+        {
+            window.Opening = false;
+            window.InvalidateVisual();
         }
 
         /// <summary>
@@ -105,8 +118,10 @@ namespace Claw.UI.Controls
             const double BLEND_IN_DURATION = 0.25;
             const double FINISH_DURATION = 0.1;
 
-            double[] froms = { 0, window.Width - 1, window.Left + window.Width / 2, window.Left - 1 };
-            double[] tos = { window.Width - 1, window.Width, window.Left - 1, window.Left };
+            double width = window.Width;
+
+            double[] froms = { 0, width - 1, window.Left + width / 2, window.Left - 1 };
+            double[] tos = { width - 1, width, window.Left - 1, window.Left };
             Duration[] durations = {
                 new Duration(TimeSpan.FromSeconds(BLEND_IN_DURATION)),
                 new Duration(TimeSpan.FromSeconds(FINISH_DURATION)),
@@ -151,10 +166,12 @@ namespace Claw.UI.Controls
         {
             Storyboard storyboard = new Storyboard();
 
+            double width = window.Opening ? window.Width : window.ActualWidth;
+
             DoubleAnimation animation = new DoubleAnimation();
             animation.From = from;
-            animation.To = window.Width;
-            animation.Duration = new Duration(TimeSpan.FromSeconds((window.Width - from) / 60));
+            animation.To = width;
+            animation.Duration = new Duration(TimeSpan.FromSeconds((width - from) / 60));
             animation.RepeatBehavior = RepeatBehavior.Forever;
             Storyboard.SetTarget(animation, window);
             Storyboard.SetTargetProperty(animation, new PropertyPath(ClawWindow.HighlightPositionProperty));

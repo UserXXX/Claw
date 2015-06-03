@@ -21,6 +21,8 @@ namespace Claw.UI.Controls
         private ClawWindowRenderer renderer;
         private ClawWindowAnimator animator;
 
+        private bool opening = false;
+
         private const int RESIZE_BORDER = 4;
 
         private CursorLocation cursorLocation = CursorLocation.Default;
@@ -86,6 +88,15 @@ namespace Claw.UI.Controls
                 SetValue(HighlightWidthProperty, value);
                 InvalidateVisual();
             }
+        }
+
+        /// <summary>
+        /// Specifies whether the window is currently opening.
+        /// </summary>
+        public bool Opening
+        {
+            get { return opening; }
+            set { opening = value; }
         }
 
         /// <summary>
@@ -180,7 +191,8 @@ namespace Claw.UI.Controls
                 }
                 else
                 {
-                    if (position.X > EDGE_WIDTH && position.X < Width - EDGE_HEIGHT)
+                    double width = Opening ? Width : ActualWidth;
+                    if (position.X > EDGE_WIDTH && position.X < width - EDGE_HEIGHT)
                     {
                         if (position.Y < RESIZE_BORDER)
                         {
@@ -203,7 +215,7 @@ namespace Claw.UI.Controls
                             Cursor = Cursors.SizeWE;
                             return;
                         }
-                        if (position.X > Width - (RESIZE_BORDER + 1))
+                        if (position.X > width - (RESIZE_BORDER + 1))
                         {
                             cursorLocation = CursorLocation.Right;
                             Cursor = Cursors.SizeWE;
@@ -216,7 +228,7 @@ namespace Claw.UI.Controls
                         Cursor = Cursors.SizeNWSE;
                         return;
                     }
-                    if (position.X > Width - EDGE_WIDTH && position.Y < EDGE_HEIGHT && position.Y >= (EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width && position.Y <= (EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width + RESIZE_BORDER)
+                    if (position.X > width - EDGE_WIDTH && position.Y < EDGE_HEIGHT && position.Y >= (EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * width && position.Y <= (EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width + RESIZE_BORDER)
                     {
                         cursorLocation = CursorLocation.TopRight;
                         Cursor = Cursors.SizeNESW;
@@ -228,7 +240,7 @@ namespace Claw.UI.Controls
                         Cursor = Cursors.SizeNESW;
                         return;
                     }
-                    if (position.X > Width - EDGE_WIDTH && position.Y > Height - EDGE_HEIGHT && position.Y <= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width) && position.Y >= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width) - RESIZE_BORDER)
+                    if (position.X > width - EDGE_WIDTH && position.Y > Height - EDGE_HEIGHT && position.Y <= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * width) && position.Y >= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width) - RESIZE_BORDER)
                     {
                         cursorLocation = CursorLocation.BottomRight;
                         Cursor = Cursors.SizeNWSE;

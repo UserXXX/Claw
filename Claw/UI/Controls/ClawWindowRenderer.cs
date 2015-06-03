@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -172,7 +173,7 @@ namespace Claw.UI.Controls
         /// </summary>
         private void RecreateWindowMask()
         {
-            double width = window.Width;
+            double width = window.Opening ? window.Width : window.ActualWidth;
             double height = window.Height;
             double left = (maxScreenWidth - width) / 2;
             double top = (maxScreenHeight - height) / 2;
@@ -215,7 +216,7 @@ namespace Claw.UI.Controls
         {
             unsafe
             {
-                double width = window.Width;
+                double width = window.Opening ? window.Width : window.ActualWidth;
                 double height = window.Height;
 
                 drawingContext.PushOpacityMask(windowMaskBrush);
@@ -249,7 +250,7 @@ namespace Claw.UI.Controls
         /// <param name="drawingContext">Drawing context.</param>
         private unsafe void RenderBackground(DrawingContext drawingContext)
         {
-            double width = window.Width;
+            double width = window.Opening ? window.Width : window.ActualWidth;
             double height = window.Height;
 
             Rect winRect = new Rect(0, 0, width, height);
@@ -272,8 +273,10 @@ namespace Claw.UI.Controls
         /// <param name="drawingContext">Drawing context.</param>
         private unsafe void DrawHighlight(Rect screenRect, DrawingContext drawingContext)
         {
+            double width = window.Opening ? window.Width : window.ActualWidth;
+
             // Only in blend
-            /*double screenStart = ((maxScreenWidth - window.Width) / 2 + window.HighlightPosition);
+            /*double screenStart = ((maxScreenWidth - width) / 2 + window.HighlightPosition);
             double screenEnd = screenStart + window.HighlightWidth;
             double screenBlendEnd = screenEnd + 1;
 
@@ -288,7 +291,7 @@ namespace Claw.UI.Controls
             drawingContext.DrawRectangle(brush, null, screenRect);*/
 
             // Both directions
-            double screenStart = ((maxScreenWidth - window.Width) / 2 + window.HighlightPosition);
+            double screenStart = ((maxScreenWidth - width) / 2 + window.HighlightPosition);
             double screenMid = screenStart + window.HighlightWidth / 2;
             double screenEnd = screenMid + window.HighlightWidth / 2;
 
