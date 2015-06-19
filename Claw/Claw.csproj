@@ -59,6 +59,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Native\User32.cs" />
+    <Compile Include="Native\Windows.cs" />
     <Compile Include="UI\Controls\ClawWindow.cs" />
     <Compile Include="UI\Controls\ClawWindowAnimator.cs" />
     <Compile Include="UI\Controls\ClawWindowRenderer.cs" />
@@ -119,6 +121,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Solid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Maximize.png" />
+    <Resource Include="Resources\Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Normalize.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

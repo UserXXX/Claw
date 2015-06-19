@@ -27,4 +27,63 @@
     <BitmapImage x:Key="WEBotRightImage" UriSource="../../Resources/Window Edge Bottom Right.png"/>
     <BitmapImage x:Key="SolidImage" UriSource="../../Resources/Solid.png"/>
 
+    <DrawingImage x:Key="CloseImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="{DynamicResource MidBrush}">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="0,0,20,20"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup.OpacityMask>
+                    <ImageBrush ImageSource="../../Resources/Close.png"/>
+                </DrawingGroup.OpacityMask>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MaximizeImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="{DynamicResource MidBrush}">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="0,0,20,20"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup.OpacityMask>
+                    <ImageBrush ImageSource="../../Resources/Maximize.png"/>
+                </DrawingGroup.OpacityMask>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MinimizeImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="{DynamicResource MidBrush}">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="0,0,20,20"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup.OpacityMask>
+                    <ImageBrush ImageSource="../../Resources/Minimize.png"/>
+                </DrawingGroup.OpacityMask>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="NormalizeImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="{DynamicResource MidBrush}">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="0,0,20,20"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup.OpacityMask>
+                    <ImageBrush ImageSource="../../Resources/Normalize.png"/>
+                </DrawingGroup.OpacityMask>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
 </ResourceDictionary>

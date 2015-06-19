@@ -23,5 +23,10 @@ namespace Claw.UI
         {
             InitializeComponent();
         }
+
+        protected override Panel GetBaseComponent()
+        {
+            return baseGrid;
+        }
     }
 }

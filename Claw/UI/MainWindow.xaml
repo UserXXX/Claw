@@ -4,9 +4,6 @@
         xmlns:base="clr-namespace:Claw.UI.Controls"
         Title="MainWindow" Height="600" Width="1000"
         AllowsTransparency="True" Background="Transparent" ResizeMode="CanResize" WindowStyle="None" ShowInTaskbar="True">
-    <Grid>
-        <Button Name="button1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 100, 0, 0" Width="75" Height="20">Test 1</Button>
-        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 130, 0, 0" Width="75" Height="20">Test 2</Button>
-        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 160, 0, 0" Width="75" Height="20" IsEnabled="False">Test 3</Button>
+    <Grid x:Name="baseGrid">
     </Grid>
 </base:ClawWindow>

@@ -169,14 +169,58 @@ namespace Claw.UI.Controls
         }
 
         /// <summary>
+        /// Gets the rectangle describing the windows size in a normalized location.
+        /// </summary>
+        /// <returns>The rectangle.</returns>
+        private Rect GetWindowShape()
+        {
+            double width = window.ActualWidth;
+            double height = window.ActualHeight;
+            if (window.Opening)
+            {
+                width = window.Width;
+                height = window.Height;
+            }
+
+            if (window.WindowState == WindowState.Maximized)
+            {
+                width -= 20;
+                height -= 20;
+            }
+            double left = Math.Max(0, (maxScreenWidth - width) / 2);
+            double top = Math.Max(0, (maxScreenHeight - height) / 2);
+            return new Rect(left, top, width, height);
+        }
+
+        /// <summary>
+        /// Gets the rectangle describing the windows size and virtual location.
+        /// </summary>
+        /// <returns>The rectangle.</returns>
+        private Rect GetWindowRect()
+        {
+            double width = window.ActualWidth;
+            double height = window.ActualHeight;
+            double left = 0;
+            double top = 0;
+            if (window.Opening)
+            {
+                width = window.Width;
+                height = window.Height;
+            }
+
+            return new Rect(left, top, width, height);
+        }
+
+        /// <summary>
         /// Recreates the window mask.
         /// </summary>
         private void RecreateWindowMask()
         {
-            double width = window.Opening ? window.Width : window.ActualWidth;
-            double height = window.Height;
-            double left = (maxScreenWidth - width) / 2;
-            double top = (maxScreenHeight - height) / 2;
+            Rect windowRect = GetWindowShape();
+            double width = windowRect.Width;
+            double height = windowRect.Height;
+            double left = windowRect.X;
+            double top = windowRect.Y;
 
             // Add top left and bottom right marker so the final image will have the size of the screen.
             Rect[] rects = new Rect[] {
@@ -187,7 +231,7 @@ namespace Claw.UI.Controls
                 new Rect(left, top + height - 60, 20, 60),
                 new Rect(left + width - 20, top + height - 60, 20, 60),
                 new Rect(left + 20, top, Math.Max(0, width - 40), height),
-                new Rect(left, top + 60, width, height - 120),
+                new Rect(left, top + 60, width, Math.Max(0, height - 120)),
             };
 
             var drawings = new DrawingGroup();
@@ -212,36 +256,58 @@ namespace Claw.UI.Controls
         /// Renders the ClawWindow.
         /// </summary>
         /// <param name="drawingContext">Drawing context.</param>
-        internal void Render(DrawingContext drawingContext)
+        internal unsafe void Render(DrawingContext drawingContext)
         {
-            unsafe
+            Rect windowRect = GetWindowRect();
+            double width = windowRect.Width;
+            double height = windowRect.Height;
+            double left = windowRect.X;
+            double top = windowRect.Y;
+
+            WindowState state = window.WindowState;
+
+            if (state != WindowState.Maximized)
             {
-                double width = window.Opening ? window.Width : window.ActualWidth;
-                double height = window.Height;
-
                 drawingContext.PushOpacityMask(windowMaskBrush);
-
-                RenderBackground(drawingContext);
-
-                drawingContext.Pop();
-
-                Point[] points = {
-                    new Point(20, 1),
-                    new Point(width - 20, 1),
-                    new Point(width - 1, 60),
-                    new Point(width - 1, height - 60),
-                    new Point(width - 20, height - 1),
-                    new Point(20, height - 1),
-                    new Point(1, height - 60),
-                    new Point(1, 60),
-                };
-
-                for (var i = 0; i < points.Length - 1; i++)
-                {
-                    drawingContext.DrawLine(borderPen, points[i], points[i + 1]);
-                }
-                drawingContext.DrawLine(borderPen, points[points.Length - 1], points[0]);
             }
+
+            RenderBackground(drawingContext);
+
+            if (state != WindowState.Maximized)
+            {
+                drawingContext.Pop();
+            }
+
+            Point[] points = null;
+
+            if (state != WindowState.Maximized)
+            {
+                points = new Point[] {
+                    new Point(left + 20, top + 1),
+                    new Point(left + width - 20, top + 1),
+                    new Point(left + width - 1, top + 60),
+                    new Point(left + width - 1, top + height - 60),
+                    new Point(left + width - 20, top + height - 1),
+                    new Point(left + 20, top + height - 1),
+                    new Point(left + 1, top + height - 60),
+                    new Point(left + 1, top + 60),
+                };
+            }
+            else
+            {
+                points = new Point[] {
+                    new Point(left + 1, top + 1),
+                    new Point(left + width - 1, top + 1),
+                    new Point(left + width - 1, top + height - 1),
+                    new Point(left + 1, top + height - 1),
+                };
+            }
+
+            for (var i = 0; i < points.Length - 1; i++)
+            {
+                drawingContext.DrawLine(borderPen, points[i], points[i + 1]);
+            }
+            drawingContext.DrawLine(borderPen, points[points.Length - 1], points[0]);
         }
 
         /// <summary>
@@ -250,10 +316,10 @@ namespace Claw.UI.Controls
         /// <param name="drawingContext">Drawing context.</param>
         private unsafe void RenderBackground(DrawingContext drawingContext)
         {
-            double width = window.Opening ? window.Width : window.ActualWidth;
-            double height = window.Height;
+            Rect winRect = GetWindowRect();
+            double width = winRect.Width;
+            double height = winRect.Height;
 
-            Rect winRect = new Rect(0, 0, width, height);
             Rect screenRect = new Rect(-(maxScreenWidth - width) / 2, -(maxScreenHeight - height) / 2, maxScreenWidth, maxScreenHeight);
 
             drawingContext.DrawRectangle(backColorBrush, null, winRect);
@@ -273,24 +339,9 @@ namespace Claw.UI.Controls
         /// <param name="drawingContext">Drawing context.</param>
         private unsafe void DrawHighlight(Rect screenRect, DrawingContext drawingContext)
         {
-            double width = window.Opening ? window.Width : window.ActualWidth;
+            Rect windowRect = GetWindowRect();
+            double width = windowRect.Width;
 
-            // Only in blend
-            /*double screenStart = ((maxScreenWidth - width) / 2 + window.HighlightPosition);
-            double screenEnd = screenStart + window.HighlightWidth;
-            double screenBlendEnd = screenEnd + 1;
-
-            var brush = new LinearGradientBrush(new GradientStopCollection(new GradientStop[] {
-                new GradientStop(transparentForeColor, 0.0),
-                new GradientStop(transparentForeColor, screenStart / maxScreenWidth),
-                new GradientStop(LookAndFeel.Instance.ForeColor, screenEnd / maxScreenWidth),
-                new GradientStop(transparentForeColor, screenBlendEnd / maxScreenWidth),
-                new GradientStop(transparentForeColor, 1.0),
-            }), 0);
-
-            drawingContext.DrawRectangle(brush, null, screenRect);*/
-
-            // Both directions
             double screenStart = ((maxScreenWidth - width) / 2 + window.HighlightPosition);
             double screenMid = screenStart + window.HighlightWidth / 2;
             double screenEnd = screenMid + window.HighlightWidth / 2;
