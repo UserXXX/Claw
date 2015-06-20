@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:clr="clr-namespace:System;assembly=mscorlib">
+    <!-- Window resources. -->
+    <clr:String x:Key="CloseText">Close</clr:String>
+    <clr:String x:Key="MaximizeText">Maximize</clr:String>
+    <clr:String x:Key="NormalizeText">Normalize</clr:String>
+    <clr:String x:Key="MinimizeText">Minimize</clr:String>
+
+    <!-- Editor panel. -->
+    <clr:String x:Key="IconsText">Icons</clr:String>
+    <clr:String x:Key="CommandsText">Commands</clr:String>
+    <clr:String x:Key="AssignText">Assignments</clr:String>
+</ResourceDictionary>

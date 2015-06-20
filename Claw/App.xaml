@@ -5,8 +5,15 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- Localization resources. -->
+                <ResourceDictionary Source="UI/Controls/Localization.xaml"/>
+                
+                <!-- Look and feel resources. -->
                 <ResourceDictionary Source="UI/Controls/LookAndFeel.xaml"/>
                 <ResourceDictionary Source="UI/Controls/Button.xaml"/>
+                <ResourceDictionary Source="UI/Controls/ToggleButton.xaml"/>
+                <ResourceDictionary Source="UI/Controls/ListView.xaml"/>
+                <ResourceDictionary Source="UI/Controls/ListViewItem.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

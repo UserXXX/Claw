@@ -138,23 +138,23 @@ namespace Claw.UI.Controls
         {
             Panel baseComponent = GetBaseComponent();
 
-            btClose = CreateButton("CloseImage");
+            btClose = CreateButton("CloseImage", "CloseText");
             btClose.Margin = new Thickness(10, 10, 25, 10);
             btClose.Click += OnCloseClick;
             baseComponent.Children.Add(btClose);
 
-            btMaximize = CreateButton("MaximizeImage");
+            btMaximize = CreateButton("MaximizeImage", "MaximizeText");
             btMaximize.Margin = new Thickness(10, 10, 50, 10);
             btMaximize.Click += OnMaximizeClick;
             baseComponent.Children.Add(btMaximize);
 
-            btNormalize = CreateButton("NormalizeImage");
+            btNormalize = CreateButton("NormalizeImage", "NormalizeText");
             btNormalize.Margin = new Thickness(10, 10, 35, 10);
             btNormalize.Visibility = Visibility.Hidden;
             btNormalize.Click += OnNormalizeClick;
             baseComponent.Children.Add(btNormalize);
 
-            btMinimize = CreateButton("MinimizeImage");
+            btMinimize = CreateButton("MinimizeImage", "MinimizeText");
             btMinimize.Margin = new Thickness(10, 10, 75, 10);
             btMinimize.Click += OnMinimizeClick;
             baseComponent.Children.Add(btMinimize);
@@ -164,17 +164,26 @@ namespace Claw.UI.Controls
         /// Creates a button.
         /// </summary>
         /// <param name="imageSource">Image to use.</param>
+        /// <param name="toolTipReference">Reference where to find the ToolTip resource.</param>
         /// <returns>The created button.</returns>
-        private Button CreateButton(string imageSource)
+        private Button CreateButton(string imageSource, string toolTipReference)
         {
             var button = new Button();
             button.HorizontalAlignment = HorizontalAlignment.Right;
             button.VerticalAlignment = VerticalAlignment.Top;
             button.Width = 20;
             button.Height = 20;
-            Image closeImg = new Image();
-            closeImg.SetResourceReference(Image.SourceProperty, imageSource);
-            button.Content = closeImg;
+            
+            var img = new Image();
+            img.SetResourceReference(Image.SourceProperty, imageSource);
+            button.Content = img;
+            
+            var toolTipText = new TextBlock();
+            toolTipText.SetResourceReference(TextBlock.TextProperty, toolTipReference);
+            var toolTip = new ToolTip();
+            toolTip.Content = toolTipText;
+            button.ToolTip = toolTip;
+
             return button;
         }
 
