@@ -9,6 +9,16 @@
 
     <!-- Editor panel. -->
     <clr:String x:Key="IconsText">Icons</clr:String>
+    <clr:String x:Key="IconsToolTipText">Switches to the icons view, that allows to im-/and export icons</clr:String>
     <clr:String x:Key="CommandsText">Commands</clr:String>
+    <clr:String x:Key="CommandsToolTipText">Switches to the commands view, that allows to create commands</clr:String>
     <clr:String x:Key="AssignText">Assignments</clr:String>
+    <clr:String x:Key="AssignToolTipText">Switches to the assignments view, that allows to assign commands to device keys</clr:String>
+
+    <!-- Icons panel. -->
+    <clr:String x:Key="AddIconToolTipText">Add icon from file</clr:String>
+    <clr:String x:Key="RemoveIconToolTipText">Remove the selected icon</clr:String>
+    <clr:String x:Key="ExtractIconToolTipText">Extract the selected icon and save it to a file</clr:String>
+    <clr:String x:Key="ImportIconFromDBToolTipText">Import an icon from the database</clr:String>
+    <clr:String x:Key="ExportIconToDBToolTipText">Export the selected icon into the database</clr:String>
 </ResourceDictionary>

@@ -4,6 +4,7 @@
         xmlns:base="clr-namespace:Claw.UI.Controls"
         xmlns:panels="clr-namespace:Claw.UI.Panels"
         Title="Claw" Height="600" Width="1000"
+        MinHeight="600" MinWidth="1000"
         AllowsTransparency="True" Background="Transparent" ResizeMode="CanResize" WindowStyle="None" ShowInTaskbar="True">
     <Grid x:Name="baseGrid">
         <Grid x:Name="pCentral"  Margin="0,40,0,60">

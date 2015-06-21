@@ -17,26 +17,41 @@
         </ListView>
 
         <Button x:Name="btAdd" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,5,5">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource AddIconToolTipText}"/>
+            </Button.ToolTip>
             <!--TODO: Create icon.-->
             <Image />
         </Button>
 
         <Button x:Name="btRemove" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,40,5,5">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource RemoveIconToolTipText}"/>
+            </Button.ToolTip>
             <!--TODO: Create icon.-->
             <Image />
         </Button>
 
         <Button x:Name="btExtract" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,75,5,5">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource ExtractIconToolTipText}"/>
+            </Button.ToolTip>
             <!--TODO: Create icon.-->
             <Image />
         </Button>
 
         <Button x:Name="btImportFromDB" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,110,5,5">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource ImportIconFromDBToolTipText}"/>
+            </Button.ToolTip>
             <!--TODO: Create icon.-->
             <Image />
         </Button>
 
         <Button x:Name="btExportToDB" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,145,5,5">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource ExportIconToDBToolTipText}"/>
+            </Button.ToolTip>
             <!--TODO: Create icon.-->
             <Image />
         </Button>
