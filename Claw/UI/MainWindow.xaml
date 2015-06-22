@@ -5,8 +5,15 @@
         xmlns:panels="clr-namespace:Claw.UI.Panels"
         Title="Claw" Height="600" Width="1000"
         MinHeight="600" MinWidth="1000"
-        AllowsTransparency="True" Background="Transparent" ResizeMode="CanResize" WindowStyle="None" ShowInTaskbar="True">
+        AllowsTransparency="True" Background="Transparent" ResizeMode="CanResize" WindowStyle="None" ShowInTaskbar="True"
+        StateChanged="OnStateChanged">
     <Grid x:Name="baseGrid">
+        <Button x:Name="btOptions" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,10,100,10">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource OptionsText}"/>
+            </Button.ToolTip>
+        </Button>
+        
         <Grid x:Name="pCentral"  Margin="0,40,0,60">
             <panels:EditorPanel/>
         </Grid>

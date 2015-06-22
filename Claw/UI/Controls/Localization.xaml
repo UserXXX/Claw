@@ -6,6 +6,7 @@
     <clr:String x:Key="MaximizeText">Maximize</clr:String>
     <clr:String x:Key="NormalizeText">Normalize</clr:String>
     <clr:String x:Key="MinimizeText">Minimize</clr:String>
+    <clr:String x:Key="OptionsText">Options</clr:String>
 
     <!-- Editor panel. -->
     <clr:String x:Key="IconsText">Icons</clr:String>

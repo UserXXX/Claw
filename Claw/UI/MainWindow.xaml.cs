@@ -28,5 +28,22 @@ namespace Claw.UI
         {
             return baseGrid;
         }
+
+        /// <summary>
+        /// Handles the StateChanged event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnStateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                btOptions.Margin = new Thickness(10, 10, 85, 10);
+            }
+            else
+            {
+                btOptions.Margin = new Thickness(10, 10, 100, 10);
+            }
+        }
     }
 }
