@@ -233,6 +233,17 @@ namespace Claw.UI.Controls
                 mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
                 mmi.ptMaxSize.x = Math.Abs(rcWorkArea.right - rcWorkArea.left);
                 mmi.ptMaxSize.y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
+                // Need to set the minimum size to make resizing work properly.
+                if (Opening)
+                {
+                    mmi.ptMinTrackSize.x = 0;
+                    mmi.ptMinTrackSize.y = 0;
+                }
+                else
+                {
+                    mmi.ptMinTrackSize.x = (int)MinWidth;
+                    mmi.ptMinTrackSize.y = (int)MinHeight;
+                }
             }
 
             Marshal.StructureToPtr(mmi, lParam, true);
