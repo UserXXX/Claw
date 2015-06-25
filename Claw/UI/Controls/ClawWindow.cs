@@ -119,6 +119,7 @@ namespace Claw.UI.Controls
             LookAndFeel.Instance.Changed += LookChanged;
 
             Initialized += OnInitialized;
+            StateChanged += OnStateChanged;
         }
 
         /// <summary>
@@ -256,11 +257,6 @@ namespace Claw.UI.Controls
         {
             WindowState = WindowState.Normal;
             InvalidateVisual();
-
-            btClose.Margin = new Thickness(10, 10, 25, 10);
-            btMaximize.Visibility = Visibility.Visible;
-            btNormalize.Visibility = Visibility.Hidden;
-            btMinimize.Margin = new Thickness(10, 10, 75, 10);
         }
 
         /// <summary>
@@ -272,11 +268,6 @@ namespace Claw.UI.Controls
         {
             WindowState = WindowState.Maximized;
             InvalidateVisual();
-
-            btClose.Margin = new Thickness(10);
-            btMaximize.Visibility = Visibility.Hidden;
-            btNormalize.Visibility = Visibility.Visible;
-            btMinimize.Margin = new Thickness(10, 10, 60, 10);
         }
 
         /// <summary>
@@ -287,6 +278,29 @@ namespace Claw.UI.Controls
         private void OnCloseClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        /// <summary>
+        /// Handles the StateChanged event for this ClawWindow.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnStateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                btClose.Margin = new Thickness(10);
+                btMaximize.Visibility = Visibility.Hidden;
+                btNormalize.Visibility = Visibility.Visible;
+                btMinimize.Margin = new Thickness(10, 10, 60, 10);
+            }
+            else
+            {
+                btClose.Margin = new Thickness(10, 10, 25, 10);
+                btMaximize.Visibility = Visibility.Visible;
+                btNormalize.Visibility = Visibility.Hidden;
+                btMinimize.Margin = new Thickness(10, 10, 75, 10);
+            }
         }
 
         protected override void OnInitialized(EventArgs e)
