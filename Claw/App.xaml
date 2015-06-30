@@ -11,9 +11,10 @@
                 <!-- Look and feel resources. -->
                 <ResourceDictionary Source="UI/Controls/LookAndFeel.xaml"/>
                 <ResourceDictionary Source="UI/Controls/Button.xaml"/>
-                <ResourceDictionary Source="UI/Controls/ToggleButton.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ListView.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ListViewItem.xaml"/>
+                <ResourceDictionary Source="UI/Controls/ScrollBar.xaml"/>
+                <ResourceDictionary Source="UI/Controls/ToggleButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -8,6 +8,13 @@
     <clr:String x:Key="MinimizeText">Minimize</clr:String>
     <clr:String x:Key="OptionsText">Options</clr:String>
 
+    <!-- File menu. -->
+    <clr:String x:Key="NewText">New...</clr:String>
+    <clr:String x:Key="OpenText">Open</clr:String>
+    <clr:String x:Key="SaveText">Save</clr:String>
+    <clr:String x:Key="SaveAsText">Save as...</clr:String>
+    <clr:String x:Key="ExitText">Exit</clr:String>
+
     <!-- Editor panel. -->
     <clr:String x:Key="IconsText">Icons</clr:String>
     <clr:String x:Key="IconsToolTipText">Switches to the icons view, that allows to im-/and export icons</clr:String>

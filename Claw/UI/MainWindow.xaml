@@ -14,8 +14,27 @@
             </Button.ToolTip>
         </Button>
         
-        <Grid x:Name="pCentral"  Margin="0,40,0,60">
+        <!-- Be aware: If changing the margin of this, it is also necessary to change the margin in SetDist* in the implementation. -->
+        <Grid x:Name="pCentral"  Margin="0,40,23,60">
             <panels:EditorPanel/>
         </Grid>
+
+        <!-- Be aware: If changing the margin of this, it is also necessary to change the margin in SetDist* in the implementation. -->
+        <Expander x:Name="exFile" Width="120" Height="130" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,-94,0" ExpandDirection="Right"
+                  Expanded="OnExFileExpanded" Collapsed="OnExFileCollapsed">
+            <StackPanel Width="99" Height="130">
+                <Button Height="20" Margin="5,5,5,2" Content="{DynamicResource NewText}"/>
+                <Button Height="20" Margin="5,3,5,2" Content="{DynamicResource OpenText}"/>
+                <Button Height="20" Margin="5,3,5,2" Content="{DynamicResource SaveText}"/>
+                <Button Height="20" Margin="5,3,5,2" Content="{DynamicResource SaveAsText}"/>
+                <Button Height="20" Margin="5,3,5,5" Content="{DynamicResource ExitText}"/>
+            </StackPanel>
+        </Expander>
+
+        <Border Height="51" VerticalAlignment="Bottom" Margin="19,0,19,1" BorderBrush="{DynamicResource MidBrush}" BorderThickness="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <StackPanel x:Name="spProfiles" Orientation="Horizontal"/>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </base:ClawWindow>
