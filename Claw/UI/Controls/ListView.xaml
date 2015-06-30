@@ -7,8 +7,8 @@
     </ResourceDictionary>
     
     <Style TargetType="ListView">
-        <Setter Property="Background" Value="{StaticResource SemiTransparentBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource MidBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SemiTransparentBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MidBrush}"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
