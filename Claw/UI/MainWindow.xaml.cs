@@ -24,6 +24,16 @@ namespace Claw.UI
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Initialization handler for this window.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnInitialized(object sender, EventArgs e)
+        {
+            exFile.IsExpanded = true;
+        }
+
         protected override Panel GetBaseComponent()
         {
             return baseGrid;

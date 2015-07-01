@@ -6,7 +6,7 @@
         Title="Claw" Height="600" Width="1000"
         MinHeight="600" MinWidth="1000"
         AllowsTransparency="True" Background="Transparent" ResizeMode="CanResize" WindowStyle="None" ShowInTaskbar="True"
-        StateChanged="OnStateChanged">
+        StateChanged="OnStateChanged" Initialized="OnInitialized">
     <Grid x:Name="baseGrid">
         <Button x:Name="btOptions" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,10,100,10">
             <Button.ToolTip>
