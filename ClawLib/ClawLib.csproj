@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Claw</RootNamespace>
-    <AssemblyName>MadCatzProfileEditor</AssemblyName>
+    <AssemblyName>ClawLib</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -80,9 +82,10 @@
     <Compile Include="Controllers\Controls\SliderControl.cs" />
     <Compile Include="Controllers\DeviceGroup.cs" />
     <Compile Include="Controllers\Member.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NodeListParser.cs" />
     <Compile Include="NodeParser.cs" />
-    <Compile Include="Profile.cs" />
+    <Compile Include="MadCatzProfile.cs" />
     <Compile Include="Controllers\Shift.cs" />
     <Compile Include="ProfileFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,16 +94,6 @@
     <Compile Include="Validation\EmptyReport.cs" />
     <Compile Include="Validation\NodeValidator.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

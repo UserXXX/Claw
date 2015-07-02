@@ -12,7 +12,7 @@ namespace Claw.Controllers.Controls
     	#region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
-            NAME_ATTRIBUTE,
+            NameAttribute,
         };
         private static readonly string[] OPTIONAL_ATTRIBUTES = { };
         private static readonly string[] REQUIRED_CHILD_NODES = { };
@@ -40,9 +40,10 @@ namespace Claw.Controllers.Controls
 
         #endregion
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         protected override string NodeName
         {
-            get { return ControlList.MOUSE_AXIS_CHILD_NODE; }
+            get { return ControlList.MOUSE_AXIS_CHILD_NODE.ToLowerInvariant(); }
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Claw.Commands
 {
@@ -35,19 +36,24 @@ namespace Claw.Commands
         /// <returns>The parsed ActionBlockUsageType.</returns>
         public static ActionBlockUsageType TryParse(string type)
         {
-            switch (type.ToLower())
+            if (type == null)
             {
-                case "press":
+                throw new ArgumentNullException("type");
+            }
+
+            switch (type.ToUpperInvariant())
+            {
+                case "PRESS":
                     return ActionBlockUsageType.Press;
 
-                case "repeat":
+                case "REPEAT":
                     return ActionBlockUsageType.Repeat;
 
-                case "release":
+                case "RELEASE":
                     return ActionBlockUsageType.Release;
 
                 default:
-                    throw new ArgumentException("Could not parse \"" + type + "\" to ActionBlockType.");
+                    throw new ArgumentOutOfRangeException("Could not parse \"" + type + "\" to ActionBlockType.");
             }
         }
 
@@ -56,9 +62,10 @@ namespace Claw.Commands
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>The string.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "This method is required to bring strings to lower case as it is used to output the data into the profile files which require lower case strings.")]
         internal static string ToString(ActionBlockUsageType type)
         {
-            return type.ToString("G").ToLower();
+            return type.ToString("G").ToLowerInvariant();
         }
     }
 }

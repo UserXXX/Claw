@@ -5,111 +5,139 @@ namespace Claw.Commands
     /// <summary>
     /// Enumeration for keys on mouse and keyboard.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1028:EnumStorageShouldBeInt32", Justification="The native profiles uses uint, so they are used here too."),
+    System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue", Justification = "This enum represents values taken from the *.pr0 files. No uknown values should be applied to it.")]
     public enum ActionKey : uint
     {
         /// <summary>
         /// A key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification="This is the keys name, another name would not make the code more readable.")]
         A = 0x00000004,
         /// <summary>
         /// B key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         B = 0x00000005,
         /// <summary>
         /// C key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         C = 0x00000006,
         /// <summary>
         /// D key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         D = 0x00000007,
         /// <summary>
         /// E key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         E = 0x00000008,
         /// <summary>
         /// F key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         F = 0x00000009,
         /// <summary>
         /// G key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         G = 0x0000000A,
         /// <summary>
         /// H key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         H = 0x0000000B,
         /// <summary>
         /// I key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         I = 0x0000000C,
         /// <summary>
         /// J key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         J = 0x0000000D,
         /// <summary>
         /// K key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         K = 0x0000000E,
         /// <summary>
         /// L key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         L = 0x0000000F,
         /// <summary>
         /// M key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         M = 0x00000010,
         /// <summary>
         /// N key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         N = 0x00000011,
         /// <summary>
         /// O key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         O = 0x00000012,
         /// <summary>
         /// P key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         P = 0x00000013,
         /// <summary>
         /// Q key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         Q = 0x00000014,
         /// <summary>
         /// R key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         R = 0x00000015,
         /// <summary>
         /// S key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         S = 0x00000016,
         /// <summary>
         /// T key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         T = 0x00000017,
         /// <summary>
         /// U key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         U = 0x00000018,
         /// <summary>
         /// V key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         V = 0x00000019,
         /// <summary>
         /// W key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         W = 0x0000001A,
         /// <summary>
         /// X key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         X = 0x0000001B,
         /// <summary>
         /// Y key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         Y = 0x0000001D,
         /// <summary>
         /// Z key.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "This is the keys name, another name would not make the code more readable.")]
         Z = 0x0000001C,
 
         /// <summary>
@@ -425,6 +453,7 @@ namespace Claw.Commands
         /// <summary>
         /// Big alt key (missing on American keyboard).
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gr", Justification="This is the correct german name of the key.")]
         AltGr = 0x000000E6,
     }
 }

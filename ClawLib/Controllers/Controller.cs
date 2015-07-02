@@ -15,9 +15,9 @@ namespace Claw.Controllers
     {
         private const string GROUP_ATTRIBUTE = "group";
         
-        internal const string MEMBER_CHILD_NODE = "member";
-        internal const string CONTROLS_CHILD_NODE = "controls";
-        internal const string SHIFTS_CHILD_NODE = "shifts";
+        internal const string MEMBER_CHILD_NODE = "MEMBER";
+        internal const string CONTROLS_CHILD_NODE = "CONTROLS";
+        internal const string SHIFTS_CHILD_NODE = "SHIFTS";
         
         #region Validation
 
@@ -88,7 +88,7 @@ namespace Claw.Controllers
 
             foreach (var child in node.Children)
             {
-                switch (child.Name.ToLower())
+                switch (child.Name.ToUpperInvariant())
                 {
                     case MEMBER_CHILD_NODE:
                         members.AddLast(new Member(validator, child));

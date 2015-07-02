@@ -70,10 +70,11 @@ namespace Claw.Controllers
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         internal Node CreateNodes()
         {
-            var node = new Node(Controller.SHIFTS_CHILD_NODE);
-            foreach (Shift shift in elements)
+            var node = new Node(Controller.SHIFTS_CHILD_NODE.ToLowerInvariant());
+            foreach (Shift shift in this)
             {
                 node.Children.AddLast(shift.CreateNodes());
             }

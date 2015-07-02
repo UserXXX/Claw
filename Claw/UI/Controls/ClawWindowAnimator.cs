@@ -31,6 +31,11 @@ namespace Claw.UI.Controls
         /// <param name="window">The ClawWindow to animate.</param>
         public ClawWindowAnimator(ClawWindow window) 
         {
+            if (window == null)
+            {
+                throw new ArgumentNullException("window");
+            }
+
             this.window = window;
             window.IsVisibleChanged += OnIsVisibleChanged;
             window.SizeChanged += OnSizeChanged;

@@ -13,7 +13,7 @@ namespace Claw.Blasts
     /// data<number of encoded bytes
     /// Base64 encoded PNG data, 76 signs per line, one line break
     /// </summary>
-    public class Blast : NodeParser
+    public class Blast : NodeParser, IDisposable
     {
         private const string DATA_ATTRIBUTE = "data";
 
@@ -98,6 +98,31 @@ namespace Claw.Blasts
                 }
             }
             return node;
+        }
+
+        /// <summary>
+        /// Disposes this blast.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Disposes this blast.
+        /// </summary>
+        /// <param name="disposeManagedResources">Whether to dispose managed resources or not.</param>
+        protected virtual void Dispose(bool disposeManagedResources)
+        {
+            if (disposeManagedResources)
+            {
+                if (image != null)
+                {
+                    image.Dispose();
+                    image = null;
+                }
+            }
         }
     }
 }

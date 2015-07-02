@@ -13,7 +13,7 @@ namespace Claw
     /// <typeparam name="T">The type of child elements.</typeparam>
     public abstract class NodeListParser<T> : NodeParser, IList<T>
     {
-        protected LinkedList<T> elements = new LinkedList<T>();
+        private LinkedList<T> elements = new LinkedList<T>();
 
         /// <summary>
         /// Whether this is read-only. It is not, so this will always return false.
@@ -41,7 +41,7 @@ namespace Claw
             get
             {
                 if (index < 0 || index >= elements.Count)
-                    throw new IndexOutOfRangeException();
+                    throw new ArgumentOutOfRangeException("index");
 
                 IEnumerator<T> enumerator = elements.GetEnumerator();
                 enumerator.MoveNext();
@@ -54,7 +54,7 @@ namespace Claw
             set
             {
                 if (index < 0 || index >= elements.Count)
-                    throw new IndexOutOfRangeException();
+                    throw new ArgumentOutOfRangeException("index");
 
                 LinkedListNode<T> current = elements.First;
                 for (var i = 0; i < index; i++)
@@ -88,32 +88,32 @@ namespace Claw
         }
 
         /// <summary>
-        /// Removes <paramref name="elem"/> from the list.
+        /// Removes <paramref name="item"/> from the list.
         /// </summary>
-        /// <param name="elem">The element to remove.</param>
-        public bool Remove(T elem)
+        /// <param name="item">The item to remove.</param>
+        public bool Remove(T item)
         {
-            return elements.Remove(elem);
+            return elements.Remove(item);
         }
 
         /// <summary>
         /// Copies the contents of this list to the array.
         /// </summary>
         /// <param name="array">The array to copy to.</param>
-        /// <param name="index">The index to start at.</param>
-        public void CopyTo(T[] array, int index)
+        /// <param name="arrayIndex">The index to start at.</param>
+        public void CopyTo(T[] array, int arrayIndex)
         {
-            elements.CopyTo(array, index);
+            elements.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
         /// Checks whether this list contains the given element.
         /// </summary>
-        /// <param name="elem">The element to look for.</param>
-        /// <returns>Whether the list contains <paramref name="elem"/>.</returns>
-        public bool Contains(T elem)
+        /// <param name="item">The item to look for.</param>
+        /// <returns>Whether the list contains <paramref name="item"/>.</returns>
+        public bool Contains(T item)
         {
-            return elements.Contains(elem);
+            return elements.Contains(item);
         }
 
         /// <summary>
@@ -125,12 +125,12 @@ namespace Claw
         }
 
         /// <summary>
-        /// Adds <paramref name="elem"/> to this list.
+        /// Adds <paramref name="item"/> to this list.
         /// </summary>
-        /// <param name="elem">The element to add.</param>
-        public void Add(T elem)
+        /// <param name="item">The item to add.</param>
+        public void Add(T item)
         {
-            elements.AddLast(elem);
+            elements.AddLast(item);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Claw
         public void RemoveAt(int index)
         {
             if (index < 0 || index >= elements.Count)
-                throw new IndexOutOfRangeException();
+                throw new ArgumentOutOfRangeException("index");
 
             LinkedListNode<T> current = elements.First;
             for (var i = 0; i < index; i++)
@@ -154,34 +154,34 @@ namespace Claw
         /// Inserts the given element at the given index. The element will have the index <paramref name="index"/>.
         /// </summary>
         /// <param name="index">Index to insert at.</param>
-        /// <param name="elem">The element to insert.</param>
-        public void Insert(int index, T elem)
+        /// <param name="item">The item to insert.</param>
+        public void Insert(int index, T item)
         {
             LinkedListNode<T> current = elements.First;
             for (var i = 0; i < index; i++)
             {
                 current = current.Next;
             }
-            elements.AddBefore(current, elem);
+            elements.AddBefore(current, item);
         }
 
         /// <summary>
         /// Gets the index of the given element by a linear search.
         /// </summary>
-        /// <param name="elem">The element thats index is searched.</param>
-        /// <returns>The indedx of the element or -1 if it is not contained in the list.</returns>
-        public int IndexOf(T elem)
+        /// <param name="item">The item thats index is searched.</param>
+        /// <returns>The indedx of the item or -1 if it is not contained in the list.</returns>
+        public int IndexOf(T item)
         {
             int index = 0;
 
             LinkedListNode<T> current = elements.First;
-            while (current.Next != null && !current.Value.Equals(elem))
+            while (current.Next != null && !current.Value.Equals(item))
             {
                 current = current.Next;
                 index++;
             }
 
-            return current.Value.Equals(elem) ? index : -1;
+            return current.Value.Equals(item) ? index : -1;
         }
     }
 }

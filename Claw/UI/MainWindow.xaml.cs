@@ -19,6 +19,11 @@ namespace Claw.UI
     /// </summary>
     public partial class MainWindow : ClawWindow
     {
+        protected override Panel BaseComponent
+        {
+            get { return baseGrid; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,14 +34,10 @@ namespace Claw.UI
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">Event arguments.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification="This method is an event handler for the WPF UI, so it is not recognized to be called by the analyzer.")]
         private void OnInitialized(object sender, EventArgs e)
         {
             exFile.IsExpanded = true;
-        }
-
-        protected override Panel GetBaseComponent()
-        {
-            return baseGrid;
         }
 
         /// <summary>
@@ -44,6 +45,7 @@ namespace Claw.UI
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event arguments.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "This method is an event handler for the WPF UI, so it is not recognized to be called by the analyzer.")]
         private void OnStateChanged(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Maximized)

@@ -18,8 +18,8 @@ namespace Claw.UI.Controls
 
         #region Static render data
 
-        private static double maxScreenWidth;
-        private static double maxScreenHeight;
+        private static double maxScreenWidth = SystemParameters.PrimaryScreenWidth;
+        private static double maxScreenHeight = SystemParameters.PrimaryScreenHeight;
         private static ImageSource processedTileImage;
         private static ImageBrush processedTileBrush;
 
@@ -29,28 +29,35 @@ namespace Claw.UI.Controls
 
         private static LinearGradientBrush fadeOutBrush;
 
-        private static readonly ImageSource[] windowImages = new ImageSource[] {
-                LookAndFeel.Instance.SolidImage,
-                LookAndFeel.Instance.SolidImage,
-                LookAndFeel.Instance.TopLeftWindowEdgeImage,
-                LookAndFeel.Instance.TopRightWindowEdgeImage,
-                LookAndFeel.Instance.BottomLeftWindowEdgeImage,
-                LookAndFeel.Instance.BottomRightWindowEdgeImage,
-                LookAndFeel.Instance.SolidImage,
-                LookAndFeel.Instance.SolidImage,
-            };
+        private static readonly ImageSource[] windowImages = InitializeWindowImages();
 
         private static Color transparentForeColor;
 
         /// <summary>
+        /// Initializes the window images.
+        /// </summary>
+        /// <returns>The loaded window images.</returns>
+        private static ImageSource[] InitializeWindowImages()
+        {
+            return new ImageSource[] {
+                LookAndFeel.SolidImage,
+                LookAndFeel.SolidImage,
+                LookAndFeel.TopLeftWindowEdgeImage,
+                LookAndFeel.TopRightWindowEdgeImage,
+                LookAndFeel.BottomLeftWindowEdgeImage,
+                LookAndFeel.BottomRightWindowEdgeImage,
+                LookAndFeel.SolidImage,
+                LookAndFeel.SolidImage,
+            };
+        }
+
+        /// <summary>
         /// Static initializer for ClawWindowRenderer.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification="It is neccessary to be sure that the LookAndFeel change hook is initialized properly.")]
         static ClawWindowRenderer()
         {
-            maxScreenWidth = SystemParameters.PrimaryScreenWidth;
-            maxScreenHeight = SystemParameters.PrimaryScreenHeight;
-
-            LookAndFeel.Instance.Changed += StaticLookChanged;
+            LookAndFeel.Changed += StaticLookChanged;
             StaticLookChanged(null, new EventArgs());
         }
         
@@ -61,9 +68,7 @@ namespace Claw.UI.Controls
         /// <param name="evt">The event arguments.</param>
         private static void StaticLookChanged(object sender, EventArgs evt)
         {
-            LookAndFeel lAndF = LookAndFeel.Instance;
-
-            midColorBrush = new SolidColorBrush(lAndF.MidColor);
+            midColorBrush = new SolidColorBrush(LookAndFeel.MidColor);
             midColorBrush.Freeze();
 
             ImageBrush mask = CreateTileImageMask();
@@ -86,18 +91,18 @@ namespace Claw.UI.Controls
             processedTileBrush = new ImageBrush(processedTileImage);
             processedTileBrush.Freeze();
 
-            borderPen = new Pen(new SolidColorBrush(lAndF.MidColor), 2);
+            borderPen = new Pen(new SolidColorBrush(LookAndFeel.MidColor), 2);
             borderPen.Freeze();
-            backColorBrush = new SolidColorBrush(lAndF.BackColor);
+            backColorBrush = new SolidColorBrush(LookAndFeel.BackColor);
             backColorBrush.Freeze();
 
-            Color backColor = lAndF.BackColor;
+            Color backColor = LookAndFeel.BackColor;
             var gradientStartColor = Color.FromArgb(50, backColor.R, backColor.G, backColor.B);
             var gradientEndColor = Color.FromArgb(191, backColor.R, backColor.G, backColor.B);
             fadeOutBrush = new LinearGradientBrush(gradientStartColor, gradientEndColor, 0);
             fadeOutBrush.Freeze();
 
-            transparentForeColor = Color.FromArgb(0, lAndF.ForeColor.R, lAndF.ForeColor.G, lAndF.ForeColor.B);
+            transparentForeColor = Color.FromArgb(0, LookAndFeel.ForeColor.R, LookAndFeel.ForeColor.G, LookAndFeel.ForeColor.B);
         }
 
         /// <summary>
@@ -106,7 +111,7 @@ namespace Claw.UI.Controls
         /// <returns>The brush to use for masking.</returns>
         private static ImageBrush CreateTileImageMask()
         {
-            ImageSource tileImage = LookAndFeel.Instance.TileImage;
+            ImageSource tileImage = LookAndFeel.TileImage;
             var drawings = new DrawingGroup();
             // TODO: Get from image.
             var imageWidth = 172;
@@ -140,6 +145,11 @@ namespace Claw.UI.Controls
         /// <param name="window">The window to render.</param>
         public ClawWindowRenderer(ClawWindow window)
         {
+            if (window == null)
+            {
+                throw new ArgumentNullException("window");
+            }
+
             this.window = window;
 
             window.LocationChanged += OnLocationChanged;
@@ -349,7 +359,7 @@ namespace Claw.UI.Controls
             var brush = new LinearGradientBrush(new GradientStopCollection(new GradientStop[] {
                 new GradientStop(transparentForeColor, 0.0),
                 new GradientStop(transparentForeColor, screenStart / maxScreenWidth),
-                new GradientStop(LookAndFeel.Instance.ForeColor, screenMid / maxScreenWidth),
+                new GradientStop(LookAndFeel.ForeColor, screenMid / maxScreenWidth),
                 new GradientStop(transparentForeColor, screenEnd / maxScreenWidth),
                 new GradientStop(transparentForeColor, 1.0),
             }), 0);

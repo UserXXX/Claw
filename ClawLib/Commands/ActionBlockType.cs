@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Claw.Commands
 {
@@ -30,10 +31,19 @@ namespace Claw.Commands
         /// <returns></returns>
         public static ActionBlockType TryParse(string type)
         {
-            if (type.ToLower() == "macro")
+            if (type == null)
+            {
+                throw new ArgumentNullException(type);
+            }
+
+            if (type.ToUpperInvariant() == "MACRO")
+            {
                 return ActionBlockType.Macro;
+            }
             else
-                throw new ArgumentException("Could not parse \"" + type + "\" to ActionBlockType.");
+            {
+                throw new ArgumentOutOfRangeException("Could not parse \"" + type + "\" to ActionBlockType.");
+            }
         }
 
         /// <summary>
@@ -41,9 +51,10 @@ namespace Claw.Commands
         /// </summary>
         /// <param name="blockType">The type to convert.</param>
         /// <returns>The string.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification="This method is required to bring strings to lower case as it is used to output the data into the profile files which require lower case strings.")]
         internal static string ToString(ActionBlockType blockType)
         {
-            return blockType.ToString("G").ToLower();
+            return blockType.ToString("G").ToLowerInvariant();
         }
     }
 }

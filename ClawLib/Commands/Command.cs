@@ -9,8 +9,8 @@ namespace Claw.Commands
     /// </summary>
     public abstract class Command : NodeParser
     {
-        protected const string NAME_ATTRIBUTE = "name";
-        protected const string ICON_ATTRIBUTE = "icon";
+        protected const string NameAttribute = "name";
+        protected const string IconAttribute = "icon";
 
         #region Validation
 
@@ -21,12 +21,12 @@ namespace Claw.Commands
 
         #endregion
 
-        protected Guid uuid;
-        protected string name;
+        private Guid uuid;
+        private string name;
         /// <summary>
         /// Uuid referring the icon, this is optional.
         /// </summary>
-        protected Guid iconUuid;
+        private Guid iconUuid;
 
         /// <summary>
         /// Creates a new Command from the given node.
@@ -40,13 +40,13 @@ namespace Claw.Commands
             {
                 uuid = new Guid(node.Tag);
             }
-            if (node.Attributes.ContainsKey(NAME_ATTRIBUTE))
+            if (node.Attributes.ContainsKey(NameAttribute))
             {
-                name = node.Attributes[NAME_ATTRIBUTE];
+                name = node.Attributes[NameAttribute];
             }
-            if (node.Attributes.ContainsKey(ICON_ATTRIBUTE))
+            if (node.Attributes.ContainsKey(IconAttribute))
             {
-                iconUuid = new Guid(node.Attributes[ICON_ATTRIBUTE]);
+                iconUuid = new Guid(node.Attributes[IconAttribute]);
             }
         }
 
@@ -63,11 +63,11 @@ namespace Claw.Commands
             }
             if (name != null)
             {
-                node.Attributes.Add(NAME_ATTRIBUTE, name);
+                node.Attributes.Add(NameAttribute, name);
             }
             if (iconUuid != null && iconUuid != Guid.Empty)
             {
-                node.Attributes.Add(ICON_ATTRIBUTE, iconUuid.ToString());
+                node.Attributes.Add(IconAttribute, iconUuid.ToString());
             }
             FillNode(node);
             return node;

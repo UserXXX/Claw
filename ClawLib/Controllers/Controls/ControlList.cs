@@ -11,10 +11,10 @@ namespace Claw.Controllers.Controls
     /// </summary>
     public class ControlList : NodeListParser<Control>
     {
-        internal const string MOUSE_POINTER_CHILD_NODE = "mousepointer";
-        internal const string MOUSE_AXIS_CHILD_NODE = "mouseaxis";
-        internal const string BUTTON_CHILD_NODE = "button";
-        internal const string SLIDER_CHILD_NODE = "slider";
+        internal const string MOUSE_POINTER_CHILD_NODE = "MOUSEPOINTER";
+        internal const string MOUSE_AXIS_CHILD_NODE = "MOUSEAXIS";
+        internal const string BUTTON_CHILD_NODE = "BUTTON";
+        internal const string SLIDER_CHILD_NODE = "SLIDER";
 
         #region Validation
 
@@ -65,7 +65,7 @@ namespace Claw.Controllers.Controls
         {
             foreach (var child in node.Children)
             {
-                switch (child.Name.ToLower())
+                switch (child.Name.ToUpperInvariant())
                 {
                     case MOUSE_POINTER_CHILD_NODE:
                         Add(new MousePointerControl(validator, child));
@@ -90,10 +90,11 @@ namespace Claw.Controllers.Controls
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         internal Node CreateNodes()
         {
-            var node = new Node(Controller.CONTROLS_CHILD_NODE);
-            foreach (Control control in elements)
+            var node = new Node(Controller.CONTROLS_CHILD_NODE.ToLowerInvariant());
+            foreach (Control control in this)
             {
                 node.Children.AddLast(control.CreateNodes());
             }

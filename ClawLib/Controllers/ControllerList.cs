@@ -69,10 +69,11 @@ namespace Claw.Controllers
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         internal Node CreateNodes()
         {
-            var node = new Node(Profile.CONTROLLERS_CHILD_NODE);
-            foreach (Controller controller in elements)
+            var node = new Node(MadCatzProfile.CONTROLLERS_CHILD_NODE.ToLowerInvariant());
+            foreach (Controller controller in this)
             {
                 node.Children.AddLast(controller.CreateNodes());
             }

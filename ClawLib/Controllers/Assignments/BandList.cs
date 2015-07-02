@@ -11,7 +11,7 @@ namespace Claw.Controllers.Assignments
     /// </summary>
     public class BandList : NodeListParser<Band>
     {
-        internal const string BAND_CHILD_NODE = "band";
+        internal const string BAND_CHILD_NODE = "BAND";
 
         #region Validation
 
@@ -60,7 +60,7 @@ namespace Claw.Controllers.Assignments
             foreach (var child in node.Children)
             {
                 // Ignore the first empty tag, whatever it is for
-                if (child.Name.ToLower() == BAND_CHILD_NODE && !string.IsNullOrEmpty(child.Tag))
+                if (child.Name.ToUpperInvariant() == BAND_CHILD_NODE && !string.IsNullOrEmpty(child.Tag))
                 {
                     Add(new Band(validator, child));
                 }
@@ -71,11 +71,12 @@ namespace Claw.Controllers.Assignments
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         internal Node CreateNodes()
         {
-            var node = new Node(ButtonAssignment.BANDS_CHILD_NODE);
-            node.Children.AddLast(new Node(BAND_CHILD_NODE));
-            foreach (Band band in elements)
+            var node = new Node(ButtonAssignment.BANDS_CHILD_NODE.ToLowerInvariant());
+            node.Children.AddLast(new Node(BAND_CHILD_NODE.ToLowerInvariant()));
+            foreach (Band band in this)
             {
                 node.Children.AddLast(band.CreateNode());
             }

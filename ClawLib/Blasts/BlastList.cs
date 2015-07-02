@@ -11,7 +11,7 @@ namespace Claw.Blasts
     /// </summary>
     public class BlastList : NodeListParser<Blast>
     {
-        internal const string BLAST_CHILD_NODE = "blast";
+        internal const string BLAST_CHILD_NODE = "BLAST";
 
         #region Validation
 
@@ -59,7 +59,7 @@ namespace Claw.Blasts
         {
             foreach (var child in node.Children)
             {
-                if (child.Name.ToLower() == BLAST_CHILD_NODE)
+                if (child.Name.ToUpperInvariant() == BLAST_CHILD_NODE)
                 {
                     Add(new Blast(validator, child));
                 }
@@ -72,8 +72,8 @@ namespace Claw.Blasts
         /// <returns>The node.</returns>
         internal Node CreateNodes()
         {
-            var node = new Node(Profile.BLASTS_CHILD_NODE);
-            foreach (Blast blast in elements)
+            var node = new Node(MadCatzProfile.BLASTS_CHILD_NODE);
+            foreach (Blast blast in this)
             {
                 node.Children.AddLast(blast.CreateNodes());
             }

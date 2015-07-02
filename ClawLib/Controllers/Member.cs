@@ -79,9 +79,10 @@ namespace Claw.Controllers
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         internal Node CreateNodes()
         {
-            var node = new Node(Controller.MEMBER_CHILD_NODE);
+            var node = new Node(Controller.MEMBER_CHILD_NODE.ToLowerInvariant());
             if (uuid != null)
             {
                 node.Tag = uuid.ToString();

@@ -33,25 +33,59 @@ namespace ClawLibTests
         /// Tests the given file by loading it, saving it and compare the gathered save file to the original file.
         /// </summary>
         /// <param name="file">File to load.</param>
-        private void DoLoadSaveTest(string file)
+        private static void DoLoadSaveTest(string file)
         {
-            Profile profile = ProfileFactory.Load(file);
+            MadCatzProfile profile = ProfileFactory.Load(file);
             byte[] data = null;
             using (var stream = new MemoryStream())
             {
                 ProfileFactory.Save(stream, profile);
                 data = stream.GetBuffer();
             }
+
+            StreamReader writtenReader = null;
+            MemoryStream memStream = null;
             string written = null;
-            using (var reader = new StreamReader(new MemoryStream(data)))
+            try
             {
-                written = reader.ReadToEnd().Trim().Replace("\0", string.Empty);
+                memStream = new MemoryStream(data);
+                writtenReader = new StreamReader(memStream);
+                written = writtenReader.ReadToEnd().Trim().Replace("\0", string.Empty);
+                writtenReader.Close();
+                writtenReader = null;
+                memStream = null;
             }
+            finally
+            {
+                if (writtenReader != null)
+                {
+                    writtenReader.Close();
+                    writtenReader = null;
+                    memStream = null;
+                }
+                if (memStream != null)
+                {
+                    memStream.Close();
+                }
+            }
+
+            StreamReader originalReader = null;
             string original = null;
-            using (var reader = new StreamReader(file))
+            try
             {
-                original = reader.ReadToEnd().Trim();
+                originalReader = new StreamReader(file);
+                original = originalReader.ReadToEnd().Trim();
+                originalReader.Close();
+                originalReader = null;
             }
+            finally
+            {
+                if (originalReader != null)
+                {
+                    originalReader.Close();
+                }
+            }
+
             Assert.AreEqual(original, written);
         }
     }

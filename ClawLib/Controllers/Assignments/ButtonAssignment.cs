@@ -13,7 +13,7 @@ namespace Claw.Controllers.Assignments
         private const string NAME_ATTRIBUTE = "name";
         private const string ROLE_ATTRIBUTE = "role";
         
-        internal const string BANDS_CHILD_NODE = "bands";
+        internal const string BANDS_CHILD_NODE = "BANDS";
         
 		#region Validation
 
@@ -55,9 +55,10 @@ namespace Claw.Controllers.Assignments
 
         private BandList bands;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         protected override string NodeName
         {
-            get { return AssignmentList.BUTTON_CHILD_NODE; }
+            get { return AssignmentList.BUTTON_CHILD_NODE.ToLowerInvariant(); }
         }
 
         /// <summary>
@@ -79,7 +80,7 @@ namespace Claw.Controllers.Assignments
 
             foreach (var child in node.Children)
             {
-                if (child.Name.ToLower() == BANDS_CHILD_NODE)
+                if (child.Name.ToUpperInvariant() == BANDS_CHILD_NODE)
                 {
                     bands = new BandList(validator, child);
                 }

@@ -25,10 +25,19 @@ namespace Claw.Controllers.Assignments
         /// <returns>The parsed MouseAxisEnvelope.</returns>
         public static MouseAxisEnvelope TryParse(string envelope)
         {
-            if (envelope.ToLower() == "sensitivity")
+            if (envelope == null)
+            {
+                throw new ArgumentNullException("envelope");
+            }
+
+            if (envelope.ToUpperInvariant() == "SENSITIVITY")
+            {
                 return MouseAxisEnvelope.Sensitivity;
+            }
             else
+            {
                 throw new ArgumentException("Could not parse MouseAxisEnvelope from \"" + envelope + "\".");
+            }
         }
     }
 }

@@ -15,10 +15,10 @@ namespace Claw.Commands
         #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
-            NAME_ATTRIBUTE,
+            NameAttribute,
         };
         private static readonly string[] OPTIONAL_ATTRIBUTES = {
-            ICON_ATTRIBUTE,
+            IconAttribute,
         };
         private static readonly string[] REQUIRED_CHILD_NODES = { };
         private static readonly string[] OPTIONAL_CHILD_NODES = {
@@ -49,9 +49,10 @@ namespace Claw.Commands
 
         private LinkedList<ActionBlock> actionBlocks = new LinkedList<ActionBlock>();
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         protected override string NodeName
         {
-            get { return CommandList.ACTION_COMMAND_CHILD_NODE; }
+            get { return CommandList.ACTION_COMMAND_CHILD_NODE.ToLowerInvariant(); }
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace Claw.Commands
         {
             foreach (var child in node.Children)
             {
-                if (child.Name.ToLower() == "actionblock")
+                if (child.Name.ToUpperInvariant() == "ACTIONBLOCK")
                 {
                     actionBlocks.AddLast(new ActionBlock(validator, child));
                 }

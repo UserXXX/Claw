@@ -2,6 +2,7 @@
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Claw.Commands
 {
@@ -12,7 +13,7 @@ namespace Claw.Commands
     {
         private const string TYPE_ATTRIBUTE = "type";
 
-        internal const string ACTION_CHILD_NODE = "action";
+        internal const string ACTION_CHILD_NODE = "ACTION";
 
         #region Validation
 
@@ -74,7 +75,7 @@ namespace Claw.Commands
 
             foreach (var child in node.Children)
             {
-                if (child.Name.ToLower() == ACTION_CHILD_NODE)
+                if (child.Name.ToUpperInvariant() == ACTION_CHILD_NODE)
                 {
                     Add(new Action(validator, child));
                 }
@@ -96,7 +97,7 @@ namespace Claw.Commands
             {
                 node.Attributes.Add(TYPE_ATTRIBUTE, ActionBlockUsageTypeHelper.ToString(type));
             }
-            foreach (Action action in elements)
+            foreach (Action action in this)
             {
                 node.Children.AddLast(action.CreateNodes());
             }

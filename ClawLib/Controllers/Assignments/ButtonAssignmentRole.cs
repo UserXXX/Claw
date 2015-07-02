@@ -30,16 +30,21 @@ namespace Claw.Controllers.Assignments
         /// <returns>The parsed ButtonAssignmentRole.</returns>
         public static ButtonAssignmentRole TryParse(string role)
         {
-            switch (role.ToLower())
+            if (role == null)
             {
-                case "unprogrammed":
+                throw new ArgumentNullException("role");
+            }
+
+            switch (role.ToUpperInvariant())
+            {
+                case "UNPROGRAMMED":
                     return ButtonAssignmentRole.Unprogrammed;
 
-                case "bands":
+                case "BANDS":
                     return ButtonAssignmentRole.Bands;
                 
                 default:
-                    throw new ArgumentException("Could not parse ButtonAssigmentRole from \"" + role + "\".");
+                    throw new ArgumentOutOfRangeException("Could not parse ButtonAssigmentRole from \"" + role + "\".");
             }
         }
 
@@ -48,9 +53,10 @@ namespace Claw.Controllers.Assignments
         /// </summary>
         /// <param name="role">The role to convert.</param>
         /// <returns>The created string.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "This method is required to bring strings to lower case as it is used to output the data into the profile files which require lower case strings.")]
         internal static string ToString(ButtonAssignmentRole role)
         {
-            return role.ToString("G").ToLower();
+            return role.ToString("G").ToLowerInvariant();
         }
     }
 }

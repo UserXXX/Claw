@@ -9,7 +9,16 @@ namespace Claw.Controllers.Assignments
     /// </summary>
     public abstract class Assignment : NodeParser
     {
-        protected uint identifier;
+        private uint identifier;
+
+        /// <summary>
+        /// Unique identifier of the control this assignment binds to.
+        /// </summary>
+        public uint Identifier
+        {
+            get { return identifier; }
+            protected set { identifier = value; }
+        }
 
         #region Validation
 
@@ -30,7 +39,7 @@ namespace Claw.Controllers.Assignments
         {
             if (!string.IsNullOrEmpty(node.Tag))
             {
-                identifier = ConversionHelper.ParseHexUint(node.Tag);
+                identifier = ConversionHelper.ParseHexValue(node.Tag);
             }
         }
 

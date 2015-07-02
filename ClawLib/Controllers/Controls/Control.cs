@@ -9,10 +9,10 @@ namespace Claw.Controllers.Controls
     /// </summary>
     public abstract class Control : NodeParser
     {
-        protected const string NAME_ATTRIBUTE = "name";
+        protected const string NameAttribute = "name";
 
-        protected uint identifier;
-        protected string name;
+        private uint identifier;
+        private string name;
         
         #region Validation
         
@@ -33,11 +33,11 @@ namespace Claw.Controllers.Controls
         {
             if (!string.IsNullOrEmpty(node.Tag))
             {
-                identifier = ConversionHelper.ParseHexUint(node.Tag);
+                identifier = ConversionHelper.ParseHexValue(node.Tag);
             }
-            if (node.Attributes.ContainsKey(NAME_ATTRIBUTE))
+            if (node.Attributes.ContainsKey(NameAttribute))
             {
-                name = node.Attributes[NAME_ATTRIBUTE];
+                name = node.Attributes[NameAttribute];
             }
         }
 
@@ -51,7 +51,7 @@ namespace Claw.Controllers.Controls
             node.Tag = ConversionHelper.FormatHexUInt(identifier);
             if (name != null)
             {
-                node.Attributes.Add(NAME_ATTRIBUTE, name);
+                node.Attributes.Add(NameAttribute, name);
             }
             FillNode(node);
             return node;

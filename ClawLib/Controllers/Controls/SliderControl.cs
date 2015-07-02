@@ -10,12 +10,12 @@ namespace Claw.Controllers.Controls
     /// </summary>
     public class SliderControl : Control
     {
-    	private const string BUTTON_CHILD_NODE = "button";
+    	private const string BUTTON_CHILD_NODE = "BUTTON";
     	
     	#region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
-            NAME_ATTRIBUTE,
+            NameAttribute,
         };
         private static readonly string[] OPTIONAL_ATTRIBUTES = { };
         private static readonly string[] REQUIRED_CHILD_NODES = {
@@ -47,9 +47,10 @@ namespace Claw.Controllers.Controls
     	
         private LinkedList<ButtonControl> buttons = new LinkedList<ButtonControl>();
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         protected override string NodeName
         {
-            get { return ControlList.SLIDER_CHILD_NODE; }
+            get { return ControlList.SLIDER_CHILD_NODE.ToLowerInvariant(); }
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace Claw.Controllers.Controls
         {
             foreach (var child in node.Children)
             {
-                if (child.Name.ToLower() == BUTTON_CHILD_NODE)
+                if (child.Name.ToUpperInvariant() == BUTTON_CHILD_NODE)
                 {
                     buttons.AddLast(new ButtonControl(validator, child));
                 }

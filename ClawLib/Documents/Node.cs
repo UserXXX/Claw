@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Claw.Documents
@@ -132,7 +133,7 @@ namespace Claw.Documents
                     hasDataAttr = true;
                 }
             }
-            if (!ret.EndsWith("\n"))
+            if (!ret.EndsWith("\n", StringComparison.Ordinal))
             {
                 ret += "\n";
             }
@@ -146,14 +147,14 @@ namespace Claw.Documents
                 {
                     if (inDataAttribute)
                     {
-                        if (splitted[i].StartsWith(">"))
+                        if (splitted[i].StartsWith(">", StringComparison.Ordinal))
                         {
                             inDataAttribute = false;
                         }
                     }
                     else
                     {
-                        if (splitted[i].StartsWith("data<"))
+                        if (splitted[i].StartsWith("data<", StringComparison.Ordinal))
                         {
                             inDataAttribute = true;
                         }

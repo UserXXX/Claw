@@ -15,7 +15,7 @@ namespace Claw.Controllers.Controls
         #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
-            NAME_ATTRIBUTE,
+            NameAttribute,
         };
         private static readonly string[] OPTIONAL_ATTRIBUTES = {
         	LATCHABLE_ATTRIBUTE,
@@ -55,9 +55,10 @@ namespace Claw.Controllers.Controls
         /// </summary>
         private bool latched = false;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         protected override string NodeName
         {
-            get { return ControlList.BUTTON_CHILD_NODE; }
+            get { return ControlList.BUTTON_CHILD_NODE.ToLowerInvariant(); }
         }
 
         /// <summary>
@@ -78,15 +79,16 @@ namespace Claw.Controllers.Controls
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification="The profile files require lower case strings.")]
         internal override void FillNode(Node node)
         {
             if (!latchable)
             {
-                node.Attributes.Add(LATCHABLE_ATTRIBUTE, latchable.ToString().ToLower());
+                node.Attributes.Add(LATCHABLE_ATTRIBUTE, latchable.ToString().ToLowerInvariant());
             }
             if (latched)
             {
-                node.Attributes.Add(LATCHED_ATTRIBUTE, latchable.ToString().ToLower());
+                node.Attributes.Add(LATCHED_ATTRIBUTE, latchable.ToString().ToLowerInvariant());
             }
         }
     }

@@ -13,12 +13,19 @@ namespace Claw
         /// </summary>
         /// <param name="text">The text to parse from.</param>
         /// <returns>The parsed uint.</returns>
-        public static uint ParseHexUint(string text)
+        public static uint ParseHexValue(string text)
         {
-            if (text.StartsWith("0x", StringComparison.CurrentCulture))
-                text = text.Substring(2);
+            if (text == null)
+            {
+                throw new ArgumentNullException("text");
+            }
 
-            return uint.Parse(text, NumberStyles.HexNumber);
+            if (text.StartsWith("0x", StringComparison.CurrentCulture))
+            {
+                text = text.Substring(2);
+            }
+
+            return uint.Parse(text, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -28,7 +35,7 @@ namespace Claw
         /// <returns>The created string with leading "0x".</returns>
         internal static string FormatHexUInt(uint value)
         {
-            string hex = value.ToString("X");
+            string hex = value.ToString("X", CultureInfo.InvariantCulture);
             // *.pr0 files use 8 hex signs in each uint.
             while (hex.Length < 8)
             {

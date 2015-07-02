@@ -2,6 +2,7 @@
 using Claw.Validation;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Claw.Controllers.Assignments
 {
@@ -54,9 +55,10 @@ namespace Claw.Controllers.Assignments
 
         private int value;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         protected override string NodeName
         {
-            get { return MousePointerAssignment.MOUSE_AXIS_CHILD_NODE; }
+            get { return MousePointerAssignment.MOUSE_AXIS_CHILD_NODE.ToLowerInvariant(); }
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace Claw.Controllers.Assignments
             string envelopeName = null;
             if (node.Attributes.ContainsKey(ENVELOPE_ATTRIBUTE))
             {
-                envelopeName = node.Attributes[ENVELOPE_ATTRIBUTE].ToLower();
+                envelopeName = node.Attributes[ENVELOPE_ATTRIBUTE].ToUpperInvariant();
                 envelope = MouseAxisEnvelopeHelper.TryParse(envelopeName);
             }
 
@@ -78,9 +80,9 @@ namespace Claw.Controllers.Assignments
             {
                 foreach (var child in node.Children)
                 {
-                    if (child.Name.ToLower() == envelopeName)
+                    if (child.Name.ToUpperInvariant() == envelopeName)
                     {
-                        value = int.Parse(child.Tag);
+                        value = int.Parse(child.Tag, CultureInfo.InvariantCulture);
                     }
                 }
             }
@@ -92,7 +94,7 @@ namespace Claw.Controllers.Assignments
             {
                 node.Attributes.Add(ENVELOPE_ATTRIBUTE, SENSITIVITY_ENVELOPE);
                 Node envelopeNode = new Node(SENSITIVITY_ENVELOPE);
-                envelopeNode.Tag = value.ToString();
+                envelopeNode.Tag = value.ToString(CultureInfo.InvariantCulture);
                 node.Children.AddLast(envelopeNode);
             }
         }

@@ -15,11 +15,11 @@ namespace Claw
         /// <summary>
         /// Loads a profile.
         /// </summary>
-        /// <param name="filename">The name of the file to load from.</param>
+        /// <param name="fileName">The name of the file to load from.</param>
         /// <returns>The loaded profile.</returns>
-        public static Profile Load(string filename)
+        public static MadCatzProfile Load(string fileName)
         {
-            return Load(filename, new EmptyReport());
+            return Load(fileName, new EmptyReport());
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Claw
         /// </summary>
         /// <param name="file">The file to load from.</param>
         /// <returns>The loaded profile.</returns>
-        public static Profile Load(FileInfo file)
+        public static MadCatzProfile Load(FileInfo file)
         {
             return Load(file, new EmptyReport());
         }
@@ -37,7 +37,7 @@ namespace Claw
         /// </summary>
         /// <param name="stream">The stream to load from. The stream will get closed after the operation.</param>
         /// <returns>The loaded profile.</returns>
-        public static Profile Load(Stream stream)
+        public static MadCatzProfile Load(Stream stream)
         {
             return Load(stream, new EmptyReport());
         }
@@ -45,12 +45,27 @@ namespace Claw
         /// <summary>
         /// Loads a profile.
         /// </summary>
-        /// <param name="filename">The name of the file to load from.</param>
+        /// <param name="fileName">The name of the file to load from.</param>
         /// <param name="report">The report to write infos, warnings and errors to.</param>
         /// <returns>The loaded profile.</returns>
-        public static Profile Load(string filename, ValidationReport report)
+        public static MadCatzProfile Load(string fileName, ValidationReport report)
         {
-            return Load(new FileStream(filename, FileMode.Open), report);
+            FileStream stream = null;
+            try
+            {
+                stream = new FileStream(fileName, FileMode.Open);
+                MadCatzProfile profile = Load(stream, report);
+                stream.Close();
+                stream = null;
+                return profile;
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+            }
         }
 
         /// <summary>
@@ -59,8 +74,13 @@ namespace Claw
         /// <param name="file">The file to load from.</param>
         /// <param name="report">The report to write infos, warnings and errors to.</param>
         /// <returns>The loaded profile.</returns>
-        public static Profile Load(FileInfo file, ValidationReport report)
+        public static MadCatzProfile Load(FileInfo file, ValidationReport report)
         {
+            if (file == null)
+            {
+                throw new ArgumentNullException("file");
+            }
+
             return Load(file.OpenRead(), report);
         }
 
@@ -70,21 +90,35 @@ namespace Claw
         /// <param name="stream">The stream to load from. The stream will get closed after the operation.</param>
         /// <param name="report">The report to write infos, warnings and errors to.</param>
         /// <returns>The loaded profile.</returns>
-        public static Profile Load(Stream stream, ValidationReport report)
+        public static MadCatzProfile Load(Stream stream, ValidationReport report)
         {
-            Node node = DocumentFactory.Instance.Load(stream);
+            Node node = DocumentFactory.Load(stream);
             NodeValidator validator = new NodeValidator(report);
-            return new Profile(validator, node);
+            return new MadCatzProfile(validator, node);
         }
 
         /// <summary>
         /// Saves a profile.
         /// </summary>
-        /// <param name="filename">Name of the file to save to.</param>
+        /// <param name="fileName">Name of the file to save to.</param>
         /// <param name="profile">The profile to save.</param>
-        public static void Save(string filename, Profile profile)
+        public static void Save(string fileName, MadCatzProfile profile)
         {
-            Save(new FileStream(filename, FileMode.Create), profile);
+            FileStream stream = null;
+            try
+            {
+                stream = new FileStream(fileName, FileMode.Create);
+                Save(stream, profile);
+                stream.Close();
+                stream = null;
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+            }
         }
 
         /// <summary>
@@ -92,8 +126,13 @@ namespace Claw
         /// </summary>
         /// <param name="file">File to save to.</param>
         /// <param name="profile">The profile to save.</param>
-        public static void Save(FileInfo file, Profile profile)
+        public static void Save(FileInfo file, MadCatzProfile profile)
         {
+            if (file == null)
+            {
+                throw new ArgumentNullException("file");
+            }
+
             Save(file.Open(FileMode.Create), profile);
         }
 
@@ -102,10 +141,15 @@ namespace Claw
         /// </summary>
         /// <param name="stream">Stream to save to.</param>
         /// <param name="profile">The profile to save.</param>
-        public static void Save(Stream stream, Profile profile)
+        public static void Save(Stream stream, MadCatzProfile profile)
         {
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
             Node node = profile.CreateNodes();
-            DocumentFactory.Instance.Save(node, stream);
+            DocumentFactory.Save(node, stream);
         }
     }
 }

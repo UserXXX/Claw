@@ -15,8 +15,8 @@ namespace Claw.Controllers
         private const string NAME_ATTRIBUTE = "name";
         private const string FALLBACK_ATTRIBUTE = "fallback";
         
-        internal const string SELECTIONSET_CHILD_NODE = "selectionset";
-        internal const string ASSIGNMENTS_CHILD_NODE = "assignments";
+        internal const string SELECTIONSET_CHILD_NODE = "SELECTIONSET";
+        internal const string ASSIGNMENTS_CHILD_NODE = "ASSIGNMENTS";
 
         #region Validation
 
@@ -97,7 +97,7 @@ namespace Claw.Controllers
 
             foreach (var child in node.Children)
             {
-                switch (child.Name.ToLower())
+                switch (child.Name.ToUpperInvariant())
                 {
                     case SELECTIONSET_CHILD_NODE:
                         selectionset = child;
@@ -114,9 +114,10 @@ namespace Claw.Controllers
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification="Native profiles need lowercase strings.")]
         internal Node CreateNodes()
         {
-            var node = new Node(ShiftList.SHIFT_CHILD_NODE);
+            var node = new Node(ShiftList.SHIFT_CHILD_NODE.ToLowerInvariant());
             if (uuid != null && uuid != Guid.Empty)
             {
                 node.Tag = uuid.ToString();

@@ -91,14 +91,15 @@ namespace Claw.Validation
         /// <param name="node">The node thats childs shall be checked.</param>
         /// <param name="name">The name to check for.</param>
         /// <returns></returns>
-        private bool HasChildNodeWithName(Node node, string name)
+        private static bool HasChildNodeWithName(Node node, string name)
         {
             LinkedList<Node>.Enumerator enumerator = node.Children.GetEnumerator();
 
             bool found = false;
+            name = name.ToUpperInvariant();
             while (enumerator.MoveNext() && !found)
             {
-            	found |= enumerator.Current.Name == name;
+            	found |= enumerator.Current.Name.ToUpperInvariant() == name;
             }
 
             return found;
@@ -110,13 +111,14 @@ namespace Claw.Validation
         /// <param name="text">The text to check for.</param>
         /// <param name="array">The array to search in.</param>
         /// <returns></returns>
-        private bool IsInStringArray(string text, string[] array)
+        private static bool IsInStringArray(string text, string[] array)
         {
             bool found = false;
+            text = text.ToUpperInvariant();
 
             for (var i = 0; i < array.Length && !found; i++)
             {
-            	found |= text == array[i];
+            	found |= text == array[i].ToUpperInvariant();
             }
 
             return found;

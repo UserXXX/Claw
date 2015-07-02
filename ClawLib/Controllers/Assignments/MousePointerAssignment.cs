@@ -10,7 +10,7 @@ namespace Claw.Controllers.Assignments
     /// </summary>
     public class MousePointerAssignment : Assignment
     {
-    	internal const string MOUSE_AXIS_CHILD_NODE = "mouseaxis";
+    	internal const string MOUSE_AXIS_CHILD_NODE = "MOUSEAXIS";
     	
     	#region Validation
 
@@ -45,9 +45,10 @@ namespace Claw.Controllers.Assignments
         
         private LinkedList<MouseAxisAssignment> mouseAxes = new LinkedList<MouseAxisAssignment>();
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         protected override string NodeName
         {
-            get { return AssignmentList.MOUSE_POINTER_CHILD_NODE; }
+            get { return AssignmentList.MOUSE_POINTER_CHILD_NODE.ToLowerInvariant(); }
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace Claw.Controllers.Assignments
         {
             foreach (var child in node.Children)
             {
-                if (child.Name.ToLower() == MOUSE_AXIS_CHILD_NODE)
+                if (child.Name.ToUpperInvariant() == MOUSE_AXIS_CHILD_NODE)
             	{
                 	mouseAxes.AddLast(new MouseAxisAssignment(validator, child));
                 }

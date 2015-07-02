@@ -11,8 +11,8 @@ namespace Claw.Controllers.Assignments
     /// </summary>
     public class AssignmentList : NodeListParser<Assignment>
     {
-        internal const string MOUSE_POINTER_CHILD_NODE = "mousepointer";
-        internal const string BUTTON_CHILD_NODE = "button";
+        internal const string MOUSE_POINTER_CHILD_NODE = "MOUSEPOINTER";
+        internal const string BUTTON_CHILD_NODE = "BUTTON";
 
         #region Validation
 
@@ -61,7 +61,7 @@ namespace Claw.Controllers.Assignments
         {
             foreach (var child in node.Children)
             {
-                switch (child.Name.ToLower())
+                switch (child.Name.ToUpperInvariant())
                 {
                     case MOUSE_POINTER_CHILD_NODE:
                         Add(new MousePointerAssignment(validator, child));
@@ -78,10 +78,11 @@ namespace Claw.Controllers.Assignments
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification="Profile files need lowercase strings.")]
         internal Node CreateNodes()
         {
-            var node = new Node(Shift.ASSIGNMENTS_CHILD_NODE);
-            foreach (Assignment assignment in elements)
+            var node = new Node(Shift.ASSIGNMENTS_CHILD_NODE.ToLowerInvariant());
+            foreach (Assignment assignment in this)
             {
                 node.Children.AddLast(assignment.CreateNodes());
             }

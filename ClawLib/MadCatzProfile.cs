@@ -11,13 +11,13 @@ namespace Claw
     /// <summary>
     /// Represents a profile, the top level node.
     /// </summary>
-    public class Profile : NodeParser
+    public class MadCatzProfile : NodeParser
     {
         private const string VERSION_ATTRIBUTE = "version";
 
-        internal const string CONTROLLERS_CHILD_NODE = "controllers";
-        internal const string COMMANDS_CHILD_NODE = "commands";
-        internal const string BLASTS_CHILD_NODE = "blasts";
+        internal const string CONTROLLERS_CHILD_NODE = "CONTROLLERS";
+        internal const string COMMANDS_CHILD_NODE = "COMMANDS";
+        internal const string BLASTS_CHILD_NODE = "BLASTS";
         
         #region Validation
 
@@ -72,18 +72,18 @@ namespace Claw
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>
         /// <param name="node">The node.</param>
-        internal Profile(NodeValidator validator, Node node)
+        internal MadCatzProfile(NodeValidator validator, Node node)
         	: base(validator, node)
         {
             name = node.Tag;
             if (node.Attributes.ContainsKey(VERSION_ATTRIBUTE))
             {
-                version = ConversionHelper.ParseHexUint(node.Attributes[VERSION_ATTRIBUTE]);
+                version = ConversionHelper.ParseHexValue(node.Attributes[VERSION_ATTRIBUTE]);
             }
 
             foreach (var child in node.Children)
             {
-                switch (child.Name.ToLower())
+                switch (child.Name.ToUpperInvariant())
                 {
                     case CONTROLLERS_CHILD_NODE:
                         controllers = new ControllerList(validator, child);

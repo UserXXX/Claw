@@ -7,11 +7,13 @@ using System.Text;
 namespace Claw.Native
 {
     /// <summary>
-    /// Wrapper class for p/invoke calls to the user32.dll.
+    /// Wrapper class for p/invoke calls to the OS.
     /// </summary>
-    public static class User32
+    internal static class NativeMethods
     {
         /// <summary>
+        /// Imported from user32.dll.
+        /// 
         /// Quote from MSDN:
         /// Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
         /// 
@@ -24,9 +26,11 @@ namespace Claw.Native
         /// <param name="lParam">Additional message-specific information.</param>
         /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
+        internal static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
+        /// Imported from user32.dll.
+        /// 
         /// Quote from MSDN:
         /// The MonitorFromWindow function retrieves a handle to the display monitor that has the largest area of intersection with the bounding rectangle of a specified window.
         /// 
@@ -36,10 +40,12 @@ namespace Claw.Native
         /// <param name="dwFlags">Determines the function's return value if the window does not intersect any display monitor.</param>
         /// <returns>If the window intersects one or more display monitor rectangles, the return value is an HMONITOR handle to the display monitor that has the largest area of intersection with the window.
         /// If the window does not intersect a display monitor, the return value depends on the value of dwFlags.</returns>
-        [DllImport("user32.dll")]
-        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, int dwFlags);
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification="The name is the same as in the MSDN documentation."), DllImport("user32.dll")]
+        internal static extern IntPtr MonitorFromWindow(IntPtr hwnd, int dwFlags);
 
         /// <summary>
+        /// Imported from user32.dll.
+        /// 
         /// Quote from MSDN:
         /// The GetMonitorInfo function retrieves information about a display monitor.
         /// 
@@ -52,6 +58,7 @@ namespace Claw.Native
         /// <returns>If the function succeeds, the return value is nonzero (true).
         /// If the function fails, the return value is zero (false).</returns>
         [DllImport("user32.dll")]
-        public static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
     }
 }

@@ -35,19 +35,24 @@ namespace Claw.Commands
         /// <returns>The parsed ActionDevice.</returns>
         public static ActionDevice TryParse(string device)
         {
-            switch (device.ToLower())
+            if (device == null)
             {
-                case "keyboard":
+                throw new ArgumentNullException("device");
+            }
+
+            switch (device.ToUpperInvariant())
+            {
+                case "KEYBOARD":
                     return ActionDevice.Keyboard;
 
-                case "mouse":
+                case "MOUSE":
                     return ActionDevice.Mouse;
 
-                case "hotkey":
+                case "HOTKEY":
                     return ActionDevice.Hotkey;
 
                 default:
-                    throw new ArgumentException("Could not parse ActionDevice from \"" + device + "\".");
+                    throw new ArgumentOutOfRangeException("Could not parse ActionDevice from \"" + device + "\".");
             }
         }
 
@@ -56,9 +61,10 @@ namespace Claw.Commands
         /// </summary>
         /// <param name="device">The device.</param>
         /// <returns>The string.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "This method is required to bring strings to lower case as it is used to output the data into the profile files which require lower case strings.")]
         internal static string ToString(ActionDevice device)
         {
-            return device.ToString("G").ToLower();
+            return device.ToString("G").ToLowerInvariant();
         }
     }
 }

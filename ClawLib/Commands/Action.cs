@@ -85,19 +85,19 @@ namespace Claw.Commands
             }
             if (node.Attributes.ContainsKey(TIME_ATTRIBUTE))
             {
-                time = ConversionHelper.ParseHexUint(node.Attributes[TIME_ATTRIBUTE]);
+                time = ConversionHelper.ParseHexValue(node.Attributes[TIME_ATTRIBUTE]);
             }
             if (node.Attributes.ContainsKey(USAGE_ATTRIBUTE))
             {
-                usage = (ActionKey)ConversionHelper.ParseHexUint(node.Attributes[USAGE_ATTRIBUTE]);
+                usage = (ActionKey)ConversionHelper.ParseHexValue(node.Attributes[USAGE_ATTRIBUTE]);
             }
             if (node.Attributes.ContainsKey(PAGE_ATTRIBUTE))
             {
-                page = ConversionHelper.ParseHexUint(node.Attributes[PAGE_ATTRIBUTE]);
+                page = ConversionHelper.ParseHexValue(node.Attributes[PAGE_ATTRIBUTE]);
             }
             if (node.Attributes.ContainsKey(VALUE_ATTRIBUTE))
             {
-                value = (ActionValue)ConversionHelper.ParseHexUint(node.Attributes[VALUE_ATTRIBUTE]);
+                value = (ActionValue)ConversionHelper.ParseHexValue(node.Attributes[VALUE_ATTRIBUTE]);
             }
         }
 
@@ -105,9 +105,10 @@ namespace Claw.Commands
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         internal Node CreateNodes()
         {
-            var node = new Node(ActionBlock.ACTION_CHILD_NODE);
+            var node = new Node(ActionBlock.ACTION_CHILD_NODE.ToLowerInvariant());
             node.Attributes.Add(DEVICE_ATTRIBUTE, ActionDeviceHelper.ToString(device));
             if (time != 0)
             {

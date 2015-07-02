@@ -11,7 +11,7 @@ namespace Claw.Commands
     /// </summary>
     public class CommandList : NodeListParser<Command>
     {
-        internal const string ACTION_COMMAND_CHILD_NODE = "actioncommand";
+        internal const string ACTION_COMMAND_CHILD_NODE = "ACTIONCOMMAND";
 
         #region Validation
 
@@ -59,7 +59,7 @@ namespace Claw.Commands
         {
             foreach (var child in node.Children)
             {
-                if (child.Name.ToLower() == ACTION_COMMAND_CHILD_NODE)
+                if (child.Name.ToUpperInvariant() == ACTION_COMMAND_CHILD_NODE)
                 {
                     Add(new ActionCommand(validator, child));
                 }
@@ -70,10 +70,11 @@ namespace Claw.Commands
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         internal Node CreateNodes()
         {
-            var node = new Node(Profile.COMMANDS_CHILD_NODE);
-            foreach (Command command in elements)
+            var node = new Node(MadCatzProfile.COMMANDS_CHILD_NODE.ToLowerInvariant());
+            foreach (Command command in this)
             {
                 node.Children.AddLast(command.CreateNodes());
             }

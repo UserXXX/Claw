@@ -1,6 +1,7 @@
 ﻿using Claw.Documents;
 using Claw.Validation;
 using System;
+using System.Globalization;
 
 namespace Claw.Controllers.Assignments
 {
@@ -60,7 +61,7 @@ namespace Claw.Controllers.Assignments
         {
             if (!string.IsNullOrEmpty(node.Tag))
             {
-                identifier = uint.Parse(node.Tag);
+                identifier = uint.Parse(node.Tag, CultureInfo.InvariantCulture);
             }
             if (node.Attributes.ContainsKey(COMMAND_UUID_ATTRIBUTE))
             {
@@ -72,10 +73,11 @@ namespace Claw.Controllers.Assignments
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         internal Node CreateNode()
         {
-            var node = new Node(BandList.BAND_CHILD_NODE);
-            node.Tag = identifier.ToString();
+            var node = new Node(BandList.BAND_CHILD_NODE.ToLowerInvariant());
+            node.Tag = identifier.ToString(CultureInfo.InvariantCulture);
             if (commandUuid != null && commandUuid != Guid.Empty)
             {
                 node.Attributes.Add(COMMAND_UUID_ATTRIBUTE, commandUuid.ToString());

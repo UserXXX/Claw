@@ -106,7 +106,7 @@ namespace Claw.UI.Controls
         /// <summary>
         /// Creates a new ClawWindow.
         /// </summary>
-        public ClawWindow()
+        protected ClawWindow()
         {
             // Set width, heigth, left and top, so the renderer will deliver a valid mask.
             Width = 300;
@@ -116,7 +116,7 @@ namespace Claw.UI.Controls
             renderer = new ClawWindowRenderer(this);
             animator = new ClawWindowAnimator(this);
 
-            LookAndFeel.Instance.Changed += LookChanged;
+            LookAndFeel.Changed += LookChanged;
 
             Initialized += OnInitialized;
             StateChanged += OnStateChanged;
@@ -137,7 +137,7 @@ namespace Claw.UI.Controls
         /// </summary>
         private void CreateControls()
         {
-            Panel baseComponent = GetBaseComponent();
+            Panel baseComponent = BaseComponent;
 
             btClose = CreateButton("CloseImage", "CloseText");
             btClose.Margin = new Thickness(10, 10, 25, 10);
@@ -167,7 +167,7 @@ namespace Claw.UI.Controls
         /// <param name="imageSource">Image to use.</param>
         /// <param name="toolTipReference">Reference where to find the ToolTip resource.</param>
         /// <returns>The created button.</returns>
-        private Button CreateButton(string imageSource, string toolTipReference)
+        private static Button CreateButton(string imageSource, string toolTipReference)
         {
             var button = new Button();
             button.HorizontalAlignment = HorizontalAlignment.Right;
@@ -221,28 +221,24 @@ namespace Claw.UI.Controls
 
             // Adjust the maximized size and position to fit the work area of the correct monitor.
             const int MONITOR_DEFAULTTONEAREST = 0x00000002;
-            IntPtr monitor = User32.MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+            IntPtr monitor = NativeMethods.MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
 
             if (monitor != System.IntPtr.Zero)
             {
                 MONITORINFO monitorInfo = new MONITORINFO();
-                User32.GetMonitorInfo(monitor, monitorInfo);
-                RECT rcWorkArea = monitorInfo.rcWork;
-                RECT rcMonitorArea = monitorInfo.rcMonitor;
-                mmi.ptMaxPosition.x = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
-                mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
-                mmi.ptMaxSize.x = Math.Abs(rcWorkArea.right - rcWorkArea.left);
-                mmi.ptMaxSize.y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
+                NativeMethods.GetMonitorInfo(monitor, monitorInfo);
+                RECT rcWorkArea = monitorInfo.RcWork;
+                RECT rcMonitorArea = monitorInfo.RcMonitor;
+                mmi.PtMaxPosition = new POINT(Math.Abs(rcWorkArea.Left - rcMonitorArea.Left), Math.Abs(rcWorkArea.Top - rcMonitorArea.Top));
+                mmi.PtMaxSize = new POINT(Math.Abs(rcWorkArea.Right - rcWorkArea.Left), Math.Abs(rcWorkArea.Bottom - rcWorkArea.Top));
                 // Need to set the minimum size to make resizing work properly.
                 if (Opening)
                 {
-                    mmi.ptMinTrackSize.x = 0;
-                    mmi.ptMinTrackSize.y = 0;
+                    mmi.PtMinTrackSize = new POINT(0, 0);
                 }
                 else
                 {
-                    mmi.ptMinTrackSize.x = (int)MinWidth;
-                    mmi.ptMinTrackSize.y = (int)MinHeight;
+                    mmi.PtMinTrackSize = new POINT((int)MinWidth, (int)MinHeight);
                 }
             }
 
@@ -369,6 +365,11 @@ namespace Claw.UI.Controls
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException("e");
+            }
+
             if (e.LeftButton == MouseButtonState.Pressed && cursorLocation == CursorLocation.Default)
             {
                 DragMove();
@@ -379,8 +380,11 @@ namespace Claw.UI.Controls
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            const double EDGE_WIDTH = 20;
-            const double EDGE_HEIGHT = 60;
+            if (e == null)
+            {
+                throw new ArgumentNullException("e");
+            }
+
 
             if (WindowState != WindowState.Maximized)
             {
@@ -391,67 +395,91 @@ namespace Claw.UI.Controls
                 }
                 else
                 {
-                    double width = Opening ? Width : ActualWidth;
-                    if (position.X > EDGE_WIDTH && position.X < width - EDGE_HEIGHT)
-                    {
-                        if (position.Y < RESIZE_BORDER)
-                        {
-                            cursorLocation = CursorLocation.Top;
-                            Cursor = Cursors.SizeNS;
-                            return;
-                        }
-                        if (position.Y > Height - (RESIZE_BORDER + 1))
-                        {
-                            cursorLocation = CursorLocation.Bottom;
-                            Cursor = Cursors.SizeNS;
-                            return;
-                        }
-                    }
-                    if (position.Y > EDGE_HEIGHT && position.Y < Height - EDGE_HEIGHT)
-                    {
-                        if (position.X < RESIZE_BORDER)
-                        {
-                            cursorLocation = CursorLocation.Left;
-                            Cursor = Cursors.SizeWE;
-                            return;
-                        }
-                        if (position.X > width - (RESIZE_BORDER + 1))
-                        {
-                            cursorLocation = CursorLocation.Right;
-                            Cursor = Cursors.SizeWE;
-                            return;
-                        }
-                    }
-                    if (position.X < EDGE_WIDTH && position.Y < EDGE_HEIGHT && position.Y >= EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * position.X && position.Y <= EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * position.X + RESIZE_BORDER)
-                    {
-                        cursorLocation = CursorLocation.TopLeft;
-                        Cursor = Cursors.SizeNWSE;
-                        return;
-                    }
-                    if (position.X > width - EDGE_WIDTH && position.Y < EDGE_HEIGHT && position.Y >= (EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * width && position.Y <= (EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width + RESIZE_BORDER)
-                    {
-                        cursorLocation = CursorLocation.TopRight;
-                        Cursor = Cursors.SizeNESW;
-                        return;
-                    }
-                    if (position.X < EDGE_WIDTH && position.Y > Height - EDGE_HEIGHT && position.Y <= Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * position.X) && position.Y >= Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * position.X) - RESIZE_BORDER)
-                    {
-                        cursorLocation = CursorLocation.BottomLeft;
-                        Cursor = Cursors.SizeNESW;
-                        return;
-                    }
-                    if (position.X > width - EDGE_WIDTH && position.Y > Height - EDGE_HEIGHT && position.Y <= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * width) && position.Y >= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width) - RESIZE_BORDER)
-                    {
-                        cursorLocation = CursorLocation.BottomRight;
-                        Cursor = Cursors.SizeNWSE;
-                        return;
-                    }
-
-                    cursorLocation = CursorLocation.Default;
-                    Cursor = Cursors.Arrow;
+                    ShowCursor(position);
                 }
             }
             base.OnMouseMove(e);
+        }
+
+        /// <summary>
+        /// Shows the cursor corresponding to the cursor position.
+        /// </summary>
+        /// <param name="position">Position of the cursor.</param>
+        private void ShowCursor(Point position)
+        {
+            const double EDGE_WIDTH = 20;
+            const double EDGE_HEIGHT = 60;
+
+            double width = Opening ? Width : ActualWidth;
+            if (position.X > EDGE_WIDTH && position.X < width - EDGE_HEIGHT && ShowCursorNS(position))
+            {
+                return;
+            }
+            if (position.Y > EDGE_HEIGHT && position.Y < Height - EDGE_HEIGHT && ShowCursorWE(position, width))
+            {
+                return;
+            }
+            if (position.X < EDGE_WIDTH && position.Y < EDGE_HEIGHT && position.Y >= EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * position.X && position.Y <= EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * position.X + RESIZE_BORDER)
+            {
+                cursorLocation = CursorLocation.TopLeft;
+                Cursor = Cursors.SizeNWSE;
+                return;
+            }
+            if (position.X > width - EDGE_WIDTH && position.Y < EDGE_HEIGHT && position.Y >= (EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * width && position.Y <= (EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width + RESIZE_BORDER)
+            {
+                cursorLocation = CursorLocation.TopRight;
+                Cursor = Cursors.SizeNESW;
+                return;
+            }
+            if (position.X < EDGE_WIDTH && position.Y > Height - EDGE_HEIGHT && position.Y <= Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * position.X) && position.Y >= Height - (EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * position.X) - RESIZE_BORDER)
+            {
+                cursorLocation = CursorLocation.BottomLeft;
+                Cursor = Cursors.SizeNESW;
+                return;
+            }
+            if (position.X > width - EDGE_WIDTH && position.Y > Height - EDGE_HEIGHT && position.Y <= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * width) && position.Y >= Height - ((EDGE_HEIGHT / EDGE_WIDTH) * position.X + EDGE_HEIGHT - (EDGE_HEIGHT / EDGE_WIDTH) * Width) - RESIZE_BORDER)
+            {
+                cursorLocation = CursorLocation.BottomRight;
+                Cursor = Cursors.SizeNWSE;
+                return;
+            }
+
+            cursorLocation = CursorLocation.Default;
+            Cursor = Cursors.Arrow;
+        }
+
+        private bool ShowCursorWE(Point position, double width)
+        {
+            if (position.X < RESIZE_BORDER)
+            {
+                cursorLocation = CursorLocation.Left;
+                Cursor = Cursors.SizeWE;
+                return true;
+            }
+            if (position.X > width - (RESIZE_BORDER + 1))
+            {
+                cursorLocation = CursorLocation.Right;
+                Cursor = Cursors.SizeWE;
+                return true;
+            }
+            return false;
+        }
+
+        private bool ShowCursorNS(Point position)
+        {
+            if (position.Y < RESIZE_BORDER)
+            {
+                cursorLocation = CursorLocation.Top;
+                Cursor = Cursors.SizeNS;
+                return true;
+            }
+            if (position.Y > Height - (RESIZE_BORDER + 1))
+            {
+                cursorLocation = CursorLocation.Bottom;
+                Cursor = Cursors.SizeNS;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -459,7 +487,7 @@ namespace Claw.UI.Controls
         /// </summary>
         private void ResizeWindow()
         {
-            User32.SendMessage(hwndSource.Handle, 0x112, (IntPtr)(61440 + cursorLocation), IntPtr.Zero);
+            NativeMethods.SendMessage(hwndSource.Handle, 0x112, (IntPtr)(61440 + cursorLocation), IntPtr.Zero);
         }
 
         protected override sealed void OnRender(DrawingContext drawingContext)
@@ -468,9 +496,11 @@ namespace Claw.UI.Controls
         }
 
         /// <summary>
-        /// Gets the base component of the window. Needed to insert controls into the windows control hierarchy.
+        /// The base component of the window. Needed to insert controls into the windows control hierarchy.
         /// </summary>
-        /// <returns>The base panel.</returns>
-        protected abstract Panel GetBaseComponent();
+        protected abstract Panel BaseComponent
+        {
+            get;
+        }
     }
 }
