@@ -181,6 +181,7 @@ namespace Claw.UI.Controls
             
             var toolTipText = new TextBlock();
             toolTipText.SetResourceReference(TextBlock.TextProperty, toolTipReference);
+            toolTipText.SetResourceReference(TextBlock.ForegroundProperty, "BackBrush");
             var toolTip = new ToolTip();
             toolTip.Content = toolTipText;
             button.ToolTip = toolTip;

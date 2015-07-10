@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary x:Key="lookAndFeel">
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="LookAndFeel.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource ForeBrush}"/>
+    </Style>
+
+</ResourceDictionary>

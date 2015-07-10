@@ -10,8 +10,9 @@
     <Grid x:Name="baseGrid">
         <Button x:Name="btOptions" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,10,100,10">
             <Button.ToolTip>
-                <TextBlock Text="{DynamicResource OptionsText}"/>
+                <TextBlock Text="{DynamicResource OptionsText}" Foreground="{DynamicResource BackBrush}"/>
             </Button.ToolTip>
+            <Image Source="{DynamicResource OptionsImage}"/>
         </Button>
         
         <!-- Be aware: If changing the margin of this, it is also necessary to change the margin in SetDist* in the implementation. -->
@@ -20,13 +21,41 @@
         </Grid>
 
         <!-- Be aware: If changing the margin of this, it is also necessary to change the margin in SetDist* in the implementation. -->
-        <Expander x:Name="exFile" Width="120" Height="130" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,-94,0" ExpandDirection="Right"
+        <Expander x:Name="exFile" Width="120" Height="135" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,-94,0" ExpandDirection="Right"
                   Expanded="OnExFileExpanded" Collapsed="OnExFileCollapsed">
-            <StackPanel Width="99" Height="130">
-                <Button Height="20" Margin="5,5,5,2" Content="{DynamicResource NewText}"/>
-                <Button Height="20" Margin="5,3,5,2" Content="{DynamicResource OpenText}"/>
-                <Button Height="20" Margin="5,3,5,2" Content="{DynamicResource SaveText}"/>
-                <Button Height="20" Margin="5,3,5,2" Content="{DynamicResource SaveAsText}"/>
+            <StackPanel Width="99" Height="135">
+                <Button Height="20" Margin="5,5,5,2">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{DynamicResource NewFileImage}" Margin="0,0,5,0"/>
+                            <TextBlock Text="{DynamicResource NewText}"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Height="20" Margin="5,5,5,2">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{DynamicResource OpenFileImage}" Margin="0,0,5,0"/>
+                            <TextBlock Text="{DynamicResource OpenText}"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Height="20" Margin="5,5,5,2">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{DynamicResource SaveFileImage}" Margin="0,0,5,0"/>
+                            <TextBlock Text="{DynamicResource SaveText}"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Height="20" Margin="5,5,5,2">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{DynamicResource SaveFileAsImage}" Margin="0,0,5,0"/>
+                            <TextBlock Text="{DynamicResource SaveAsText}"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
                 <Button Height="20" Margin="5,3,5,5" Content="{DynamicResource ExitText}"/>
             </StackPanel>
         </Expander>

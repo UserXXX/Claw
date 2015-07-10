@@ -121,6 +121,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Controls\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Controls\ToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +163,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Normalize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Export.png" />
+    <Resource Include="Resources\Import.png" />
+    <Resource Include="Resources\NewFile.png" />
+    <Resource Include="Resources\OpenFile.png" />
+    <Resource Include="Resources\Save.png" />
+    <Resource Include="Resources\Options.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

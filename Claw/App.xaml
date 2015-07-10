@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="UI/Controls/ListView.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ListViewItem.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ScrollBar.xaml"/>
+                <ResourceDictionary Source="UI/Controls/TextBlock.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ToggleButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

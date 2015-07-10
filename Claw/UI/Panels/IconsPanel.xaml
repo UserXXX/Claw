@@ -18,7 +18,7 @@
 
         <Button x:Name="btAdd" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,5,5">
             <Button.ToolTip>
-                <TextBlock Text="{DynamicResource AddIconToolTipText}"/>
+                <TextBlock Text="{DynamicResource AddIconToolTipText}" Foreground="{DynamicResource BackBrush}"/>
             </Button.ToolTip>
             <!--TODO: Create icon.-->
             <Image />
@@ -26,7 +26,7 @@
 
         <Button x:Name="btRemove" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,40,5,5" IsEnabled="False">
             <Button.ToolTip>
-                <TextBlock Text="{DynamicResource RemoveIconToolTipText}"/>
+                <TextBlock Text="{DynamicResource RemoveIconToolTipText}" Foreground="{DynamicResource BackBrush}"/>
             </Button.ToolTip>
             <!--TODO: Create icon.-->
             <Image />
@@ -34,7 +34,7 @@
 
         <Button x:Name="btExtract" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,75,5,5" IsEnabled="False">
             <Button.ToolTip>
-                <TextBlock Text="{DynamicResource ExtractIconToolTipText}"/>
+                <TextBlock Text="{DynamicResource ExtractIconToolTipText}" Foreground="{DynamicResource BackBrush}"/>
             </Button.ToolTip>
             <!--TODO: Create icon.-->
             <Image />
@@ -42,18 +42,16 @@
 
         <Button x:Name="btImportFromDB" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,110,5,5">
             <Button.ToolTip>
-                <TextBlock Text="{DynamicResource ImportIconFromDBToolTipText}"/>
+                <TextBlock Text="{DynamicResource ImportIconFromDBToolTipText}" Foreground="{DynamicResource BackBrush}"/>
             </Button.ToolTip>
-            <!--TODO: Create icon.-->
-            <Image />
+            <Image Source="{DynamicResource ImportImage}"/>
         </Button>
 
         <Button x:Name="btExportToDB" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,145,5,5" IsEnabled="False">
             <Button.ToolTip>
-                <TextBlock Text="{DynamicResource ExportIconToDBToolTipText}"/>
+                <TextBlock Text="{DynamicResource ExportIconToDBToolTipText}" Foreground="{DynamicResource BackBrush}"/>
             </Button.ToolTip>
-            <!--TODO: Create icon.-->
-            <Image />
+            <Image Source="{DynamicResource ExportImage}"/>
         </Button>
     </Grid>
 </UserControl>
