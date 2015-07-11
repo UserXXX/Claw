@@ -15,7 +15,7 @@ namespace Claw.Validation
 			this.reports = reports;
 		}
 		
-		internal override void AddInfo(string message)
+		public override void AddInfo(string message)
 		{
 			foreach (var report in reports)
 			{
@@ -23,7 +23,7 @@ namespace Claw.Validation
 			}
 		}
 		
-		internal override void AddWarning(string message)
+		public override void AddWarning(string message)
 		{
 			foreach (var report in reports)
 			{
@@ -31,7 +31,7 @@ namespace Claw.Validation
 			}
 		}
 		
-		internal override void AddError(string message)
+		public override void AddError(string message)
 		{
 			foreach (var report in reports)
 			{

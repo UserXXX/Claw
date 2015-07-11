@@ -5,7 +5,7 @@
             <ResourceDictionary Source="LookAndFeel.xaml"/>
         </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
-
+    
     <Style TargetType="ToggleButton">
         <Setter Property="Background" Value="{DynamicResource BackBrush}"/>
         <Setter Property="Template">

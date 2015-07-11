@@ -9,10 +9,10 @@ namespace Claw.Validation
     /// </summary>
     public class EmptyReport : ValidationReport
     {
-        internal override void AddInfo(string message) { }
+        public override void AddInfo(string message) { }
 
-        internal override void AddWarning(string message) { }
+        public override void AddWarning(string message) { }
 
-        internal override void AddError(string message) { }
+        public override void AddError(string message) { }
     }
 }

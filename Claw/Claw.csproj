@@ -62,12 +62,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\IClawModel.cs" />
+    <Compile Include="Interfaces\IMainPresenter.cs" />
+    <Compile Include="Logic\ClawValidationReport.cs" />
+    <Compile Include="Logic\MainPresenter.cs" />
+    <Compile Include="Model\ClawModel.cs" />
+    <Compile Include="Model\ErrorCatcherReport.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Native\Windows.cs" />
     <Compile Include="UI\Controls\ClawWindow.cs" />
     <Compile Include="UI\Controls\ClawWindowAnimator.cs" />
     <Compile Include="UI\Controls\ClawWindowRenderer.cs" />
     <Compile Include="UI\Controls\LookAndFeel.cs" />
+    <Compile Include="Interfaces\IMainView.cs" />
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -171,6 +178,12 @@
     <Resource Include="Resources\OpenFile.png" />
     <Resource Include="Resources\Save.png" />
     <Resource Include="Resources\Options.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClawLib\ClawLib.csproj">
+      <Project>{365d7b3f-f63d-47dc-ba0e-35f751f73d27}</Project>
+      <Name>ClawLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

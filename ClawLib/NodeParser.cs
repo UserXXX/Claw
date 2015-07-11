@@ -98,5 +98,20 @@ namespace Claw
         {
         	validator.Validate(this, node);
         }
+
+        /// <summary>
+        /// Checks whether the given string is valid for a profile. Throws an InvalidCharacterException if the string is not valid.
+        /// </summary>
+        /// <param name="text">The text to check.</param>
+        internal static void CheckValid(string text)
+        {
+            foreach (char sign in PR0Constants.ILLEGAL_CHARACTERS)
+            {
+                if (text.Contains(sign.ToString()))
+                {
+                    throw new IllegalCharacterException();
+                }
+            }
+        }
     }
 }

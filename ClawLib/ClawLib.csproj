@@ -92,6 +92,7 @@
     <Compile Include="Validation\BranchReport.cs" />
     <Compile Include="Validation\DebugReport.cs" />
     <Compile Include="Validation\EmptyReport.cs" />
+    <Compile Include="Validation\IllegalCharacterException.cs" />
     <Compile Include="Validation\NodeValidator.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
     <None Include="Properties\Settings.settings">

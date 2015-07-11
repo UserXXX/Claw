@@ -68,6 +68,19 @@ namespace Claw
         private BlastList blasts;
 
         /// <summary>
+        /// The name of the profile.
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                CheckValid(name);
+                name = value;
+            }
+        }
+
+        /// <summary>
         /// Creates a new profile from a node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>

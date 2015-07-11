@@ -11,18 +11,18 @@ namespace Claw.Validation
 		/// Adds an info to the validation report.
 		/// </summary>
 		/// <param name="message">The message to add.</param>
-		internal abstract void AddInfo(string message);
+		public abstract void AddInfo(string message);
 		
 		/// <summary>
 		/// Adds a warning to the validation report.
 		/// </summary>
 		/// <param name="message">The message to add.</param>
-		internal abstract void AddWarning(string message);
+		public abstract void AddWarning(string message);
 		
 		/// <summary>
 		/// Adds an error to the validation report.
 		/// </summary>
 		/// <param name="message">The message to add.</param>
-		internal abstract void AddError(string message);
+		public abstract void AddError(string message);
 	}
 }
