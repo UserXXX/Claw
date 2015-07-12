@@ -15,13 +15,22 @@ using System.Windows.Shapes;
 namespace Claw.UI.Panels
 {
     /// <summary>
-    /// Interaktionslogik für EditorPanel.xaml
+    /// Logic for EditorPanel.xaml.
     /// </summary>
     public partial class EditorPanel : UserControl
     {
         public EditorPanel()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Notifies this panel that the selected profile changed.
+        /// </summary>
+        /// <param name="activeProfile">The new active profile.</param>
+        public void ActiveProfileChanged(MadCatzProfile activeProfile)
+        {
+            pIcons.ActiveProfileChanged(activeProfile);
         }
     }
 }

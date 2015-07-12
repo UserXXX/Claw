@@ -49,6 +49,13 @@ namespace Claw.Controllers
         #endregion
 
         /// <summary>
+        /// Default constructor. Creates an empty list.
+        /// </summary>
+        public ControllerList()
+            : base()
+        { }
+
+        /// <summary>
         /// Creates a new ControllerList.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>

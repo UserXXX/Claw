@@ -13,7 +13,7 @@ namespace Claw.Blasts
     /// data<number of encoded bytes
     /// Base64 encoded PNG data, 76 signs per line, one line break
     /// </summary>
-    public class Blast : NodeParser, IDisposable
+    public class Blast : NodeParser
     {
         private const string DATA_ATTRIBUTE = "data";
 
@@ -54,7 +54,16 @@ namespace Claw.Blasts
         #endregion
         
         private Guid uuid;
-        private Image image;
+        private byte[] data;
+
+        /// <summary>
+        /// The images data. This will be encoded to Base64 and written to the profile file.
+        /// </summary>
+        public byte[] Data
+        {
+            get { return data; }
+            set { data = value; }
+        }
 
         /// <summary>
         /// Creates a new Blast from the given node.
@@ -69,11 +78,7 @@ namespace Claw.Blasts
 
             if (node.Attributes.ContainsKey(DATA_ATTRIBUTE))
             {
-                byte[] data = Convert.FromBase64String(node.Attributes[DATA_ATTRIBUTE]);
-                using (var stream = new MemoryStream(data))
-                {
-                    image = new Bitmap(stream);
-                }
+                data = Convert.FromBase64String(node.Attributes[DATA_ATTRIBUTE]);
             }
         }
 
@@ -88,41 +93,12 @@ namespace Claw.Blasts
             {
                 node.Tag = uuid.ToString();
             }
-            if (image != null)
+            if (data != null)
             {
-                using (var stream = new MemoryStream())
-                {
-                    image.Save(stream, ImageFormat.Png);
-                    string data = Convert.ToBase64String(stream.GetBuffer());
-                    node.Attributes.Add(DATA_ATTRIBUTE, data);
-                }
+                string encoded = Convert.ToBase64String(data);
+                node.Attributes.Add(DATA_ATTRIBUTE, encoded);
             }
             return node;
-        }
-
-        /// <summary>
-        /// Disposes this blast.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Disposes this blast.
-        /// </summary>
-        /// <param name="disposeManagedResources">Whether to dispose managed resources or not.</param>
-        protected virtual void Dispose(bool disposeManagedResources)
-        {
-            if (disposeManagedResources)
-            {
-                if (image != null)
-                {
-                    image.Dispose();
-                    image = null;
-                }
-            }
         }
     }
 }

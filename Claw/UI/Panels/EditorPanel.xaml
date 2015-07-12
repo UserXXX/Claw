@@ -30,7 +30,7 @@
             </RadioButton>
         </Grid>
         <Grid x:Name="pCentral" VerticalAlignment="Stretch" Margin="0,35,0,0">
-            <panels:IconsPanel></panels:IconsPanel>
+            <panels:IconsPanel x:Name="pIcons"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -65,6 +65,13 @@ namespace Claw
             }
         }
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        internal NodeListParser()
+            : base()
+        { }
+
         internal NodeListParser(NodeValidator validator, Node node)
             : base(validator, node)
         { }

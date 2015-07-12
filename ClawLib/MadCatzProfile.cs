@@ -81,6 +81,14 @@ namespace Claw
         }
 
         /// <summary>
+        /// The blasts of this profile. Blasts are encoded icons / images.
+        /// </summary>
+        public BlastList Blasts
+        {
+            get { return blasts; }
+        }
+
+        /// <summary>
         /// Creates a new profile from a node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>
@@ -110,6 +118,19 @@ namespace Claw
                         blasts = new BlastList(validator, child);
                         break;
                 }
+            }
+
+            if (controllers == null)
+            {
+                controllers = new ControllerList();
+            }
+            if (commands == null)
+            {
+                commands = new CommandList();
+            }
+            if (blasts == null)
+            {
+                blasts = new BlastList();
             }
         }
 

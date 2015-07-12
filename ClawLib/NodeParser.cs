@@ -82,7 +82,7 @@ namespace Claw
         /// <summary>
         /// Empty constructor for simple object creation.
         /// </summary>
-        private NodeParser() { }
+        protected NodeParser() { }
 
         /// <summary>
         /// Creates a new NodeParser. If running in DEBUG mode, the following checks are done:

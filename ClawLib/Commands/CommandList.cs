@@ -48,6 +48,13 @@ namespace Claw.Commands
         }
 
         #endregion
+        
+        /// <summary>
+        /// Default constructor. Creates an empty list.
+        /// </summary>
+        public CommandList()
+            : base()
+        { }
 
         /// <summary>
         /// Creates a new CommandList from the given node.

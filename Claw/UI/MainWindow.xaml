@@ -17,7 +17,7 @@
         
         <!-- Be aware: If changing the margin of this, it is also necessary to change the margin in SetDist* in the implementation. -->
         <Grid x:Name="pCentral"  Margin="0,40,23,60">
-            <panels:EditorPanel/>
+            <panels:EditorPanel x:Name="pEditor"/>
         </Grid>
 
         <!-- Be aware: If changing the margin of this, it is also necessary to change the margin in SetDist* in the implementation. -->

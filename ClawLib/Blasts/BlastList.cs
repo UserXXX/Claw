@@ -48,6 +48,13 @@ namespace Claw.Blasts
         }
 
         #endregion
+        
+        /// <summary>
+        /// Default constructor. Creates an empty list.
+        /// </summary>
+        public BlastList()
+            : base()
+        { }
 
         /// <summary>
         /// Creates a new BlastList from the given node.

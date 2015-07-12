@@ -111,7 +111,9 @@ namespace Claw.UI
         {
             btSave.IsEnabled = true;
             btSaveAs.IsEnabled = true;
-            // TODO: Notify other views to update their data
+            RadioButton button = (RadioButton)sender;
+            MadCatzProfile profile = (MadCatzProfile)button.Tag;
+            pEditor.ActiveProfileChanged(profile);
         }
 
         #region Expander management
