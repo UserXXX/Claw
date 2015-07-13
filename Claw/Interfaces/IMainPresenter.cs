@@ -26,5 +26,11 @@ namespace Claw.Interfaces
         /// Notification that the user requests to open a file.
         /// </summary>
         void OpenFileRequested();
+
+        /// <summary>
+        /// Called when the currently active profile changes.
+        /// </summary>
+        /// <param name="profile">The new active profile.</param>
+        void ActiveProfileChanged(MadCatzProfile profile);
     }
 }

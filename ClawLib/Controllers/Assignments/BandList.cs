@@ -50,6 +50,13 @@ namespace Claw.Controllers.Assignments
         #endregion
 
         /// <summary>
+        /// Creates a new and empty BandList.
+        /// </summary>
+        internal BandList()
+            : base()
+        { }
+
+        /// <summary>
         /// Creates a new BandList from the given node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>

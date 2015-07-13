@@ -38,10 +38,13 @@ namespace Claw.UI
             get { return baseGrid; }
         }
 
+        public IIconsView IconsView
+        {
+            get { return pEditor.IconsPanel; }
+        }
+
         public MainWindow()
         {
-            App.OnStartup(this);
-
             InitializeComponent();
 
             openProfileDialog = new OpenFileDialog();
@@ -113,10 +116,8 @@ namespace Claw.UI
             btSaveAs.IsEnabled = true;
             RadioButton button = (RadioButton)sender;
             MadCatzProfile profile = (MadCatzProfile)button.Tag;
-            pEditor.ActiveProfileChanged(profile);
+            presenter.ActiveProfileChanged(profile);
         }
-
-        #region Expander management
 
         /// <summary>
         /// Initialization handler for this window.
@@ -127,7 +128,10 @@ namespace Claw.UI
         private void OnInitialized(object sender, EventArgs e)
         {
             exFile.IsExpanded = true;
+            App.OnStartup(this);
         }
+
+        #region Expander management
 
         /// <summary>
         /// Handles the Expanded event for the expander on the right side of the window.

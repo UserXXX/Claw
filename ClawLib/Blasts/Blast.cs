@@ -57,15 +57,6 @@ namespace Claw.Blasts
         private byte[] data;
 
         /// <summary>
-        /// The images data. This will be encoded to Base64 and written to the profile file.
-        /// </summary>
-        public byte[] Data
-        {
-            get { return data; }
-            set { data = value; }
-        }
-
-        /// <summary>
         /// Creates a new Blast from the given node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>
@@ -80,6 +71,24 @@ namespace Claw.Blasts
             {
                 data = Convert.FromBase64String(node.Attributes[DATA_ATTRIBUTE]);
             }
+        }
+
+        /// <summary>
+        /// Gets the images data.
+        /// </summary>
+        /// <returns>A copy of the image data read from the profile file.</returns>
+        public byte[] GetData()
+        {
+            return (byte[])data.Clone();
+        }
+
+        /// <summary>
+        /// Sets the images data. This will be encoded to Base64 and written to the profile file.
+        /// </summary>
+        /// <param name="newData">The data of the image in PNG image format.</param>
+        public void SetData(byte[] newData)
+        {
+            data = newData;
         }
 
         /// <summary>

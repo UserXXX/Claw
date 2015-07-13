@@ -12,6 +12,14 @@ namespace Claw.Interfaces
     public interface IMainView
     {
         /// <summary>
+        /// The icons view associated with this view.
+        /// </summary>
+        IIconsView IconsView
+        {
+            get;
+        }
+
+        /// <summary>
         /// Sets the presenter for this view.
         /// </summary>
         /// <param name="mainPresenter">The presenter.</param>

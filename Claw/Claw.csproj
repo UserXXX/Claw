@@ -63,8 +63,11 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IClawModel.cs" />
+    <Compile Include="Interfaces\IIconsPresenter.cs" />
+    <Compile Include="Interfaces\IIconsView.cs" />
     <Compile Include="Interfaces\IMainPresenter.cs" />
     <Compile Include="Logic\ClawValidationReport.cs" />
+    <Compile Include="Logic\IconsPresenter.cs" />
     <Compile Include="Logic\MainPresenter.cs" />
     <Compile Include="Model\ClawModel.cs" />
     <Compile Include="Model\ErrorCatcherReport.cs" />

@@ -78,11 +78,18 @@ namespace Claw.Controllers.Assignments
                 role = ButtonAssignmentRoleHelper.TryParse(node.Attributes[ROLE_ATTRIBUTE]);
             }
 
-            foreach (var child in node.Children)
+            if (role == ButtonAssignmentRole.Unprogrammed)
             {
-                if (child.Name.ToUpperInvariant() == BANDS_CHILD_NODE)
+                bands = new BandList();
+            }
+            else
+            {
+                foreach (var child in node.Children)
                 {
-                    bands = new BandList(validator, child);
+                    if (child.Name.ToUpperInvariant() == BANDS_CHILD_NODE)
+                    {
+                        bands = new BandList(validator, child);
+                    }
                 }
             }
         }

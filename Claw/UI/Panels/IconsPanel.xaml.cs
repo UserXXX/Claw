@@ -20,14 +20,21 @@ namespace Claw.UI.Panels
     /// <summary>
     /// Contains the control logic for IconsPanel.xaml.
     /// </summary>
-    public partial class IconsPanel : UserControl
+    public partial class IconsPanel : UserControl, IIconsView
     {
+        private IIconsPresenter presenter;
+
         /// <summary>
         /// Creates a new IconsPanel.
         /// </summary>
         public IconsPanel()
         {
             InitializeComponent();
+        }
+
+        public void SetPresenter(IIconsPresenter newPresenter)
+        {
+            presenter = newPresenter;
         }
 
         /// <summary>
@@ -56,7 +63,7 @@ namespace Claw.UI.Panels
             lvIcons.Items.Clear();
             foreach (Blast blast in activeProfile.Blasts)
             {
-                BitmapImage image = CreateImage(blast.Data);
+                BitmapImage image = CreateImage(blast.GetData());
                 var imageControl = new Image();
                 imageControl.Source = image;
                 lvIcons.Items.Add(imageControl);

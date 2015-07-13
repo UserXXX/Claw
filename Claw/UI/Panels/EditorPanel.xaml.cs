@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Claw.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,18 +20,14 @@ namespace Claw.UI.Panels
     /// </summary>
     public partial class EditorPanel : UserControl
     {
+        public IIconsView IconsPanel
+        {
+            get { return pIcons; }
+        }
+
         public EditorPanel()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Notifies this panel that the selected profile changed.
-        /// </summary>
-        /// <param name="activeProfile">The new active profile.</param>
-        public void ActiveProfileChanged(MadCatzProfile activeProfile)
-        {
-            pIcons.ActiveProfileChanged(activeProfile);
         }
     }
 }
