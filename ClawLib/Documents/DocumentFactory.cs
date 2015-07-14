@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Claw.Documents
 {
@@ -28,8 +29,9 @@ namespace Claw.Documents
         /// <param name="stream">The stream to save to.</param>
         internal static void Save(Node node, Stream stream)
         {
-            var writer = new StreamWriter(stream);
-            writer.Write(node.ToString().Replace("\n", Environment.NewLine));
+            var writer = new StreamWriter(stream, Encoding.Unicode);
+            // Last replace trims away one space before the end of a node, this is needed for intendation.
+            writer.Write(node.ToString().Replace("\n", Environment.NewLine).Replace(" ]", "]"));
             writer.Close();
         }
     }

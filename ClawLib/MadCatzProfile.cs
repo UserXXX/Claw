@@ -147,7 +147,7 @@ namespace Claw
                 node.Children.AddLast(controllers.CreateNodes());
             if (commands != null)
                 node.Children.AddLast(commands.CreateNodes());
-            if (blasts != null)
+            if (blasts != null && blasts.Count != 0)
                 node.Children.AddLast(blasts.CreateNodes());
             return node;
         }

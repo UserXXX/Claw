@@ -97,7 +97,7 @@ namespace Claw.Blasts
         /// <returns>The node.</returns>
         internal Node CreateNodes()
         {
-            var node = new Node(BlastList.BLAST_CHILD_NODE);
+            var node = new Node(BlastList.BLAST_CHILD_NODE.ToLowerInvariant());
             if (uuid != null)
             {
                 node.Tag = uuid.ToString();

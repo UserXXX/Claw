@@ -124,7 +124,9 @@ namespace Claw.Documents
                 else
                 {
                     string value = attributes["data"];
-                    ret += "\ndata<" + value.Length + "\n";
+                    // Need to add \n and \r to the data counter.
+                    int dataLength = value.Length + 2 * (value.Length / DATA_SIGNS_PER_LINE);
+                    ret += "\ndata<" + dataLength + "\n";
                     for (var i = 0; i < value.Length / DATA_SIGNS_PER_LINE; i++)
                     {
                         ret += value.Substring(i * DATA_SIGNS_PER_LINE, DATA_SIGNS_PER_LINE) + "\n";

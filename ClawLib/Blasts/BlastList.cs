@@ -79,7 +79,7 @@ namespace Claw.Blasts
         /// <returns>The node.</returns>
         internal Node CreateNodes()
         {
-            var node = new Node(MadCatzProfile.BLASTS_CHILD_NODE);
+            var node = new Node(MadCatzProfile.BLASTS_CHILD_NODE.ToLowerInvariant());
             foreach (Blast blast in this)
             {
                 node.Children.AddLast(blast.CreateNodes());
