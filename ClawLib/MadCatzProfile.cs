@@ -21,6 +21,10 @@ namespace Claw
         
         #region Validation
 
+        private static readonly List<uint> SUPPORTED_VERSIONS = new List<uint>(new uint [] {
+            5,
+        });
+
         private static readonly string[] REQUIRED_ATTRIBUTES = {
             VERSION_ATTRIBUTE,
         };
@@ -100,6 +104,10 @@ namespace Claw
             if (node.Attributes.ContainsKey(VERSION_ATTRIBUTE))
             {
                 version = ConversionHelper.ParseHexValue(node.Attributes[VERSION_ATTRIBUTE]);
+                if (!SUPPORTED_VERSIONS.Contains(version))
+                {
+                    validator.Report.AddError("Unsupported version: " + version);
+                }
             }
 
             foreach (var child in node.Children)

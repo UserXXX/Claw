@@ -56,9 +56,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestConstants.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LoadSaveTests.cs" />
+    <Compile Include="Tests\LoadSaveTests.cs" />
+    <Compile Include="Tests\CorruptedTests.cs" />
+    <Compile Include="Dummy\TestReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClawLib\ClawLib.csproj">
@@ -67,13 +70,38 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Testdata\LargeTestProfile.pr0">
+    <None Include="Testdata\Corrupted\CorruptAttributesAndTags.pr0">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Testdata\MediumTestProfile.pr0">
+    <None Include="Testdata\Valid\In\TP01.pr0">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Testdata\Valid\In\TP02.pr0">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Testdata\Valid\In\TP03.pr0">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Testdata\Valid\LargeTestProfile.pr0">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Testdata\Corrupted\CorruptVersion.pr0">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Testdata\Valid\MediumTestProfile.pr0">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Testdata\Valid\Out\TP01.pr0">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Testdata\Valid\Out\TP02.pr0">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Testdata\Valid\Out\TP03.pr0">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
