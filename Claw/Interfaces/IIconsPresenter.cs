@@ -21,5 +21,10 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="profile">The new active profile.</param>
         void ActiveProfileChanged(MadCatzProfile profile);
+
+        /// <summary>
+        /// Notifies the presenter that a new icon shall be opened and inserted into the profile.
+        /// </summary>
+        void AddIconsRequested();
     }
 }

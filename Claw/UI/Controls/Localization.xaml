@@ -24,19 +24,26 @@
     <clr:String x:Key="AssignToolTipText">Switches to the assignments view, that allows to assign commands to device keys</clr:String>
 
     <!-- Icons panel. -->
-    <clr:String x:Key="AddIconToolTipText">Add icon from file</clr:String>
+    <clr:String x:Key="AddIconsToolTipText">Add icons from file</clr:String>
     <clr:String x:Key="RemoveIconToolTipText">Remove the selected icon</clr:String>
     <clr:String x:Key="ExtractIconToolTipText">Extract the selected icon and save it to a file</clr:String>
     <clr:String x:Key="ImportIconFromDBToolTipText">Import an icon from the database</clr:String>
     <clr:String x:Key="ExportIconToDBToolTipText">Export the selected icon into the database</clr:String>
     
-    <!-- Message titles. -->
+    <!-- Message and dialog titles. -->
     <clr:String x:Key="MessageTitleClaw">Claw</clr:String>
     <clr:String x:Key="MessageTitleClawError">Claw - Error</clr:String>
+    <clr:String x:Key="DialogTitleOpenImages">Claw - Import images</clr:String>
     
     <!-- Error messages. -->
     <clr:String x:Key="InvalidPr0File">The chosen file is not a valid profile file.</clr:String>
+    <clr:String x:Key="CouldNotLoadImages">Could not load the following files as images:</clr:String>
     
     <!-- Info messages. -->
     <clr:String x:Key="ValidationSthHappened">The following happened during loading:</clr:String>
+
+    <!-- File filters. -->
+    <clr:String x:Key="MadCatzProfileFiles">MadCatz profiles</clr:String>
+    <clr:String x:Key="AllFiles">All files</clr:String>
+    <clr:String x:Key="ImageFiles">Image files</clr:String>
 </ResourceDictionary>

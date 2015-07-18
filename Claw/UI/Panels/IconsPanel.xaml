@@ -16,9 +16,9 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button x:Name="btAdd" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,5,5">
+        <Button x:Name="btAdd" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,5,5" Click="OnAddIconClick">
             <Button.ToolTip>
-                <TextBlock Text="{DynamicResource AddIconToolTipText}" Foreground="{DynamicResource BackBrush}"/>
+                <TextBlock Text="{DynamicResource AddIconsToolTipText}" Foreground="{DynamicResource BackBrush}"/>
             </Button.ToolTip>
             <!--TODO: Create icon.-->
             <Image />

@@ -74,6 +74,16 @@ namespace Claw.Blasts
         }
 
         /// <summary>
+        /// Creates a new blast and generates a new UUID for it. 
+        /// </summary>
+        /// <param name="pngData">The image data in png format.</param>
+        public Blast(byte[] pngData)
+        {
+            uuid = Guid.NewGuid();
+            data = pngData;
+        }
+
+        /// <summary>
         /// Gets the images data.
         /// </summary>
         /// <returns>A copy of the image data read from the profile file.</returns>

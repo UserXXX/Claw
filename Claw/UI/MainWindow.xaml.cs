@@ -28,6 +28,8 @@ namespace Claw.UI
         private const string BASE_PROFILES_DIRECTORY = "C:\\Users\\Public\\Documents\\SmartTechnology Profiles";
         private const string MESSAGE_TITLE_CLAW = "MessageTitleClaw";
         private const string MESSAGE_TITLE_CLAW_ERROR = "MessageTitleClawError";
+        private const string FILTER_PROFILE_FILES = "MadCatzProfileFiles";
+        private const string FILTER_ALL_FILES = "AllFiles";
 
         private IMainPresenter presenter;
 
@@ -48,7 +50,7 @@ namespace Claw.UI
             InitializeComponent();
 
             openProfileDialog = new OpenFileDialog();
-            openProfileDialog.Filter = "MadCatz profiles (*.pr0)|*.pr0|All files (*.*)|*.*";
+            openProfileDialog.Filter = (string)App.Current.FindResource(FILTER_PROFILE_FILES) + " (*.pr0)|*.pr0|" + (string)App.Current.FindResource(FILTER_ALL_FILES) + " (*.*)|*.*";
             if (Directory.Exists(BASE_PROFILES_DIRECTORY))
             {
                 openProfileDialog.InitialDirectory = BASE_PROFILES_DIRECTORY;

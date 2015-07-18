@@ -1,5 +1,6 @@
 ﻿using Claw.Blasts;
 using Claw.Interfaces;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +23,13 @@ namespace Claw.UI.Panels
     /// </summary>
     public partial class IconsPanel : UserControl, IIconsView
     {
+        private const string FILTER_IMAGE_FILES = "ImageFiles";
+        private const string FILTER_ALL_FILES = "AllFiles";
+        private const string DIALOG_TITLE_OPEN_IMAGES = "DialogTitleOpenImages";
+
         private IIconsPresenter presenter;
+
+        private OpenFileDialog openImagesDialog;
 
         /// <summary>
         /// Creates a new IconsPanel.
@@ -30,6 +37,12 @@ namespace Claw.UI.Panels
         public IconsPanel()
         {
             InitializeComponent();
+            
+            openImagesDialog = new OpenFileDialog();
+            openImagesDialog.Title = (string)App.Current.FindResource(DIALOG_TITLE_OPEN_IMAGES);
+            openImagesDialog.Multiselect = true;
+            openImagesDialog.Filter = (string)App.Current.FindResource(FILTER_IMAGE_FILES) + " (*.bmp;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff)|*.bmp;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff|" + (string)App.Current.FindResource(FILTER_ALL_FILES) + " (*.*)|*.*";
+            openImagesDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         }
 
         public void SetPresenter(IIconsPresenter newPresenter)
@@ -89,6 +102,34 @@ namespace Claw.UI.Panels
             }
             image.Freeze();
             return image;
+        }
+
+        /// <summary>
+        /// Event handler for clicks on the add icon button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnAddIconClick(object sender, RoutedEventArgs e)
+        {
+            presenter.AddIconsRequested();
+        }
+
+        public FileInfo[] SelectImageFiles()
+        {
+            bool? success = openImagesDialog.ShowDialog();
+            if (success.HasValue && success.Value)
+            {
+                var files = new FileInfo[openImagesDialog.FileNames.Length];
+                for (int i = 0; i < files.Length; i++)
+                {
+                    files[i] = new FileInfo(openImagesDialog.FileNames[i]);
+                }
+                return files;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -11,6 +11,11 @@ namespace Claw.Interfaces
     public interface IMainPresenter
     {
         /// <summary>
+        /// The active profile that is currently edited.
+        /// </summary>
+        MadCatzProfile ActiveProfile { get; }
+
+        /// <summary>
         /// Sets the view component for this presenter.
         /// </summary>
         /// <param name="mainView">The view.</param>
@@ -32,5 +37,11 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="profile">The new active profile.</param>
         void ActiveProfileChanged(MadCatzProfile profile);
+
+        /// <summary>
+        /// Forwards an error message to the main UI.
+        /// </summary>
+        /// <param name="error">The error message.</param>
+        void ForwardError(string error);
     }
 }
