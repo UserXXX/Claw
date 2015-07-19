@@ -26,10 +26,10 @@ namespace Claw.Interfaces
         void SetPresenter(IMainPresenter mainPresenter);
 
         /// <summary>
-        /// Displays a file select dialog or something equal to open a *.pr0 profile file.
+        /// Displays a file select dialog or something equal to open *.pr0 profile files.
         /// </summary>
-        /// <returns>The info for the selected file or null if the selection was cancelled.</returns>
-        FileInfo SelectProfileFile();
+        /// <returns>The infos for the selected files or null if the selection was cancelled.</returns>
+        FileInfo[] SelectProfileFiles();
 
         /// <summary>
         /// Displays an error message.

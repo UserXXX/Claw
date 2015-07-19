@@ -14,7 +14,7 @@ namespace Claw.Logic
     public class MainPresenter : IMainPresenter
     {
         private const string PR0_FILE_EXTENSION = ".PR0";
-        private const string ERROR_MSG_INVALID_PROFILE = "InvalidPr0File";
+        private const string ERROR_MSG_INVALID_PROFILES = "InvalidPr0Files";
         private const string VALIDATION_MSG_STH_HAPPENED = "ValidationSthHappened";
 
         private IMainView view;
@@ -44,33 +44,55 @@ namespace Claw.Logic
 
         public void OpenFileRequested()
         {
-            FileInfo file = view.SelectProfileFile();
-            if (file == null)
+            FileInfo[] files = view.SelectProfileFiles();
+            if (files == null)
             {
                 return;
             }
 
-            if (file.Extension.ToUpperInvariant() != PR0_FILE_EXTENSION)
+            string invalidFiles = null;
+            LinkedList<string> validationMessages = new LinkedList<string>();
+            foreach (FileInfo file in files)
             {
-                view.ShowErrorMessage((string)App.Current.FindResource(ERROR_MSG_INVALID_PROFILE));
-                return;
+                if (file.Extension.ToUpperInvariant() != PR0_FILE_EXTENSION)
+                {
+                    if (invalidFiles == null)
+                    {
+                        invalidFiles = file.Name;
+                    }
+                    else
+                    {
+                        invalidFiles += "\n" + file.Name;
+                    }
+                    continue;
+                }
+
+                var report = new ClawValidationReport();
+                bool success = model.LoadProfile(file, report);
+
+                if (report.SomethingHappened)
+                {
+                    validationMessages.AddLast((string)App.Current.FindResource(VALIDATION_MSG_STH_HAPPENED) + "\n" + report.Message);
+                }
+
+                if (!success)
+                {
+                    continue;
+                }
+
+                MadCatzProfile profile = model.Profiles.Last.Value;
+                view.AddProfile(profile);
             }
 
-            var report = new ClawValidationReport();
-            bool success = model.LoadProfile(file, report);
-
-            if (report.SomethingHappened)
+            if (invalidFiles != null)
             {
-                view.ShowMessage((string)App.Current.FindResource(VALIDATION_MSG_STH_HAPPENED) + "\n" + report.Message);
+                view.ShowErrorMessage((string)App.Current.FindResource(ERROR_MSG_INVALID_PROFILES) + "\n" + invalidFiles);
             }
 
-            if (!success)
+            foreach (string msg in validationMessages)
             {
-                return;
+                view.ShowMessage(msg);
             }
-
-            MadCatzProfile profile = model.Profiles.Last.Value;
-            view.AddProfile(profile);
         }
 
         public void ActiveProfileChanged(MadCatzProfile profile)

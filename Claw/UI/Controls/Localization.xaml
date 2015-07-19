@@ -34,9 +34,10 @@
     <clr:String x:Key="MessageTitleClaw">Claw</clr:String>
     <clr:String x:Key="MessageTitleClawError">Claw - Error</clr:String>
     <clr:String x:Key="DialogTitleOpenImages">Claw - Import images</clr:String>
+    <clr:String x:Key="DialogTitleOpenProfiles">Claw - Open profiles</clr:String>
     
     <!-- Error messages. -->
-    <clr:String x:Key="InvalidPr0File">The chosen file is not a valid profile file.</clr:String>
+    <clr:String x:Key="InvalidPr0Files">The following files aren't valid profile files:</clr:String>
     <clr:String x:Key="CouldNotLoadImages">Could not load the following files as images:</clr:String>
     
     <!-- Info messages. -->

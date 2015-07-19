@@ -28,6 +28,7 @@ namespace Claw.UI
         private const string BASE_PROFILES_DIRECTORY = "C:\\Users\\Public\\Documents\\SmartTechnology Profiles";
         private const string MESSAGE_TITLE_CLAW = "MessageTitleClaw";
         private const string MESSAGE_TITLE_CLAW_ERROR = "MessageTitleClawError";
+        private const string DIALOG_TITLE_OPEN_PROFILES = "DialogTitleOpenProfiles";
         private const string FILTER_PROFILE_FILES = "MadCatzProfileFiles";
         private const string FILTER_ALL_FILES = "AllFiles";
 
@@ -50,6 +51,8 @@ namespace Claw.UI
             InitializeComponent();
 
             openProfileDialog = new OpenFileDialog();
+            openProfileDialog.Multiselect = true;
+            openProfileDialog.Title = (string)App.Current.FindResource(DIALOG_TITLE_OPEN_PROFILES);
             openProfileDialog.Filter = (string)App.Current.FindResource(FILTER_PROFILE_FILES) + " (*.pr0)|*.pr0|" + (string)App.Current.FindResource(FILTER_ALL_FILES) + " (*.*)|*.*";
             if (Directory.Exists(BASE_PROFILES_DIRECTORY))
             {
@@ -62,17 +65,22 @@ namespace Claw.UI
             this.presenter = mainPresenter;
         }
 
-        public FileInfo SelectProfileFile()
+        public FileInfo[] SelectProfileFiles()
         {
             bool? success = openProfileDialog.ShowDialog();
-            if (success.HasValue && success.Value)
-            {
-                return new FileInfo(openProfileDialog.FileName);
-            }
-            else
+            if (!success.HasValue || !success.Value)
             {
                 return null;
             }
+
+            var files = new FileInfo[openProfileDialog.FileNames.Length];
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                files[i] = new FileInfo(openProfileDialog.FileNames[i]);
+            }
+
+            return files;
         }
 
         public void ShowErrorMessage(string message)
