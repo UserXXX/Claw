@@ -59,5 +59,33 @@ namespace Claw.Model
             profiles.Remove(profile);
             profileInfos.Remove(profile);
         }
+
+        public void SaveProfile(MadCatzProfile profile)
+        {
+            if (!HasSaveFile(profile))
+            {
+                throw new InvalidOperationException("Can't save the profile: there is no save location available.");
+            }
+
+            ProfileFactory.Save(profileInfos[profile].ProfileFile, profile);
+            profileInfos[profile].Edited = false;
+        }
+
+        public void SaveProfile(MadCatzProfile profile, FileInfo saveFile)
+        {
+            ProfileFactory.Save(saveFile, profile);
+            profileInfos[profile].Edited = false;
+            profileInfos[profile].ProfileFile = saveFile;
+        }
+
+        public bool HasSaveFile(MadCatzProfile profile)
+        {
+            return profileInfos[profile].ProfileFile != null;
+        }
+        
+        public FileInfo GetSaveFile(MadCatzProfile profile)
+        {
+            return profileInfos[profile].ProfileFile;
+        }
     }
 }

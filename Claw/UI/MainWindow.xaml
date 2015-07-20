@@ -40,7 +40,7 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button x:Name="btSave" IsEnabled="False" Height="20" Margin="5,5,5,2">
+                <Button x:Name="btSave" IsEnabled="False" Height="20" Margin="5,5,5,2" Click="OnSaveClick">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{DynamicResource SaveFileImage}" Margin="0,0,5,0"/>
@@ -48,7 +48,7 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <Button x:Name="btSaveAs" IsEnabled="False" Height="20" Margin="5,5,5,2">
+                <Button x:Name="btSaveAs" IsEnabled="False" Height="20" Margin="5,5,5,2" Click="OnSaveAsClick">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{DynamicResource SaveFileAsImage}" Margin="0,0,5,0"/>

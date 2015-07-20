@@ -38,6 +38,16 @@ namespace Claw.Interfaces
         void OpenFileRequested();
 
         /// <summary>
+        /// Notifies the presenter that the user wishes to save the active profile.
+        /// </summary>
+        void SaveActiveProfileRequested();
+
+        /// <summary>
+        /// Notifies the presenter that the user wishes to do a save as for the active profile.
+        /// </summary>
+        void SaveActiveProfileAsRequested();
+
+        /// <summary>
         /// Notifies the presenter, that the user wants to close the given profile.
         /// </summary>
         /// <param name="profile">The profile to close.</param>

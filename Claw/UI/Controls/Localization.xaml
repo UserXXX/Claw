@@ -35,13 +35,18 @@
     <clr:String x:Key="MessageTitleClawError">Claw - Error</clr:String>
     <clr:String x:Key="DialogTitleOpenImages">Claw - Import images</clr:String>
     <clr:String x:Key="DialogTitleOpenProfiles">Claw - Open profiles</clr:String>
+    <clr:String x:Key="DialogTitleSaveProfile">Claw - Save profile</clr:String>
     
     <!-- Error messages. -->
     <clr:String x:Key="InvalidPr0Files">The following files aren't valid profile files:</clr:String>
     <clr:String x:Key="CouldNotLoadImages">Could not load the following files as images:</clr:String>
+    <clr:String x:Key="UnableToSave">An error occured during saving the profile:</clr:String>
     
     <!-- Info messages. -->
     <clr:String x:Key="ValidationSthHappened">The following happened during loading:</clr:String>
+
+    <!-- Question messages. -->
+    <clr:String x:Key="SaveBoforeClosing">Save {0} before closing?</clr:String>
 
     <!-- File filters. -->
     <clr:String x:Key="MadCatzProfileFiles">MadCatz profiles</clr:String>

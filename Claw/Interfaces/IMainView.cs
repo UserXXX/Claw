@@ -60,5 +60,20 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="profile">The closed profile.</param>
         void ProfileClosed(MadCatzProfile profile);
+
+        /// <summary>
+        /// Asks the user to select a save file for the given profile.
+        /// </summary>
+        /// <param name="profile">The profile that shall be saved.</param>
+        /// <param name="currentSaveFile">The file the profile is currently saved to.</param>
+        /// <returns>The selected file info or null if the action was cancelled.</returns>
+        FileInfo SelectProfileSaveFile(MadCatzProfile profile, FileInfo currentSaveFile);
+
+        /// <summary>
+        /// Shows a question to the user with the answer possibilities yes, no and abort.
+        /// </summary>
+        /// <param name="message">The question message.</param>
+        /// <returns>True, if the user selected yes, false if no and null if the user aborted.</returns>
+        bool? ShowYesNoAbortQuestion(string message);
     }
 }

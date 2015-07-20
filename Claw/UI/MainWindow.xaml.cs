@@ -29,12 +29,14 @@ namespace Claw.UI
         private const string MESSAGE_TITLE_CLAW = "MessageTitleClaw";
         private const string MESSAGE_TITLE_CLAW_ERROR = "MessageTitleClawError";
         private const string DIALOG_TITLE_OPEN_PROFILES = "DialogTitleOpenProfiles";
+        private const string DIALOG_TITLE_SAVE_PROFILE = "DialogTitleSaveProfile";
         private const string FILTER_PROFILE_FILES = "MadCatzProfileFiles";
         private const string FILTER_ALL_FILES = "AllFiles";
 
         private IMainPresenter presenter;
 
         private OpenFileDialog openProfileDialog;
+        private SaveFileDialog saveProfileDialog;
 
         protected override Panel BaseComponent
         {
@@ -58,6 +60,22 @@ namespace Claw.UI
             {
                 openProfileDialog.InitialDirectory = BASE_PROFILES_DIRECTORY;
             }
+
+            saveProfileDialog = new SaveFileDialog();
+            saveProfileDialog.Title = (string)App.Current.FindResource(DIALOG_TITLE_SAVE_PROFILE);
+            saveProfileDialog.Filter = (string)App.Current.FindResource(FILTER_PROFILE_FILES) + " (*.pr0)|*.pr0|" + (string)App.Current.FindResource(FILTER_ALL_FILES) + " (*.*)|*.*";
+        }
+
+        /// <summary>
+        /// Initialization handler for this window.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "This method is an event handler for the WPF UI, so it is not recognized to be called by the analyzer.")]
+        private void OnInitialized(object sender, EventArgs e)
+        {
+            exFile.IsExpanded = true;
+            App.OnStartup(this);
         }
 
         public void SetPresenter(IMainPresenter mainPresenter)
@@ -150,18 +168,6 @@ namespace Claw.UI
             btSaveAs.IsEnabled = enabled;
         }
 
-        /// <summary>
-        /// Initialization handler for this window.
-        /// </summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">Event arguments.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification="This method is an event handler for the WPF UI, so it is not recognized to be called by the analyzer.")]
-        private void OnInitialized(object sender, EventArgs e)
-        {
-            exFile.IsExpanded = true;
-            App.OnStartup(this);
-        }
-
         public void SetActiveProfile(MadCatzProfile activeProfile)
         {
             if (activeProfile == null)
@@ -198,6 +204,56 @@ namespace Claw.UI
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Event handler for a click on the save button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnSaveClick(object sender, RoutedEventArgs e)
+        {
+            presenter.SaveActiveProfileRequested();
+        }
+
+        /// <summary>
+        /// Event handler for a click on the save as button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnSaveAsClick(object sender, RoutedEventArgs e)
+        {
+            presenter.SaveActiveProfileAsRequested();
+        }
+
+        public FileInfo SelectProfileSaveFile(MadCatzProfile profile, FileInfo currentSaveFile)
+        {
+            saveProfileDialog.InitialDirectory = currentSaveFile.Directory.FullName;
+            saveProfileDialog.FileName = currentSaveFile.Name;
+            bool? result = saveProfileDialog.ShowDialog();
+
+            if (!result.HasValue || !result.Value)
+            {
+                return null;
+            }
+
+            return new FileInfo(saveProfileDialog.FileName);
+        }
+
+        public bool? ShowYesNoAbortQuestion(string message)
+        {
+            MessageBoxResult result = MessageBox.Show(message, "Claw", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    return true;
+
+                case MessageBoxResult.No:
+                    return false;
+
+                default:
+                    return null;
+            }
         }
 
         #region Expander management

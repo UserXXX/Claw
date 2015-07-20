@@ -15,7 +15,9 @@ namespace Claw.Logic
     {
         private const string PR0_FILE_EXTENSION = ".PR0";
         private const string ERROR_MSG_INVALID_PROFILES = "InvalidPr0Files";
+        private const string ERROR_MSG_UNABLE_TO_SAVE = "UnableToSave";
         private const string VALIDATION_MSG_STH_HAPPENED = "ValidationSthHappened";
+        private const string QUESTION_SAVE_BEFORE_CLOSING = "SaveBoforeClosing";
 
         private IMainView view;
         private IClawModel model;
@@ -103,7 +105,18 @@ namespace Claw.Logic
         {
             if (model.HasBeenEdited(profile))
             {
-                // TODO: Ask user if he wants to save.
+                bool? doSave = view.ShowYesNoAbortQuestion(string.Format((string)App.Current.FindResource(QUESTION_SAVE_BEFORE_CLOSING), profile.Name));
+                if (!doSave.HasValue)
+                {
+                    return;
+                }
+
+                // If saveing is cancelld it is also necessary to cancel closing.
+                // Be aware: SaveProfileRequested is only executed when doSave.Value is true because of rapid evaluation.
+                if (doSave.Value && !SaveProfileRequested(profile))
+                {
+                    return;
+                }
             }
 
             model.CloseProfile(profile);
@@ -122,6 +135,58 @@ namespace Claw.Logic
             }
 
             view.ProfileClosed(profile);
+        }
+
+        public void SaveActiveProfileRequested()
+        {
+            SaveProfileRequested(activeProfile);
+        }
+
+        /// <summary>
+        /// Asks to save the given profile.
+        /// </summary>
+        /// <param name="profile">The profile to save.</param>
+        /// <returns>Whether the profile was saved.</returns>
+        public bool SaveProfileRequested(MadCatzProfile profile)
+        {
+            if (!model.HasSaveFile(profile))
+            {
+                return SaveProfileAsRequested(profile);
+            }
+
+            try
+            {
+                model.SaveProfile(profile);
+                return true;
+            }
+            catch (IOException exc)
+            {
+                view.ShowErrorMessage(App.Current.FindResource(ERROR_MSG_UNABLE_TO_SAVE) + " " + exc.ToString());
+                return false;
+            }
+        }
+
+        public void SaveActiveProfileAsRequested()
+        {
+            SaveProfileAsRequested(activeProfile);
+        }
+
+        /// <summary>
+        /// Does a save as for the given profile.
+        /// </summary>
+        /// <param name="profile">The profile to save.</param>
+        /// <returns>Whether the profile was saved.</returns>
+        public bool SaveProfileAsRequested(MadCatzProfile profile)
+        {
+            FileInfo saveFile = view.SelectProfileSaveFile(profile, model.GetSaveFile(profile));
+
+            if (saveFile == null)
+            {
+                return false;
+            }
+
+            model.SaveProfile(profile, saveFile);
+            return true;
         }
 
         public void ActiveProfileChanged(MadCatzProfile profile)
