@@ -332,5 +332,10 @@ namespace Claw.UI
         {
             presenter.OpenFileRequested();
         }
+
+        private void OnExitClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
