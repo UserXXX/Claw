@@ -27,5 +27,25 @@ namespace Claw.Interfaces
         /// <param name="report">Report to store infos, errors and warnings in.</param>
         /// <returns>Whether loading was successful.</returns>
         bool LoadProfile(FileInfo file, ValidationReport report);
+
+        /// <summary>
+        /// Adds an icon to a profile.
+        /// </summary>
+        /// <param name="profile">The profile to add the icon to.</param>
+        /// <param name="pngData">The data of the PNG image file.</param>
+        void AddIcon(MadCatzProfile profile, byte[] pngData);
+
+        /// <summary>
+        /// Checks whether the given profile has been edited.
+        /// </summary>
+        /// <param name="profile">The profile to check.</param>
+        /// <returns>Whether the profile has been edited.</returns>
+        bool HasBeenEdited(MadCatzProfile profile);
+
+        /// <summary>
+        /// Closes the given profile (meaning releasing it for garbage collection).
+        /// </summary>
+        /// <param name="profile">The profile to close.</param>
+        void CloseProfile(MadCatzProfile profile);
     }
 }

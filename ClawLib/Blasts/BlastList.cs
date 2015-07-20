@@ -77,6 +77,7 @@ namespace Claw.Blasts
         /// Creates the node structure.
         /// </summary>
         /// <returns>The node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Necessary for outputting syntactically correct profile files.")]
         internal Node CreateNodes()
         {
             var node = new Node(MadCatzProfile.BLASTS_CHILD_NODE.ToLowerInvariant());

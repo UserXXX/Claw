@@ -102,11 +102,12 @@ namespace Claw.UI
 
             RadioButton profileButton = new RadioButton();
             profileButton.GroupName = "rbgProfiles";
-            profileButton.Content = profile.Name;
+            var content  = new ProfileButtonContentPanel(profileButton, profile.Name);
+            content.OnCloseClick += OnProfileCloseClick;
+            profileButton.Content = content;
             profileButton.Tag = profile;
             profileButton.SetResourceReference(RadioButton.StyleProperty, typeof(ToggleButton));
             profileButton.Height = 30;
-            profileButton.MinWidth = 100;
             profileButton.Margin = new Thickness(2, 0, 3, 0);
             profileButton.Checked += OnProfileSelected;
             spProfiles.Children.Add(profileButton);
@@ -116,17 +117,37 @@ namespace Claw.UI
         }
 
         /// <summary>
+        /// Callback for a close request of a profile.
+        /// </summary>
+        /// <param name="sender">Event sender, this is the RadioButton associated with the profile.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnProfileCloseClick(object sender, EventArgs e)
+        {
+            MadCatzProfile profile = (MadCatzProfile)((RadioButton)sender).Tag;
+            presenter.CloseProfileRequested(profile);
+        }
+
+        /// <summary>
         /// Callback for the selection of a profile.
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event arguments.</param>
         private void OnProfileSelected(object sender, RoutedEventArgs e)
         {
-            btSave.IsEnabled = true;
-            btSaveAs.IsEnabled = true;
+            SetProfileDependingControlsEnabled(true);
             RadioButton button = (RadioButton)sender;
             MadCatzProfile profile = (MadCatzProfile)button.Tag;
             presenter.ActiveProfileChanged(profile);
+        }
+
+        /// <summary>
+        /// Sets the enabled state of the controls that are only enabled if a profile is selected.
+        /// </summary>
+        /// <param name="enabled">Whether the controls shall be enabled.</param>
+        private void SetProfileDependingControlsEnabled(bool enabled)
+        {
+            btSave.IsEnabled = enabled;
+            btSaveAs.IsEnabled = enabled;
         }
 
         /// <summary>
@@ -139,6 +160,44 @@ namespace Claw.UI
         {
             exFile.IsExpanded = true;
             App.OnStartup(this);
+        }
+
+        public void SetActiveProfile(MadCatzProfile activeProfile)
+        {
+            if (activeProfile == null)
+            {
+                pEditor.IconsPanel.ActiveProfileChanged(null);
+                return;
+            }
+
+            GetButtonByProfile(activeProfile).IsChecked = true;
+        }
+
+        public void ProfileClosed(MadCatzProfile profile)
+        {
+            spProfiles.Children.Remove(GetButtonByProfile(profile));
+            if (spProfiles.Children.Count == 0)
+            {
+                SetProfileDependingControlsEnabled(false);
+            }
+        }
+
+        /// <summary>
+        /// Gets the RadioButton associated with the given profile.
+        /// </summary>
+        /// <param name="profile">The profile.</param>
+        /// <returns>The button associated with the profile.</returns>
+        private RadioButton GetButtonByProfile(MadCatzProfile profile)
+        {
+            foreach (UIElement elem in spProfiles.Children)
+            {
+                RadioButton button = (RadioButton)elem;
+                if (button.Tag == profile)
+                {
+                    return button;
+                }
+            }
+            return null;
         }
 
         #region Expander management

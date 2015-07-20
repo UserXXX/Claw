@@ -20,7 +20,7 @@ namespace Claw.Interfaces
         /// <summary>
         /// Called when the active profile changed.
         /// </summary>
-        /// <param name="activeProfile">The new active profile.</param>
+        /// <param name="activeProfile">The new active profile. If null is passed, the UI is cleared.</param>
         void ActiveProfileChanged(MadCatzProfile activeProfile);
 
         /// <summary>

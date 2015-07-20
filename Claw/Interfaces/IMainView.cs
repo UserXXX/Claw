@@ -48,5 +48,17 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="profile">The new profile.</param>
         void AddProfile(MadCatzProfile profile);
+
+        /// <summary>
+        /// Sets the currently active profile.
+        /// </summary>
+        /// <param name="activeProfile">The new active profile.</param>
+        void SetActiveProfile(MadCatzProfile activeProfile);
+
+        /// <summary>
+        /// Notifies the view that a profile was closed. This will remove the profile from the available profiles.
+        /// </summary>
+        /// <param name="profile">The closed profile.</param>
+        void ProfileClosed(MadCatzProfile profile);
     }
 }

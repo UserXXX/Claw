@@ -50,7 +50,7 @@ namespace ClawLibTests.Dummy
         /// </summary>
         /// <param name="result">The test output.</param>
         /// <param name="expected">The expected result.</param>
-        private void AssertEquals(List<string> result, List<string> expected)
+        private static void AssertEquals(List<string> result, List<string> expected)
         {
             Assert.AreEqual<int>(expected.Count, result.Count, "Result length differs from expected length. Result was " + result.Count + " but expected " + expected.Count + ".");
             foreach (string exp in expected)

@@ -102,8 +102,7 @@ namespace Claw.Logic
             }
 
             MadCatzProfile activeProfile = mainPresenter.ActiveProfile;
-            var blast = new Blast(pngData);
-            activeProfile.Blasts.Add(blast);
+            mainPresenter.Model.AddIcon(activeProfile, pngData);
 
             view.ActiveProfileChanged(activeProfile);
         }
@@ -113,7 +112,7 @@ namespace Claw.Logic
         /// </summary>
         /// <param name="imageFile">The file to read from.</param>
         /// <returns>The files content.</returns>
-        private byte[] LoadFileContents(FileInfo imageFile)
+        private static byte[] LoadFileContents(FileInfo imageFile)
         {
             var result = new byte[imageFile.Length];
             using (FileStream stream = imageFile.OpenRead())
@@ -132,7 +131,7 @@ namespace Claw.Logic
         /// </summary>
         /// <param name="imageFile">The file to load from.</param>
         /// <returns>The image data in png format.</returns>
-        private byte[] LoadImageToPngData(FileInfo imageFile)
+        private static byte[] LoadImageToPngData(FileInfo imageFile)
         {
             var image = new BitmapImage();
             image.BeginInit();

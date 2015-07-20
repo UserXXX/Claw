@@ -19,7 +19,7 @@ namespace ClawLibTests.Tests
         public void CorruptVersionTest()
         {
             var report = new TestReport();
-            MadCatzProfile profile = ProfileFactory.Load(TestConstants.CORRUPTED_TESTDATA_DIR + "CorruptVersion.pr0", report);
+            ProfileFactory.Load(TestConstants.CORRUPTED_TESTDATA_DIR + "CorruptVersion.pr0", report);
             report.AssertEquals(
                 new List<string>(),
                 new List<string>(),
@@ -33,7 +33,7 @@ namespace ClawLibTests.Tests
         public void CorruptAttributesAndTags()
         {
             var report = new TestReport();
-            MadCatzProfile profile = ProfileFactory.Load(TestConstants.CORRUPTED_TESTDATA_DIR + "CorruptAttributesAndTags.pr0", report);
+            ProfileFactory.Load(TestConstants.CORRUPTED_TESTDATA_DIR + "CorruptAttributesAndTags.pr0", report);
             report.AssertEquals(
                 new List<string>(),
                 new List<string>(),

@@ -19,6 +19,10 @@ namespace Claw.Logic
 
         private IMainView view;
         private IClawModel model;
+        public IClawModel Model
+        {
+            get { return model; }
+        }
 
         private IIconsPresenter iconsPresenter;
 
@@ -93,6 +97,31 @@ namespace Claw.Logic
             {
                 view.ShowMessage(msg);
             }
+        }
+
+        public void CloseProfileRequested(MadCatzProfile profile)
+        {
+            if (model.HasBeenEdited(profile))
+            {
+                // TODO: Ask user if he wants to save.
+            }
+
+            model.CloseProfile(profile);
+
+            if (profile == activeProfile)
+            {
+                if (model.Profiles.Count == 0)
+                {
+                    activeProfile = null;
+                }
+                else
+                {
+                    activeProfile = model.Profiles.First.Value;
+                }
+                view.SetActiveProfile(activeProfile);
+            }
+
+            view.ProfileClosed(profile);
         }
 
         public void ActiveProfileChanged(MadCatzProfile profile)

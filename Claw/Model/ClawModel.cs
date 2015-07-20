@@ -1,4 +1,5 @@
-﻿using Claw.Interfaces;
+﻿using Claw.Blasts;
+using Claw.Interfaces;
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Claw.Model
     public class ClawModel : IClawModel
     {
         private LinkedList<MadCatzProfile> profiles = new LinkedList<MadCatzProfile>();
-        private Dictionary<MadCatzProfile, FileInfo> profileFiles = new Dictionary<MadCatzProfile, FileInfo>();
+        private Dictionary<MadCatzProfile, ProfileInfo> profileInfos = new Dictionary<MadCatzProfile, ProfileInfo>();
 
         public LinkedList<MadCatzProfile> Profiles
         {
@@ -30,10 +31,33 @@ namespace Claw.Model
             if (!errorCatcher.ErrorOccured)
             {
                 profiles.AddLast(profile);
-                profileFiles.Add(profile, file);
+                profileInfos.Add(profile, new ProfileInfo(file));
             }
 
             return !errorCatcher.ErrorOccured;
+        }
+
+        public void AddIcon(MadCatzProfile profile, byte[] pngData)
+        {
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            var blast = new Blast(pngData);
+            profile.Blasts.Add(blast);
+            profileInfos[profile].Edited = true;
+        }
+
+        public bool HasBeenEdited(MadCatzProfile profile)
+        {
+            return profileInfos[profile].Edited;
+        }
+
+        public void CloseProfile(MadCatzProfile profile)
+        {
+            profiles.Remove(profile);
+            profileInfos.Remove(profile);
         }
     }
 }

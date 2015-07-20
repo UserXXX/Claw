@@ -9,7 +9,7 @@ namespace ClawLibTests
     /// <summary>
     /// Contains globally used test properties.
     /// </summary>
-    internal class TestConstants
+    internal static class TestConstants
     {
         internal readonly static string VALID_TESTDATA_DIR = AppDomain.CurrentDomain.BaseDirectory + "\\Testdata\\Valid\\";
         internal readonly static string VALID_TESTDATA_IN_DIR = AppDomain.CurrentDomain.BaseDirectory + "\\Testdata\\Valid\\In\\";

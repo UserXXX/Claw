@@ -68,12 +68,12 @@ namespace Claw.UI.Panels
         /// <param name="activeProfile">The new active profile.</param>
         public void ActiveProfileChanged(MadCatzProfile activeProfile)
         {
+            lvIcons.Items.Clear();
             if (activeProfile == null)
             {
-                throw new ArgumentNullException("activeProfile");
+                return;
             }
 
-            lvIcons.Items.Clear();
             foreach (Blast blast in activeProfile.Blasts)
             {
                 BitmapImage image = CreateImage(blast.GetData());

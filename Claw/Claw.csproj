@@ -71,6 +71,7 @@
     <Compile Include="Logic\MainPresenter.cs" />
     <Compile Include="Model\ClawModel.cs" />
     <Compile Include="Model\ErrorCatcherReport.cs" />
+    <Compile Include="Model\ProfileInfo.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Native\Windows.cs" />
     <Compile Include="UI\Controls\ClawWindow.cs" />
@@ -86,6 +87,9 @@
     </Compile>
     <Compile Include="UI\Panels\IconsPanel.xaml.cs">
       <DependentUpon>IconsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\ProfileButtonContentPanel.xaml.cs">
+      <DependentUpon>ProfileButtonContentPanel.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Panels\IconsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\ProfileButtonContentPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
