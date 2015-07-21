@@ -14,4 +14,5 @@ Any ideas or are you wishing a feature? [Open an issue](https://github.com/UserX
 ![Claws Icon View](https://dl.dropboxusercontent.com/u/79973663/Claw/Claw1.png)
 Until now the following features have been implemented:
 * (Parts of) a fancy UI
-* Opening profiles (including profile validation)
+* Managing profiles (opening/saving/closing/validating profiles)
+* Adding icons to profiles
