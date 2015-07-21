@@ -3,6 +3,7 @@ using Claw.UI.Controls;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -336,6 +337,17 @@ namespace Claw.UI
         private void OnExitClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        /// <summary>
+        /// Handles the OnClosing event to prevent losing changes made to profiles.
+        /// </summary>
+        /// <param name="e">Event arguments.</param>
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+
+            e.Cancel = e.Cancel || presenter.ExitApplicationRequested();
         }
     }
 }

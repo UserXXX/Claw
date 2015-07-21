@@ -46,7 +46,9 @@
     <clr:String x:Key="ValidationSthHappened">The following happened during loading:</clr:String>
 
     <!-- Question messages. -->
-    <clr:String x:Key="SaveBoforeClosing">Save {0} before closing?</clr:String>
+    <!-- {0} is a placeholder for the profile name. -->
+    <clr:String x:Key="SaveBeforeClosing">Save {0} before closing?</clr:String>
+    <clr:String x:Key="SaveBeforeExiting">Save {0} before exiting?</clr:String>
 
     <!-- File filters. -->
     <clr:String x:Key="MadCatzProfileFiles">MadCatz profiles</clr:String>

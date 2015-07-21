@@ -54,6 +54,12 @@ namespace Claw.Interfaces
         void CloseProfileRequested(MadCatzProfile profile);
 
         /// <summary>
+        /// Called when the application is going to close.
+        /// </summary>
+        /// <returns>Whether to cancel closing.</returns>
+        bool ExitApplicationRequested();
+
+        /// <summary>
         /// Called when the currently active profile changes.
         /// </summary>
         /// <param name="profile">The new active profile.</param>

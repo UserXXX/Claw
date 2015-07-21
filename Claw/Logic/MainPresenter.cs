@@ -17,7 +17,8 @@ namespace Claw.Logic
         private const string ERROR_MSG_INVALID_PROFILES = "InvalidPr0Files";
         private const string ERROR_MSG_UNABLE_TO_SAVE = "UnableToSave";
         private const string VALIDATION_MSG_STH_HAPPENED = "ValidationSthHappened";
-        private const string QUESTION_SAVE_BEFORE_CLOSING = "SaveBoforeClosing";
+        private const string QUESTION_SAVE_BEFORE_CLOSING = "SaveBeforeClosing";
+        private const string QUESTION_SAVE_BEFORE_EXITING = "SaveBeforeExiting";
 
         private IMainView view;
         private IClawModel model;
@@ -187,6 +188,31 @@ namespace Claw.Logic
 
             model.SaveProfile(profile, saveFile);
             return true;
+        }
+
+        public bool ExitApplicationRequested()
+        {
+            foreach (MadCatzProfile profile in model.Profiles)
+            {
+                if (model.HasBeenEdited(profile))
+                {
+                    bool? save = view.ShowYesNoAbortQuestion(string.Format((string)App.Current.FindResource(QUESTION_SAVE_BEFORE_EXITING), profile.Name));
+                    if (!save.HasValue)
+                    {
+                        return true;
+                    }
+
+                    if (save.Value)
+                    {
+                        bool saved = SaveProfileRequested(profile);
+                        if (!saved)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         public void ActiveProfileChanged(MadCatzProfile profile)
