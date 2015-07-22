@@ -104,7 +104,7 @@ namespace Claw.Documents
             string ret = "[" + name;
             if (!string.IsNullOrEmpty(tag))
             {
-                ret += "=" + tag;
+                ret += "=" + FormatValueString(tag);
             }
             bool hasDataAttr = false;
             foreach (string attributeName in attributes.Keys)
@@ -112,14 +112,7 @@ namespace Claw.Documents
                 if (attributeName != "data")
                 {
                     string attributeValue = attributes[attributeName];
-                    if (attributeValue.Contains(" "))
-                    {
-                        ret += " " + attributeName + "='" + attributeValue + "'";
-                    }
-                    else
-                    {
-                        ret += " " + attributeName + "=" + attributeValue;
-                    }
+                    ret += " " + attributeName + "=" + FormatValueString(attributeValue);
                 }
                 else
                 {
@@ -175,6 +168,23 @@ namespace Claw.Documents
                 ret = ret.TrimEnd(new char[] { '\n' });
             }
             return ret + "]";
+        }
+
+        /// <summary>
+        /// Formats the string as a value (attribute or tag).
+        /// This means if the string contains a character that needs to be escaped, it will be escaped and if it contains signs that
+        /// would break the file structure, it is embedded into '.
+        /// </summary>
+        /// <param name="text">The text to format.</param>
+        /// <returns>The formatted text.</returns>
+        private string FormatValueString(string text)
+        {
+            if (text.Contains(" "))
+            {
+                text = "'" + text + "'";
+            }
+
+            return text;
         }
     }
 }

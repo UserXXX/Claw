@@ -74,5 +74,12 @@ namespace Claw.Interfaces
         /// <param name="profile">The profile thats save file shall be queried.</param>
         /// <returns>The save file.</returns>
         FileInfo GetSaveFile(MadCatzProfile profile);
+
+        /// <summary>
+        /// Creates a new profile using the given name.
+        /// </summary>
+        /// <param name="name">The name of the profile.</param>
+        /// <returns>The created profile.</returns>
+        MadCatzProfile CreateNewProfile(string name);
     }
 }

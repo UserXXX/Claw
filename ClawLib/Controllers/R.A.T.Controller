@@ -1,0 +1,59 @@
+﻿[controller=c9e4beb7-9967-4ce8-8fbc-02ca04f453d8 group=Mice
+  [member=cdafc361-948a-4973-989a-29affdef280f name='Call Of Duty: Black Ops - Stealth Mouse' shortname='Call Of Duty: Mouse']
+    [controls
+      [mousepointer=0x00010030 name=Cursor
+        [mouseaxis=0x00010030 name='X Axis']
+        [mouseaxis=0x00010031 name='Y Axis']]
+      [mouseaxis=0x00010038 name='Scroll Wheel']
+      [button=0x00090003 name='Scroll Button']
+      [button=0x00090004 name='Back Button']
+      [button=0x00090005 name='Forwards Button']
+      [button=0x00090006 name='Thumb Clockwise']
+      [button=0x00090007 name='Thumb Anticlockwise']
+      [button=0x00090008 name='Precision Aim']
+      [slider=0x00090009 name=Mode
+        [button=0x00090009 name='Mode 1' latchable=false]
+        [button=0x0009000A name='Mode 2' latchable=false]
+        [button=0x0009000B name='Mode 3' latchable=false]]]
+    [shifts
+      [shift=469e0eec-57b9-4d94-ae08-968aa4cddfcd name='Mode 1'
+        [selectionset
+          [buttoncombo
+            [buttonhid=0x00090009]]]
+        [assignments
+          [mousepointer=0x00010030
+            [mouseaxis=0x00010030 envelope=sensitivity
+              [sensitivity=29]]
+            [mouseaxis=0x00010031 envelope=sensitivity
+              [sensitivity=29]]]]]
+      [shift=cd957a00-26bf-4577-89ff-676166fe3b28 fallback=469e0eec-57b9-4d94-ae08-968aa4cddfcd name='Mode 2'
+        [selectionset
+          [buttoncombo
+            [buttonhid=0x0009000A]]]
+        [assignments
+          [mousepointer=0x00010030
+            [mouseaxis=0x00010030 envelope=sensitivity
+              [sensitivity=29]]
+            [mouseaxis=0x00010031 envelope=sensitivity
+              [sensitivity=29]]]]]
+      [shift=ccb88344-c0d5-4ad2-b35d-70ebf6e80171 fallback=469e0eec-57b9-4d94-ae08-968aa4cddfcd name='Mode 3'
+        [selectionset
+          [buttoncombo
+            [buttonhid=0x0009000B]]]
+        [assignments
+          [mousepointer=0x00010030
+            [mouseaxis=0x00010030 envelope=sensitivity
+              [sensitivity=29]]
+            [mouseaxis=0x00010031 envelope=sensitivity
+              [sensitivity=29]]]]]]
+    [member=9089e681-30ab-4a7f-901b-20e9634ce580 name='Cyborg R.A.T. 5' shortname='Cyborg R.A.T. 5']
+    [member=fa5bd368-039f-4360-882d-6aae5d56557e name='Cyborg R.A.T.7' shortname='Cyborg R.A.T.7']
+    [member=2f5bfa24-2ef9-4cb1-becb-3fbdc054962b name=Contagion shortname=Contagion]
+    [member=ebd1eff2-e21c-4e06-b8ae-b1b96e38bbcb name=Albino shortname=Albino]
+    [member=7748f4b5-3f39-48b0-aaa0-cd862ac8a98f name='Cyborg R.A.T. 5' shortname='Cyborg R.A.T. 5']
+    [member=ecf12411-4c28-47ce-9cc1-e3c29d0ed825 name='Cyborg R.A.T.7' shortname='Cyborg R.A.T.7']
+    [member=81ccb64c-cf54-431c-886d-d101762fdc62 name='Cyborg R.A.T.9' shortname='Cyborg R.A.T.9']
+    [member=ad4560db-1749-405c-a571-b09790fd7fc4 name='Cyborg R.A.T.9' shortname='Cyborg R.A.T.9']
+    [member=02a0db55-b1eb-4b83-b5bd-3050fa2eca54 name='Mad Catz R.A.T. 5' shortname='R.A.T. 5']
+    [member=eb42c7f6-6dbf-4697-a334-ddd114ef50f5 name='Mad Catz R.A.T.7' shortname=R.A.T.7]
+    [member=0839b3fa-e3ae-40b3-ba24-2df2e2c9c9f5 name='Mad Catz R.A.T.9' shortname=R.A.T.9]]

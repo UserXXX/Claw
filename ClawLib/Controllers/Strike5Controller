@@ -1,0 +1,48 @@
+﻿[controller=4ae960ae-0df5-4cf5-8d9a-f90a660afa73 group=Keyboard
+  [member=92dd6d76-858b-4408-a8ae-89376599e0b7 name='Mad Catz Strike 5' shortname='Strike 5']
+  [controls
+    [button=0x00090001 name='Button 1']
+    [button=0x00090002 name='Button 2']
+    [button=0x00090003 name='Button 3']
+    [button=0x00090004 name='Button 4']
+    [button=0x00090005 name='Button 5']
+    [button=0x00090006 name='Button 6']
+    [button=0x00090007 name='Button 7']
+    [button=0x00090008 name='Button 8']
+    [button=0x00090009 name='Button 9']
+    [button=0x0009000A name='Mode 1']
+    [button=0x0009000B name='Mode 2']
+    [button=0x0009000C name='Mode 3']
+    [button=0x0009000D name='Light On Off']
+    [button=0x0009000E name='Windows Lock']
+    [button=0x0009000F name=Up]
+    [button=0x00090010 name=Down]
+    [button=0x00090011 name=Right]
+    [button=0x00090012 name=Left]
+    [button=0x00090013 name='Bezel Clockwise']
+    [button=0x00090014 name='Bezel Anticlockwise']
+    [button=0x00090015 name=M1]
+    [button=0x00090016 name=M2]
+    [button=0x00090017 name=M3]
+    [button=0x00090018 name=M4]
+    [button=0x00090019 name='Palm Button']
+    [button=0x0009001A name='Palm Rotary Right']
+    [button=0x0009001B name='Palm Rotary Left']
+    [button=0x0009001C name=C1]
+    [button=0x0009001D name=C2]
+    [button=0x0009001E name=C3]
+    [button=0x0009001F name=C4]
+    [button=0x00090020 name=C5]]
+  [shifts
+    [shift=9f7b604b-737d-4849-8d2d-86c4c85f907c fallback=9f7b604b-737d-4849-8d2d-86c4c85f907c name='Mode 1'
+      [selectionset
+        [buttoncombo
+           [buttonhid=0x0009000A]]]]
+    [shift=fc87df09-d954-491d-b433-c1273d54db62 fallback=9f7b604b-737d-4849-8d2d-86c4c85f907c name='Mode 2'
+      [selectionset
+        [buttoncombo
+          [buttonhid=0x0009000B]]]]
+    [shift=0fb4c4d2-13d1-4979-86f5-0260a06a6d1d fallback=9f7b604b-737d-4849-8d2d-86c4c85f907c name='Mode 3'
+      [selectionset
+        [buttoncombo
+          [buttonhid=0x0009000C]]]]]]

@@ -1,0 +1,25 @@
+﻿[controller=6ad0bb35-7395-435c-a710-63ffb566aa0c group=Mice
+  [member=ecb41b6a-b28c-4e82-b10f-8d99a8b85a25 name=R.A.T.M shortname=R.A.T.M]
+  [controls
+    [mousepointer=0x00010030 name=Cursor
+      [mouseaxis=0x00010030 name=XAxis]
+      [mouseaxis=0x00010031 name=YAxis]]
+    [mouseaxis=0x00010038 name=ScrollWheel]
+    [button=0x00090003 name=ScrollButton]
+    [button=0x00090004 name=BackButton]
+    [button=0x00090005 name=ForwardsButton]
+    [button=0x00090006 name=FiveDMiddle]
+    [button=0x00090007 name=FiveDUp]
+    [button=0x00090008 name=FiveDDown]
+    [button=0x00090009 name=FiveDLeft]
+    [button=0x0009000A name=FiveDRight]
+    [button=0x0009000B name=WingButton]
+    [button=0x0009000C name=DpiCycle]]
+  [shifts
+    [shift=cd957a00-26bf-4577-89ff-676166fe3b28 name=Unshifted
+      [assignments
+        [mousepointer=0x00010030
+          [mouseaxis=0x00010030 envelope=sensitivity
+            [sensitivity=29]]
+          [mouseaxis=0x00010031 envelope=sensitivity
+            [sensitivity=29]]]]]]]

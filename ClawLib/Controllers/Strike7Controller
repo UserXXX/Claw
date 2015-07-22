@@ -1,0 +1,44 @@
+﻿[controller=7dd18c88-ccc8-4fe7-ae24-17fcb414aa53 group=Keyboard
+  [member=da3647e1-282e-443e-9c36-bdcf4f2d2424 name='Cyborg Strike 7' shortname='Cyborg Strike 7']
+  [controls
+    [button=0xFF000001 name='Button 1']
+    [button=0xFF000002 name='Button 2']
+    [button=0xFF000003 name='Button 3']
+    [button=0xFF000004 name='Button 4']
+    [button=0xFF000005 name='Button 5']
+    [button=0xFF000006 name='Button 6']
+    [button=0xFF000007 name='Button 7']
+    [button=0xFF000008 name='Button 8']
+    [button=0xFF000009 name='Button 9']
+    [button=0xFF00000A name='Button 10']
+    [button=0xFF00000B name='Button 11']
+    [button=0xFF00000C name='Button 12']
+    [button=0xFF00000D name='Mode 1']
+    [button=0xFF00000E name='Mode 2']
+    [button=0xFF00000F name='Mode 3']
+    [button=0xFF000015 name=M1]
+    [button=0xFF000016 name=M2]
+    [button=0xFF000017 name=M3]
+    [button=0xFF000018 name=M4]
+    [button=0xFF000019 name='Palmrest Button']
+    [button=0xFF00001A name='Thumbwheel Anti-clockwise']
+    [button=0xFF00001B name='Thumbwheel Clockwise']
+    [button=0xFF00001C name=C1]
+    [button=0xFF00001D name=C2]
+    [button=0xFF00001E name=C3]
+    [button=0xFF00001F name=C4]
+    [button=0xFF000020 name=C5]]
+  [shifts
+    [shift=19bf15b1-781d-44ed-a9e2-1154b2f7c907 name='MODE 1'
+      [selectionset
+        [buttoncombo
+          [buttonhid=0xFF00000D]]]]
+    [shift=cb56f9a8-162c-4bc1-afaa-a41e162ccdb7 fallback=19bf15b1-781d-44ed-a9e2-1154b2f7c907 name='MODE 2'
+      [selectionset
+        [buttoncombo
+          [buttonhid=0xFF00000E]]]]
+    [shift=65d6c2ae-8f23-4b98-a2fb-be36a87a9238 fallback=19bf15b1-781d-44ed-a9e2-1154b2f7c907 name='MODE 3'
+      [selectionset
+        [buttoncombo
+          [buttonhid=0xFF00000F]]]]]
+  [member=ed4547f0-f3ac-468c-8e4a-49c4b100c167 name='Mad Catz Strike 7' shortname='Strike 7']]

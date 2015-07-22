@@ -87,5 +87,13 @@ namespace Claw.Model
         {
             return profileInfos[profile].ProfileFile;
         }
+
+        public MadCatzProfile CreateNewProfile(string name)
+        {
+            var profile = new MadCatzProfile(name);
+            profiles.AddLast(profile);
+            profileInfos.Add(profile, new ProfileInfo());
+            return profile;
+        }
     }
 }

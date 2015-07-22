@@ -53,6 +53,9 @@
     <Compile Include="Controllers\ControllerList.cs" />
     <Compile Include="Controllers\Controls\ControlList.cs" />
     <Compile Include="Controllers\ShiftList.cs" />
+    <EmbeddedResource Include="Controllers\Strike7Controller" />
+    <EmbeddedResource Include="Controllers\R.A.T.MController" />
+    <EmbeddedResource Include="Controllers\Strike5Controller" />
     <Compile Include="ConversionHelper.cs" />
     <Compile Include="Documents\DocumentFactory.cs" />
     <Compile Include="Documents\PR0Reader.cs" />
@@ -95,6 +98,8 @@
     <Compile Include="Validation\IllegalCharacterException.cs" />
     <Compile Include="Validation\NodeValidator.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
+    <EmbeddedResource Include="Controllers\R.A.T.Controller" />
+    <EmbeddedResource Include="Controllers\M.O.U.S.9Controller" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

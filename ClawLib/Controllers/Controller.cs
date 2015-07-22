@@ -4,6 +4,9 @@ using Claw.Validation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Resources;
 
 namespace Claw.Controllers
 {
@@ -18,7 +21,7 @@ namespace Claw.Controllers
         internal const string MEMBER_CHILD_NODE = "MEMBER";
         internal const string CONTROLS_CHILD_NODE = "CONTROLS";
         internal const string SHIFTS_CHILD_NODE = "SHIFTS";
-        
+
         #region Validation
 
         private static readonly string[] REQUIRED_ATTRIBUTES = {
@@ -138,6 +141,98 @@ namespace Claw.Controllers
                 }
             }
             return node;
+        }
+
+        /// <summary>
+        /// Creates the default controller node for R.A.T. mice.
+        /// This group contains:
+        /// - Call Of Duty: Black Ops - Stealth Mouse
+        /// - Cyborg R.A.T. 5
+        /// - Cyborg R.A.T.7
+        /// - Contagion
+        /// - Albino
+        /// - Cyborg R.A.T. 5
+        /// - Cyborg R.A.T.7
+        /// - Cyborg R.A.T.9 (2 times with different identifiers)
+        /// - Mad Catz R.A.T. 5
+        /// - Mad Catz R.A.T.7
+        /// - Mad Catz R.A.T.9
+        /// </summary>
+        /// <returns>The default controller node.</returns>
+        public static Controller CreateRATMouseController()
+        {
+            return LoadDefaultController("R.A.T.Controller");
+        }
+
+        /// <summary>
+        /// Creates the default controller node for Strike 7 keyboards.
+        /// This group contains:
+        /// - Cyborg Strike 7
+        /// - Mad Catz Strike 7
+        /// </summary>
+        /// <returns>The default controller node.</returns>
+        public static Controller CreateStrike7KeyboardController()
+        {
+            return LoadDefaultController("Strike7Controller");
+        }
+
+        /// <summary>
+        /// Creates the default controller node for Strike 5 keyboards.
+        /// This group contains:
+        /// - Mad Catz Strike 5
+        /// </summary>
+        /// <returns>The default controller node.</returns>
+        public static Controller CreateStrike5KeyboardController()
+        {
+            return LoadDefaultController("Strike5Controller");
+        }
+
+        /// <summary>
+        /// Creates the default controller node for R.A.T.M mice.
+        /// This group contains:
+        /// - R.A.T.M
+        /// </summary>
+        /// <returns>The default controller node.</returns>
+        public static Controller CreateRATMMouseController()
+        {
+            return LoadDefaultController("R.A.T.MController");
+        }
+
+        /// <summary>
+        /// Creates the default controller node for M.O.U.S.9 mice.
+        /// This group contains:
+        /// - M.O.U.S.9
+        /// </summary>
+        /// <returns>The default controller node.</returns>
+        public static Controller CreateMOUS9MouseController()
+        {
+            return LoadDefaultController("M.O.U.S.9Controller");
+        }
+
+        /// <summary>
+        /// Loads a default controller from a resource file embedded into this library.
+        /// </summary>
+        /// <param name="profileFile">The name of the profile file.</param>
+        /// <returns>The loaded controller.</returns>
+        private static Controller LoadDefaultController(string profileFile)
+        {
+            var baseNode = new Node(new PR0Reader(Assembly.GetExecutingAssembly().GetManifestResourceStream("Claw.Controllers." + profileFile)), false);
+            return new Controller(new NodeValidator(new EmptyReport()), baseNode);
+        }
+
+        /// <summary>
+        /// Creates all default controller nodes for all known device classes.
+        /// </summary>
+        /// <returns>The created controllers-</returns>
+        public static Controller[] CreateAllControllers()
+        {
+            return new Controller[] {
+                CreateRATMouseController(),
+                CreateStrike7KeyboardController(),
+                CreateStrike5KeyboardController(),
+                CreateRATMMouseController(),
+                CreateMOUS9MouseController(),
+            };
         }
     }
 }

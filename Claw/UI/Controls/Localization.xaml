@@ -7,6 +7,8 @@
     <clr:String x:Key="NormalizeText">Normalize</clr:String>
     <clr:String x:Key="MinimizeText">Minimize</clr:String>
     <clr:String x:Key="OptionsText">Options</clr:String>
+    <clr:String x:Key="OKText">OK</clr:String>
+    <clr:String x:Key="CancelText">Cancel</clr:String>
 
     <!-- File menu. -->
     <clr:String x:Key="NewText">New...</clr:String>
@@ -36,6 +38,7 @@
     <clr:String x:Key="DialogTitleOpenImages">Claw - Import images</clr:String>
     <clr:String x:Key="DialogTitleOpenProfiles">Claw - Open profiles</clr:String>
     <clr:String x:Key="DialogTitleSaveProfile">Claw - Save profile</clr:String>
+    <clr:String x:Key="DialogTitleNewProfile">Claw - Create new profile</clr:String>
     
     <!-- Error messages. -->
     <clr:String x:Key="InvalidPr0Files">The following files aren't valid profile files:</clr:String>
@@ -49,6 +52,7 @@
     <!-- {0} is a placeholder for the profile name. -->
     <clr:String x:Key="SaveBeforeClosing">Save {0} before closing?</clr:String>
     <clr:String x:Key="SaveBeforeExiting">Save {0} before exiting?</clr:String>
+    <clr:String x:Key="CreateNewProfile">Enter a name for the new profile:</clr:String>
 
     <!-- File filters. -->
     <clr:String x:Key="MadCatzProfileFiles">MadCatz profiles</clr:String>

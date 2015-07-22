@@ -147,6 +147,7 @@ namespace Claw.UI.Controls
             btMaximize = CreateButton("MaximizeImage", "MaximizeText");
             btMaximize.Margin = new Thickness(10, 10, 50, 10);
             btMaximize.Click += OnMaximizeClick;
+            btMaximize.Visibility = ResizeMode == ResizeMode.NoResize ? Visibility.Hidden : Visibility.Visible;
             baseComponent.Children.Add(btMaximize);
 
             btNormalize = CreateButton("NormalizeImage", "NormalizeText");
@@ -157,6 +158,7 @@ namespace Claw.UI.Controls
 
             btMinimize = CreateButton("MinimizeImage", "MinimizeText");
             btMinimize.Margin = new Thickness(10, 10, 75, 10);
+            btMinimize.Visibility = ResizeMode == ResizeMode.NoResize ? Visibility.Hidden : Visibility.Visible;
             btMinimize.Click += OnMinimizeClick;
             baseComponent.Children.Add(btMinimize);
         }
@@ -200,6 +202,11 @@ namespace Claw.UI.Controls
         /// <returns></returns>
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            if (ResizeMode == ResizeMode.NoResize)
+            {
+                return IntPtr.Zero;
+            }
+
             switch (msg)
             {
                 case 0x0024:/* WM_GETMINMAXINFO */
@@ -386,6 +393,12 @@ namespace Claw.UI.Controls
                 throw new ArgumentNullException("e");
             }
 
+            if (ResizeMode == ResizeMode.NoResize)
+            {
+                Cursor = Cursors.Arrow;
+                base.OnMouseMove(e);
+                return;
+            }
 
             if (WindowState != WindowState.Maximized)
             {

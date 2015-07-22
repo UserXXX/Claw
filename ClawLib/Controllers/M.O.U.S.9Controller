@@ -1,0 +1,25 @@
+﻿[controller=e3d5b5a4-8391-430d-b538-0041c6934bb5 group=Mice
+  [member=b60f3a95-ef44-4224-9d97-3440ad83c852 name=M.O.U.S.9 shortname=M.O.U.S.9]
+  [controls
+    [mousepointer=0x00010030 name=Cursor
+      [mouseaxis=0x00010030 name=XAxis]
+      [mouseaxis=0x00010031 name=YAxis]]
+    [mouseaxis=0x00010038 name=ScrollWheel]
+    [button=0x00090003 name=ScrollButton]
+    [button=0x00090004 name=BackButton]
+    [button=0x00090005 name=ForwardsButton]
+    [button=0x00090006 name=WingButton]
+    [button=0x00090007 name=Centre]
+    [button=0x00090008 name=PrecisionControl]
+    [button=0x00090009 name=ThumbScrollRight]
+    [button=0x0009000A name=ThumbScrollLeft]
+    [button=0x0009000B name=TiltScrollLeft]
+    [button=0x0009000C name=TiltScrollRight]]
+  [shifts
+    [shift=cd957a00-26bf-4577-89ff-676166fe3b28 name=Unshifted
+      [assignments
+        [mousepointer=0x00010030
+          [mouseaxis=0x00010030 envelope=sensitivity
+            [sensitivity=29]]
+          [mouseaxis=0x00010031 envelope=sensitivity
+            [sensitivity=29]]]]]]]

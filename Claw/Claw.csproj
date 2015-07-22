@@ -91,6 +91,9 @@
     <Compile Include="UI\Controls\ProfileButtonContentPanel.xaml.cs">
       <DependentUpon>ProfileButtonContentPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Windows\TextQuestionWindow.xaml.cs">
+      <DependentUpon>TextQuestionWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -139,6 +142,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Controls\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Controls\ToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Controls\ProfileButtonContentPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\TextQuestionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

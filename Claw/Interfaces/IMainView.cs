@@ -75,5 +75,13 @@ namespace Claw.Interfaces
         /// <param name="message">The question message.</param>
         /// <returns>True, if the user selected yes, false if no and null if the user aborted.</returns>
         bool? ShowYesNoAbortQuestion(string message);
+
+        /// <summary>
+        /// Shows a text input dialog.
+        /// </summary>
+        /// <param name="title">The title of the dialog.</param>
+        /// <param name="message">The message of the dialog.</param>
+        /// <returns>The text given by the user or null if the dialog was cancelled.</returns>
+        string ShowTextQuestion(string title, string message);
     }
 }

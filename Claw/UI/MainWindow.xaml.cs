@@ -1,5 +1,6 @@
 ﻿using Claw.Interfaces;
 using Claw.UI.Controls;
+using Claw.UI.Windows;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ namespace Claw.UI
         private const string DIALOG_TITLE_SAVE_PROFILE = "DialogTitleSaveProfile";
         private const string FILTER_PROFILE_FILES = "MadCatzProfileFiles";
         private const string FILTER_ALL_FILES = "AllFiles";
+        private const string OK_TEXT = "OKText";
+        private const string CANCEL_TEXT = "CancelText";
 
         private IMainPresenter presenter;
 
@@ -57,14 +60,16 @@ namespace Claw.UI
             openProfileDialog.Multiselect = true;
             openProfileDialog.Title = (string)App.Current.FindResource(DIALOG_TITLE_OPEN_PROFILES);
             openProfileDialog.Filter = (string)App.Current.FindResource(FILTER_PROFILE_FILES) + " (*.pr0)|*.pr0|" + (string)App.Current.FindResource(FILTER_ALL_FILES) + " (*.*)|*.*";
-            if (Directory.Exists(BASE_PROFILES_DIRECTORY))
-            {
-                openProfileDialog.InitialDirectory = BASE_PROFILES_DIRECTORY;
-            }
 
             saveProfileDialog = new SaveFileDialog();
             saveProfileDialog.Title = (string)App.Current.FindResource(DIALOG_TITLE_SAVE_PROFILE);
             saveProfileDialog.Filter = (string)App.Current.FindResource(FILTER_PROFILE_FILES) + " (*.pr0)|*.pr0|" + (string)App.Current.FindResource(FILTER_ALL_FILES) + " (*.*)|*.*";
+            
+            if (Directory.Exists(BASE_PROFILES_DIRECTORY))
+            {
+                openProfileDialog.InitialDirectory = BASE_PROFILES_DIRECTORY;
+                saveProfileDialog.InitialDirectory = BASE_PROFILES_DIRECTORY;
+            }
         }
 
         /// <summary>
@@ -229,8 +234,11 @@ namespace Claw.UI
 
         public FileInfo SelectProfileSaveFile(MadCatzProfile profile, FileInfo currentSaveFile)
         {
-            saveProfileDialog.InitialDirectory = currentSaveFile.Directory.FullName;
-            saveProfileDialog.FileName = currentSaveFile.Name;
+            if (currentSaveFile != null)
+            {
+                saveProfileDialog.InitialDirectory = currentSaveFile.Directory.FullName;
+                saveProfileDialog.FileName = currentSaveFile.Name;
+            }
             bool? result = saveProfileDialog.ShowDialog();
 
             if (!result.HasValue || !result.Value)
@@ -348,6 +356,23 @@ namespace Claw.UI
             base.OnClosing(e);
 
             e.Cancel = e.Cancel || presenter.ExitApplicationRequested();
+        }
+
+        /// <summary>
+        /// Handles clicks on the "New" button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnNewClick(object sender, RoutedEventArgs e)
+        {
+            presenter.CreateNewProfileRequested();
+        }
+
+        public string ShowTextQuestion(string title, string message)
+        {
+            return TextQuestionWindow.Show(title, message,
+                (string)App.Current.FindResource(OK_TEXT),
+                (string)App.Current.FindResource(CANCEL_TEXT));
         }
     }
 }

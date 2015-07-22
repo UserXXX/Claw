@@ -60,6 +60,11 @@ namespace Claw.Interfaces
         bool ExitApplicationRequested();
 
         /// <summary>
+        /// Notifies the presenter that a new profile shall be created.
+        /// </summary>
+        void CreateNewProfileRequested();
+
+        /// <summary>
         /// Called when the currently active profile changes.
         /// </summary>
         /// <param name="profile">The new active profile.</param>

@@ -19,6 +19,8 @@ namespace Claw.Logic
         private const string VALIDATION_MSG_STH_HAPPENED = "ValidationSthHappened";
         private const string QUESTION_SAVE_BEFORE_CLOSING = "SaveBeforeClosing";
         private const string QUESTION_SAVE_BEFORE_EXITING = "SaveBeforeExiting";
+        private const string DIALOG_TITLE_NEW_PROFILE = "DialogTitleNewProfile";
+        private const string MSG_CREATE_NEW_PROFILE = "CreateNewProfile";
 
         private IMainView view;
         private IClawModel model;
@@ -213,6 +215,20 @@ namespace Claw.Logic
                 }
             }
             return false;
+        }
+
+        public void CreateNewProfileRequested()
+        {
+            string name = view.ShowTextQuestion((string)App.Current.FindResource(DIALOG_TITLE_NEW_PROFILE),
+                (string)App.Current.FindResource(MSG_CREATE_NEW_PROFILE));
+
+            if (name == null)
+            {
+                return;
+            }
+
+            MadCatzProfile profile = model.CreateNewProfile(name);
+            view.AddProfile(profile);
         }
 
         public void ActiveProfileChanged(MadCatzProfile profile)

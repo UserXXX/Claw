@@ -21,6 +21,7 @@ namespace Claw
         
         #region Validation
 
+        private const uint CURRENT_VERSION = 5;
         private static readonly List<uint> SUPPORTED_VERSIONS = new List<uint>(new uint [] {
             5,
         });
@@ -93,6 +94,25 @@ namespace Claw
         }
 
         /// <summary>
+        /// Creates a new profile with the given name.
+        /// </summary>
+        /// <param name="profileName">The name of the profile.</param>
+        public MadCatzProfile(string profileName)
+            : base()
+        {
+            name = profileName;
+            version = CURRENT_VERSION;
+            controllers = new ControllerList();
+            Controller[] deviceGroups = Controller.CreateAllControllers();
+            foreach (Controller deviceGroup in deviceGroups)
+            {
+                controllers.Add(deviceGroup);
+            }
+            commands = new CommandList();
+            blasts = new BlastList();
+        }
+
+        /// <summary>
         /// Creates a new profile from a node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>
@@ -153,7 +173,7 @@ namespace Claw
             node.Attributes.Add(VERSION_ATTRIBUTE, ConversionHelper.FormatHexUInt(version));
             if (controllers != null)
                 node.Children.AddLast(controllers.CreateNodes());
-            if (commands != null)
+            if (commands != null && commands.Count != 0)
                 node.Children.AddLast(commands.CreateNodes());
             if (blasts != null && blasts.Count != 0)
                 node.Children.AddLast(blasts.CreateNodes());

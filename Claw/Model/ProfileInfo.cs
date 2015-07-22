@@ -32,6 +32,13 @@ namespace Claw.Model
         }
 
         /// <summary>
+        /// Creates a new empty profile info.
+        /// </summary>
+        public ProfileInfo()
+            : this(null)
+        { }
+
+        /// <summary>
         /// Creates a new ProfileInfo.
         /// </summary>
         /// <param name="profileSaveFile">The location to save the profile to.</param>

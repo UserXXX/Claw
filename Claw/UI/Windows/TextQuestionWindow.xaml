@@ -1,0 +1,14 @@
+﻿<base:ClawWindow x:Class="Claw.UI.Windows.TextQuestionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:base="clr-namespace:Claw.UI.Controls"
+        AllowsTransparency="True" Background="Transparent" WindowStyle="None"
+        Title="" Height="160" Width="300"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Grid x:Name="baseGrid">
+        <TextBlock x:Name="tbQuestion"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="15,35,15,0" Height="30" Text="Enter a name for the new profile:"/>
+        <TextBox x:Name="tbAnswer" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,70,5,0" KeyDown="OnKeyPress"/>
+        <Button x:Name="btOK" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="80" Height="25" Margin="-100,0,0,10" Content="OK" Click="OnOKClick"/>
+        <Button x:Name="btCancel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="80" Height="25" Margin="100,0,0,10" Content="Cancel" Click="OnCancelClick"/>
+    </Grid>
+</base:ClawWindow>
