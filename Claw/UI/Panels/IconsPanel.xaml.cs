@@ -71,9 +71,11 @@ namespace Claw.UI.Panels
             lvIcons.Items.Clear();
             if (activeProfile == null)
             {
+                btAdd.IsEnabled = false;
                 return;
             }
 
+            btAdd.IsEnabled = true;
             foreach (Blast blast in activeProfile.Blasts)
             {
                 BitmapImage image = CreateImage(blast.GetData());
