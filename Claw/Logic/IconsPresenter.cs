@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,6 +18,7 @@ namespace Claw.Logic
     public class IconsPresenter : IIconsPresenter
     {
         private const string ERROR_MESSAGE_COULD_NOT_LOAD_IMAGES = "CouldNotLoadImages";
+        private const string QUESTION_SURE_TO_REMOVE_ICONS = "SureToRemoveIcons";
 
         private IMainPresenter mainPresenter;
         private IIconsView view;
@@ -148,6 +150,22 @@ namespace Claw.Logic
                 encoder.Save(stream);
                 return stream.ToArray();
             }
+        }
+
+        public void RemoveIconsRequested(LinkedList<Blast> blasts)
+        {
+            if (!mainPresenter.ForwardYesNoQuestion((string)Application.Current.FindResource(QUESTION_SURE_TO_REMOVE_ICONS)))
+            {
+                return;
+            }
+
+            MadCatzProfile activeProfile = mainPresenter.ActiveProfile;
+            foreach (Blast blast in blasts)
+            {
+                mainPresenter.Model.RemoveIcon(activeProfile, blast);
+            }
+
+            view.ActiveProfileChanged(activeProfile);
         }
     }
 }

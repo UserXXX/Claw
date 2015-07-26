@@ -81,6 +81,7 @@ namespace Claw.UI.Panels
                 BitmapImage image = CreateImage(blast.GetData());
                 var imageControl = new Image();
                 imageControl.Source = image;
+                imageControl.Tag = blast;
                 lvIcons.Items.Add(imageControl);
             }
         }
@@ -132,6 +133,21 @@ namespace Claw.UI.Panels
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Event handler for clicks on the remove icon button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnRemoveIconClick(object sender, RoutedEventArgs e)
+        {
+            var blasts = new LinkedList<Blast>();
+            foreach (Image image in lvIcons.SelectedItems)
+            {
+                blasts.AddLast((Blast)image.Tag);
+            }
+            presenter.RemoveIconsRequested(blasts);
         }
     }
 }

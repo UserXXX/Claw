@@ -374,5 +374,18 @@ namespace Claw.UI
                 (string)App.Current.FindResource(OK_TEXT),
                 (string)App.Current.FindResource(CANCEL_TEXT));
         }
+
+        public bool ShowYesNoQuestion(string question)
+        {
+            MessageBoxResult result = MessageBox.Show(question, "Claw", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (result == MessageBoxResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

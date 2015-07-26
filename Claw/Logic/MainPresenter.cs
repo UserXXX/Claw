@@ -241,5 +241,10 @@ namespace Claw.Logic
         {
             view.ShowErrorMessage(error);
         }
+
+        public bool ForwardYesNoQuestion(string question)
+        {
+            return view.ShowYesNoQuestion(question);
+        }
     }
 }

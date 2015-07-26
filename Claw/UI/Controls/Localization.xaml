@@ -53,6 +53,7 @@
     <clr:String x:Key="SaveBeforeClosing">Save {0} before closing?</clr:String>
     <clr:String x:Key="SaveBeforeExiting">Save {0} before exiting?</clr:String>
     <clr:String x:Key="CreateNewProfile">Enter a name for the new profile:</clr:String>
+    <clr:String x:Key="SureToRemoveIcons">Are you sure to remove these icons? This can't be undone.</clr:String>
 
     <!-- File filters. -->
     <clr:String x:Key="MadCatzProfileFiles">MadCatz profiles</clr:String>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Claw.Blasts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,5 +27,11 @@ namespace Claw.Interfaces
         /// Notifies the presenter that a new icon shall be opened and inserted into the profile.
         /// </summary>
         void AddIconsRequested();
+
+        /// <summary>
+        /// Notifies the presenter that the given icons shall be removed.
+        /// </summary>
+        /// <param name="blasts">The icons to remove.</param>
+        void RemoveIconsRequested(LinkedList<Blast> blasts);
     }
 }

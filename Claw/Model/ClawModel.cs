@@ -95,5 +95,11 @@ namespace Claw.Model
             profileInfos.Add(profile, new ProfileInfo());
             return profile;
         }
+
+        public void RemoveIcon(MadCatzProfile profile, Blast blast)
+        {
+            profile.Blasts.Remove(blast);
+            profileInfos[profile].Edited = true;
+        }
     }
 }

@@ -75,5 +75,12 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="errorMessage">The error message.</param>
         void ForwardError(string errorMessage);
+
+        /// <summary>
+        /// Forwards a yes no question to the main UI and returns the result.
+        /// </summary>
+        /// <param name="question">The question to ask.</param>
+        /// <returns>true if the yes option was chosen, otherwise false.</returns>
+        bool ForwardYesNoQuestion(string question);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Claw.Validation;
+﻿using Claw.Blasts;
+using Claw.Validation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -81,5 +82,12 @@ namespace Claw.Interfaces
         /// <param name="name">The name of the profile.</param>
         /// <returns>The created profile.</returns>
         MadCatzProfile CreateNewProfile(string name);
+
+        /// <summary>
+        /// Removes the given icon from the given profile.
+        /// </summary>
+        /// <param name="profile">The profile to remove from.</param>
+        /// <param name="blast">The icon to remove.</param>
+        void RemoveIcon(MadCatzProfile profile, Blast blast);
     }
 }
