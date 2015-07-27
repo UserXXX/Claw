@@ -353,6 +353,11 @@ namespace Claw.UI
         /// <param name="e">Event arguments.</param>
         protected override void OnClosing(CancelEventArgs e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException("e");
+            }
+
             base.OnClosing(e);
 
             e.Cancel = e.Cancel || presenter.ExitApplicationRequested();

@@ -36,6 +36,7 @@
     <clr:String x:Key="MessageTitleClaw">Claw</clr:String>
     <clr:String x:Key="MessageTitleClawError">Claw - Error</clr:String>
     <clr:String x:Key="DialogTitleOpenImages">Claw - Import images</clr:String>
+    <clr:String x:Key="DialogTitleSaveImage">Claw - Extract image</clr:String>
     <clr:String x:Key="DialogTitleOpenProfiles">Claw - Open profiles</clr:String>
     <clr:String x:Key="DialogTitleSaveProfile">Claw - Save profile</clr:String>
     <clr:String x:Key="DialogTitleNewProfile">Claw - Create new profile</clr:String>
@@ -43,7 +44,8 @@
     <!-- Error messages. -->
     <clr:String x:Key="InvalidPr0Files">The following files aren't valid profile files:</clr:String>
     <clr:String x:Key="CouldNotLoadImages">Could not load the following files as images:</clr:String>
-    <clr:String x:Key="UnableToSave">An error occured during saving the profile:</clr:String>
+    <clr:String x:Key="UnableToSave">An error occured during saving the profile: </clr:String>
+    <clr:String x:Key="InvalidImageFormat">The specified image format is not valid. Supported are: *.bmp, *.gif, *.jpeg, *.jpg, *.png, *.tif, *.tiff</clr:String>
     
     <!-- Info messages. -->
     <clr:String x:Key="ValidationSthHappened">The following happened during loading:</clr:String>

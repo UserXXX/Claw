@@ -159,6 +159,7 @@ namespace Claw.Controllers
         /// - Mad Catz R.A.T.9
         /// </summary>
         /// <returns>The default controller node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RAT", Justification="This is the product identifier for R.A.T. mice.")]
         public static Controller CreateRATMouseController()
         {
             return LoadDefaultController("R.A.T.Controller");
@@ -193,6 +194,7 @@ namespace Claw.Controllers
         /// - R.A.T.M
         /// </summary>
         /// <returns>The default controller node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "RATM", Justification="This is the product identifier for the R.A.T.M mouse.")]
         public static Controller CreateRATMMouseController()
         {
             return LoadDefaultController("R.A.T.MController");
@@ -204,6 +206,7 @@ namespace Claw.Controllers
         /// - M.O.U.S.9
         /// </summary>
         /// <returns>The default controller node.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MOUS", Justification="This is the product identifier for the M.O.U.S.9 mouse.")]
         public static Controller CreateMOUS9MouseController()
         {
             return LoadDefaultController("M.O.U.S.9Controller");

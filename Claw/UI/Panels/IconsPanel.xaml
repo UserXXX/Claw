@@ -32,7 +32,7 @@
             <Image />
         </Button>
 
-        <Button x:Name="btExtract" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,75,5,5" IsEnabled="False">
+        <Button x:Name="btExtract" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,75,5,5" IsEnabled="False" Click="OnExtractIconClick">
             <Button.ToolTip>
                 <TextBlock Text="{DynamicResource ExtractIconToolTipText}" Foreground="{DynamicResource BackBrush}"/>
             </Button.ToolTip>

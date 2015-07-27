@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -106,9 +107,14 @@ namespace Claw.Logic
 
         public void CloseProfileRequested(MadCatzProfile profile)
         {
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
             if (model.HasBeenEdited(profile))
             {
-                bool? doSave = view.ShowYesNoAbortQuestion(string.Format((string)App.Current.FindResource(QUESTION_SAVE_BEFORE_CLOSING), profile.Name));
+                bool? doSave = view.ShowYesNoAbortQuestion(string.Format(CultureInfo.CurrentCulture, (string)App.Current.FindResource(QUESTION_SAVE_BEFORE_CLOSING), profile.Name));
                 if (!doSave.HasValue)
                 {
                     return;
@@ -164,7 +170,7 @@ namespace Claw.Logic
             }
             catch (IOException exc)
             {
-                view.ShowErrorMessage(App.Current.FindResource(ERROR_MSG_UNABLE_TO_SAVE) + " " + exc.ToString());
+                view.ShowErrorMessage(App.Current.FindResource(ERROR_MSG_UNABLE_TO_SAVE) + exc.ToString());
                 return false;
             }
         }
@@ -198,7 +204,7 @@ namespace Claw.Logic
             {
                 if (model.HasBeenEdited(profile))
                 {
-                    bool? save = view.ShowYesNoAbortQuestion(string.Format((string)App.Current.FindResource(QUESTION_SAVE_BEFORE_EXITING), profile.Name));
+                    bool? save = view.ShowYesNoAbortQuestion(string.Format(CultureInfo.CurrentCulture, (string)App.Current.FindResource(QUESTION_SAVE_BEFORE_EXITING), profile.Name));
                     if (!save.HasValue)
                     {
                         return true;
@@ -237,9 +243,9 @@ namespace Claw.Logic
             iconsPresenter.ActiveProfileChanged(profile);
         }
 
-        public void ForwardError(string error)
+        public void ForwardError(string errorMessage)
         {
-            view.ShowErrorMessage(error);
+            view.ShowErrorMessage(errorMessage);
         }
 
         public bool ForwardYesNoQuestion(string question)

@@ -28,5 +28,11 @@ namespace Claw.Interfaces
         /// </summary>
         /// <returns>The file infos pointing to the selected image files or null if the user cancelled the dialog.</returns>
         FileInfo[] SelectImageFiles();
+
+        /// <summary>
+        /// Selects a file where to save an image to.
+        /// </summary>
+        /// <returns>The selected file or null if the selection was cancelled.</returns>
+        FileInfo SelectImageSaveFile();
     }
 }

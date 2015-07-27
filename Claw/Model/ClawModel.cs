@@ -98,6 +98,11 @@ namespace Claw.Model
 
         public void RemoveIcon(MadCatzProfile profile, Blast blast)
         {
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
             profile.Blasts.Remove(blast);
             profileInfos[profile].Edited = true;
         }

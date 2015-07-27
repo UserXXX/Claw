@@ -26,10 +26,12 @@ namespace Claw.UI.Panels
         private const string FILTER_IMAGE_FILES = "ImageFiles";
         private const string FILTER_ALL_FILES = "AllFiles";
         private const string DIALOG_TITLE_OPEN_IMAGES = "DialogTitleOpenImages";
+        private const string DIALOG_TITLE_SAVE_IMAGE = "DialogTitleSaveImage";
 
         private IIconsPresenter presenter;
 
         private OpenFileDialog openImagesDialog;
+        private SaveFileDialog saveImageDialog;
 
         /// <summary>
         /// Creates a new IconsPanel.
@@ -39,10 +41,15 @@ namespace Claw.UI.Panels
             InitializeComponent();
             
             openImagesDialog = new OpenFileDialog();
-            openImagesDialog.Title = (string)App.Current.FindResource(DIALOG_TITLE_OPEN_IMAGES);
+            openImagesDialog.Title = (string)Application.Current.FindResource(DIALOG_TITLE_OPEN_IMAGES);
             openImagesDialog.Multiselect = true;
-            openImagesDialog.Filter = (string)App.Current.FindResource(FILTER_IMAGE_FILES) + " (*.bmp;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff)|*.bmp;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff|" + (string)App.Current.FindResource(FILTER_ALL_FILES) + " (*.*)|*.*";
+            openImagesDialog.Filter = (string)Application.Current.FindResource(FILTER_IMAGE_FILES) + " (*.bmp;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff)|*.bmp;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff|" + (string)App.Current.FindResource(FILTER_ALL_FILES) + " (*.*)|*.*";
             openImagesDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+
+            saveImageDialog = new SaveFileDialog();
+            saveImageDialog.Title = (string)Application.Current.FindResource(DIALOG_TITLE_SAVE_IMAGE);
+            saveImageDialog.Filter = (string)Application.Current.FindResource(FILTER_IMAGE_FILES) + " (*.bmp;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff)|*.bmp;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff|" + (string)App.Current.FindResource(FILTER_ALL_FILES) + " (*.*)|*.*";
+            saveImageDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         }
 
         public void SetPresenter(IIconsPresenter newPresenter)
@@ -58,7 +65,7 @@ namespace Claw.UI.Panels
         private void OnLvIconsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btRemove.IsEnabled = lvIcons.SelectedIndex != -1;
-            btExtract.IsEnabled = lvIcons.SelectedIndex != -1;
+            btExtract.IsEnabled = lvIcons.SelectedItems.Count == 1;
             btExportToDB.IsEnabled = lvIcons.SelectedIndex != -1;
         }
 
@@ -148,6 +155,28 @@ namespace Claw.UI.Panels
                 blasts.AddLast((Blast)image.Tag);
             }
             presenter.RemoveIconsRequested(blasts);
+        }
+
+        /// <summary>
+        /// Event handler for clicks on the extract icon button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnExtractIconClick(object sender, RoutedEventArgs e)
+        {
+            presenter.ExtractIconRequested((Blast)((Image)lvIcons.SelectedItem).Tag);
+        }
+
+        public FileInfo SelectImageSaveFile()
+        {
+            bool? result = saveImageDialog.ShowDialog();
+
+            if (!result.HasValue || !result.Value)
+            {
+                return null;
+            }
+
+            return new FileInfo(saveImageDialog.FileName);
         }
     }
 }

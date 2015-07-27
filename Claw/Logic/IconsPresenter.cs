@@ -18,6 +18,7 @@ namespace Claw.Logic
     public class IconsPresenter : IIconsPresenter
     {
         private const string ERROR_MESSAGE_COULD_NOT_LOAD_IMAGES = "CouldNotLoadImages";
+        private const string ERROR_MESSAGE_INVALID_IMAGE_FORMAT = "InvalidImageFormat";
         private const string QUESTION_SURE_TO_REMOVE_ICONS = "SureToRemoveIcons";
 
         private IMainPresenter mainPresenter;
@@ -154,6 +155,11 @@ namespace Claw.Logic
 
         public void RemoveIconsRequested(LinkedList<Blast> blasts)
         {
+            if (blasts == null)
+            {
+                throw new ArgumentNullException("blasts");
+            }
+
             if (!mainPresenter.ForwardYesNoQuestion((string)Application.Current.FindResource(QUESTION_SURE_TO_REMOVE_ICONS)))
             {
                 return;
@@ -166,6 +172,107 @@ namespace Claw.Logic
             }
 
             view.ActiveProfileChanged(activeProfile);
+        }
+
+        public void ExtractIconRequested(Blast blast)
+        {
+            if (blast == null)
+            {
+                throw new ArgumentNullException("blast");
+            }
+
+            FileInfo saveFile = view.SelectImageSaveFile();
+
+            if (saveFile == null)
+            {
+                return;
+            }
+
+            switch (saveFile.Extension.ToUpperInvariant())
+            {
+                case ".BMP":
+                    SaveToFile(saveFile, blast, new BmpBitmapEncoder());
+                    break;
+
+                case ".GIF":
+                    SaveToFile(saveFile, blast, new GifBitmapEncoder());
+                    break;
+
+                case ".JPEG":
+                case ".JPG":
+                    SaveToFile(saveFile, blast, new JpegBitmapEncoder());
+                    break;
+
+                case ".PNG":
+                    SaveToFile(saveFile, blast.GetData());
+                    break;
+
+                case ".TIF":
+                case ".TIFF":
+                    SaveToFile(saveFile, blast, new TiffBitmapEncoder());
+                    break;
+
+                default:
+                    mainPresenter.ForwardError((string)Application.Current.FindResource(ERROR_MESSAGE_INVALID_IMAGE_FORMAT));
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Saves the icon using the given encoder to the given file.
+        /// </summary>
+        /// <param name="file">File to save to.</param>
+        /// <param name="blast">Icon to save.</param>
+        /// <param name="encoder">Encoder to use.</param>
+        private static void SaveToFile(FileInfo file, Blast blast, BitmapEncoder encoder)
+        {
+            var image = new BitmapImage();
+            using (var stream = new MemoryStream(blast.GetData()))
+            {
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = stream;
+                image.EndInit();
+            }
+            image.Freeze();
+
+            BitmapFrame frame = BitmapFrame.Create(image);
+            encoder.Frames.Add(frame);
+
+            using (FileStream stream = OpenFileStream(file))
+            {
+                encoder.Save(stream);
+            }
+        }
+
+        /// <summary>
+        /// Saves the given data to the given file.
+        /// </summary>
+        /// <param name="file">The file to save to.</param>
+        /// <param name="data">The data to write to the file.</param>
+        private static void SaveToFile(FileInfo file, byte[] data)
+        {
+            using (FileStream stream = OpenFileStream(file))
+            {
+                stream.Write(data, 0, data.Length);
+            }
+        }
+
+        /// <summary>
+        /// Opens a stream to the given file. If the file already exists it is overwritten.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
+        /// <returns>The opened stream.</returns>
+        private static FileStream OpenFileStream(FileInfo file)
+        {
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+
+            return file.OpenWrite();
         }
     }
 }

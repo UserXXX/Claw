@@ -33,5 +33,11 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="blasts">The icons to remove.</param>
         void RemoveIconsRequested(LinkedList<Blast> blasts);
+
+        /// <summary>
+        /// Notifies the presenter that the given icon shall be exported to a file.
+        /// </summary>
+        /// <param name="blast">The icon to extract/export.</param>
+        void ExtractIconRequested(Blast blast);
     }
 }

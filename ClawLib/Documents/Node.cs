@@ -177,7 +177,7 @@ namespace Claw.Documents
         /// </summary>
         /// <param name="text">The text to format.</param>
         /// <returns>The formatted text.</returns>
-        private string FormatValueString(string text)
+        private static string FormatValueString(string text)
         {
             if (text.Contains(" "))
             {
