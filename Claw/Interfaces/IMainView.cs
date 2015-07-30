@@ -89,8 +89,9 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="title">The title of the dialog.</param>
         /// <param name="message">The message of the dialog.</param>
+        /// <param name="forbiddenChars">The chars that are not allowed in the result.</param>
         /// <returns>The text given by the user or null if the dialog was cancelled.</returns>
-        string ShowTextQuestion(string title, string message);
+        string ShowTextQuestion(string title, string message, char[] forbiddenChars);
 
         /// <summary>
         /// Shows a question to the user with the answer possibilities yes and no.

@@ -7,7 +7,7 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid x:Name="baseGrid">
         <TextBlock x:Name="tbQuestion"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="15,35,15,0" Height="30" Text="Enter a name for the new profile:"/>
-        <TextBox x:Name="tbAnswer" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,70,5,0" KeyDown="OnKeyPress"/>
+        <TextBox x:Name="tbAnswer" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,70,5,0" KeyDown="OnKeyPress" TextChanged="OnTextChanged"/>
         <Button x:Name="btOK" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="80" Height="25" Margin="-100,0,0,10" Content="OK" Click="OnOKClick"/>
         <Button x:Name="btCancel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="80" Height="25" Margin="100,0,0,10" Content="Cancel" Click="OnCancelClick"/>
     </Grid>

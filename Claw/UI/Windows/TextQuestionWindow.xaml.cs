@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,10 +30,24 @@ namespace Claw.UI.Windows
         /// <returns>The user input or null if the dialog was aborted.</returns>
         public static string Show(string title, string message, string okButtonText, string cancelButtonText)
         {
-            var window = new TextQuestionWindow(title, message, okButtonText, cancelButtonText);
+            return Show(title, message, okButtonText, cancelButtonText, new char[0]);
+        }
+
+        /// <summary>
+        /// Shows a question dialog with a text field that asks the user to input something.
+        /// </summary>
+        /// <param name="title">Dialog title.</param>
+        /// <param name="message">Message displayed to the user.</param>
+        /// <param name="okButtonText">Text displayed on the OK button.</param>
+        /// <param name="cancelButtonText">Text displayed on the cancel button.</param>
+        /// <param name="forbiddenCharacters">The characters that are not allowed to appear in the inputted string.</param>
+        /// <returns>The user input or null if the dialog was aborted.</returns>
+        public static string Show(string title, string message, string okButtonText, string cancelButtonText, char[] forbiddenCharacters)
+        {
+            var window = new TextQuestionWindow(title, message, okButtonText, cancelButtonText, forbiddenCharacters);
             window.Owner = Application.Current.MainWindow;
             window.ShowDialog();
-            
+
             if (!window.success)
             {
                 return null;
@@ -43,12 +58,16 @@ namespace Claw.UI.Windows
 
         private bool success = false;
 
+        private char[] forbiddenChars;
+
+        private string currentText = "";
+
         protected override Panel BaseComponent
         {
             get { return baseGrid; }
         }
 
-        private TextQuestionWindow(string title, string message, string okButtonText, string cancelButtonText)
+        private TextQuestionWindow(string title, string message, string okButtonText, string cancelButtonText, char[] forbiddenCharacters)
         {
             InitializeComponent();
 
@@ -56,6 +75,9 @@ namespace Claw.UI.Windows
             tbQuestion.Text = message;
             btOK.Content = okButtonText;
             btCancel.Content = cancelButtonText;
+            forbiddenChars = forbiddenCharacters;
+
+            tbAnswer.Focus();
         }
 
         private void OnOKClick(object sender, RoutedEventArgs e)
@@ -71,10 +93,33 @@ namespace Claw.UI.Windows
 
         private void OnKeyPress(object sender, KeyEventArgs e)
         {
-            if (e.IsDown && e.Key == Key.Enter)
+            if (e.IsDown)
             {
-                OnOKClick(sender, e);
+                if (e.Key == Key.Enter)
+                {
+                    OnOKClick(sender, e);
+                }
+                if (e.Key == Key.Escape)
+                {
+                    Close();
+                }
             }
+        }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            foreach (char sign in forbiddenChars)
+            {
+                if (tbAnswer.Text.Contains(sign))
+                {
+                    int caretIndex = tbAnswer.CaretIndex;
+                    tbAnswer.Text = currentText;
+                    tbAnswer.CaretIndex = caretIndex - 1;
+                    SystemSounds.Exclamation.Play();
+                    return;
+                }
+            }
+            currentText = tbAnswer.Text;
         }
     }
 }

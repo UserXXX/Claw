@@ -233,7 +233,7 @@ namespace Claw.Logic
         public void CreateNewProfileRequested()
         {
             string name = view.ShowTextQuestion((string)App.Current.FindResource(DIALOG_TITLE_NEW_PROFILE),
-                (string)App.Current.FindResource(MSG_CREATE_NEW_PROFILE));
+                (string)App.Current.FindResource(MSG_CREATE_NEW_PROFILE), new char[] { '\'' });
 
             if (name == null)
             {

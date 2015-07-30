@@ -46,13 +46,8 @@ namespace Claw.Documents
         /// Illegal characters that are not allowed to be contained in any node name or value.
         /// </summary>
         internal static readonly char[] ILLEGAL_CHARACTERS = {
-                                                                 OPEN_NODE_CHARCTER,
-                                                                 CLOSE_NODE_CHARCTER,
-                                                                 ASSIGN_CHARACTER,
                                                                  ENCLOSING_OPEN_CHARACTER,
                                                                  ENCLOSING_CLOSE_CHARACTER,
-                                                                 BEGIN_DATA_SECTION_CHARACTER,
-                                                                 TERMINATE_DATA_SECTION_CHARACTER,
                                                              };
     }
 }

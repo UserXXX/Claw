@@ -379,11 +379,12 @@ namespace Claw.UI
             presenter.CreateNewProfileRequested();
         }
 
-        public string ShowTextQuestion(string title, string message)
+        public string ShowTextQuestion(string title, string message, char[] forbiddenChars)
         {
             return TextQuestionWindow.Show(title, message,
                 (string)App.Current.FindResource(OK_TEXT),
-                (string)App.Current.FindResource(CANCEL_TEXT));
+                (string)App.Current.FindResource(CANCEL_TEXT),
+                forbiddenChars);
         }
 
         public bool ShowYesNoQuestion(string question)
