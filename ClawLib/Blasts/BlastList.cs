@@ -1,4 +1,5 @@
-﻿using Claw.Documents;
+﻿using Claw.Commands;
+using Claw.Documents;
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
@@ -86,6 +87,24 @@ namespace Claw.Blasts
                 node.Children.AddLast(blast.CreateNodes());
             }
             return node;
+        }
+
+        /// <summary>
+        /// Gets the blast for the given identifier.
+        /// </summary>
+        /// <param name="identifier">The identifier to search for.</param>
+        /// <returns>The blast or null if none exists.</returns>
+        public Blast GetBlastForCommand(Command command)
+        {
+            Guid blastUuid = command.IconUuid;
+            foreach (Blast blast in this)
+            {
+                if (blast.Uuid.Equals(blastUuid))
+                {
+                    return blast;
+                }
+            }
+            return null;
         }
     }
 }

@@ -52,6 +52,11 @@ namespace Claw.UI
             get { return pEditor.IconsPanel; }
         }
 
+        public ICommandsView CommandsView
+        {
+            get { return pEditor.CommandsPanel; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -179,6 +184,7 @@ namespace Claw.UI
             if (activeProfile == null)
             {
                 pEditor.IconsPanel.ActiveProfileChanged(null);
+                pEditor.CommandsPanel.ActiveProfileChanged(null);
                 return;
             }
 

@@ -20,14 +20,47 @@ namespace Claw.UI.Panels
     /// </summary>
     public partial class EditorPanel : UserControl
     {
+        /// <summary>
+        /// The icons panel.
+        /// </summary>
         public IIconsView IconsPanel
         {
             get { return pIcons; }
         }
 
+        /// <summary>
+        /// The commands panel.
+        /// </summary>
+        public ICommandsView CommandsPanel
+        {
+            get { return pCommands; }
+        }
+
         public EditorPanel()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Event handler for clicks on the icons button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnEditIconsClick(object sender, RoutedEventArgs e)
+        {
+            pIcons.Visibility = Visibility.Visible;
+            pCommands.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Event handler for clicks on the commands button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnEditCommandsClick(object sender, RoutedEventArgs e)
+        {
+            pIcons.Visibility = Visibility.Hidden;
+            pCommands.Visibility = Visibility.Visible;
         }
     }
 }

@@ -29,9 +29,19 @@
     <clr:String x:Key="AddIconsToolTipText">Add icons from file</clr:String>
     <clr:String x:Key="RemoveIconToolTipText">Remove the selected icon</clr:String>
     <clr:String x:Key="ExtractIconToolTipText">Extract the selected icon and save it to a file</clr:String>
-    <clr:String x:Key="ImportIconFromDBToolTipText">Import an icon from the database</clr:String>
-    <clr:String x:Key="ExportIconToDBToolTipText">Export the selected icon into the database</clr:String>
-    
+    <clr:String x:Key="ImportIconFromDBToolTipText">Import icons from the database</clr:String>
+    <clr:String x:Key="ExportIconToDBToolTipText">Export the selected icons to the database</clr:String>
+
+    <!-- Commands panel. -->
+    <clr:String x:Key="NameText">Name:</clr:String>
+    <clr:String x:Key="IconText">Icon:</clr:String>
+    <clr:String x:Key="MacroText">Macro (use timestamps)</clr:String>
+    <clr:String x:Key="NoIconText">None</clr:String>
+    <clr:String x:Key="CreateCommandToolTipText">Create a new command</clr:String>
+    <clr:String x:Key="DeleteCommandsToolTipText">Delete the selected commands</clr:String>
+    <clr:String x:Key="ImportCommandsFromDBToolTipText">Import commands from the database</clr:String>
+    <clr:String x:Key="ExportCommandsToDBToolTipText">Export the selected commands to the database</clr:String>
+
     <!-- Message and dialog titles. -->
     <clr:String x:Key="MessageTitleClaw">Claw</clr:String>
     <clr:String x:Key="MessageTitleClawError">Claw - Error</clr:String>

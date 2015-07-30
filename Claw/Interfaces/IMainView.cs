@@ -20,6 +20,14 @@ namespace Claw.Interfaces
         }
 
         /// <summary>
+        /// The commands view associated with this view.
+        /// </summary>
+        ICommandsView CommandsView
+        {
+            get;
+        }
+
+        /// <summary>
         /// Sets the presenter for this view.
         /// </summary>
         /// <param name="mainPresenter">The presenter.</param>

@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Claw.UI.Panels.CommandsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid>
+        <Button x:Name="btCreate" IsEnabled="False" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5,5,5">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource CreateCommandToolTipText}" Foreground="{DynamicResource BackBrush}"/>
+            </Button.ToolTip>
+            <!--TODO: Create icon.-->
+            <Image />
+        </Button>
+        <Button x:Name="btDelete" IsEnabled="False" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,40,5,5">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource DeleteCommandsToolTipText}" Foreground="{DynamicResource BackBrush}"/>
+            </Button.ToolTip>
+            <!--TODO: Create icon.-->
+            <Image />
+        </Button>
+        <Button x:Name="btImportFromDB" IsEnabled="False" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,75,5,5">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource ImportCommandsFromDBToolTipText}" Foreground="{DynamicResource BackBrush}"/>
+            </Button.ToolTip>
+            <!--TODO: Create icon.-->
+            <Image />
+        </Button>
+        <Button x:Name="btExportToDB" IsEnabled="False" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,110,5,5">
+            <Button.ToolTip>
+                <TextBlock Text="{DynamicResource ExportCommandsToDBToolTipText}" Foreground="{DynamicResource BackBrush}"/>
+            </Button.ToolTip>
+            <!--TODO: Create icon.-->
+            <Image />
+        </Button>
+
+        <ListBox x:Name="lbCommands" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="180" Margin="45,5,0,5" SelectionMode="Extended" SelectionChanged="OnCommandSelectionChanged"/>
+
+        <TextBlock Text="{DynamicResource NameText}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,7,0,0"/>
+        <TextBox x:Name="tbName" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="280,5,5,0" IsEnabled="False"/>
+        
+        <TextBlock Text="{DynamicResource IconText}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,34,0,0"/>
+        <Border x:Name="bImage" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="100" Margin="280,35,0,0" BorderBrush="{DynamicResource DisabledMidBrush}" BorderThickness="1">
+            <Grid>
+                <Image x:Name="iIcon"/>
+                <TextBlock x:Name="tbNoImage" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{DynamicResource NoIconText}" Visibility="Hidden"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

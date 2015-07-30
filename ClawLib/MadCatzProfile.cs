@@ -94,6 +94,14 @@ namespace Claw
         }
 
         /// <summary>
+        /// The commands of this profile.
+        /// </summary>
+        public CommandList Commands
+        {
+            get { return commands; }
+        }
+
+        /// <summary>
         /// Creates a new profile with the given name.
         /// </summary>
         /// <param name="profileName">The name of the profile.</param>

@@ -11,9 +11,13 @@
                 <!-- Look and feel resources. -->
                 <ResourceDictionary Source="UI/Controls/LookAndFeel.xaml"/>
                 <ResourceDictionary Source="UI/Controls/Button.xaml"/>
+                <ResourceDictionary Source="UI/Controls/CheckBox.xaml"/>
+                <ResourceDictionary Source="UI/Controls/ListBox.xaml"/>
+                <ResourceDictionary Source="UI/Controls/ListBoxItem.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ListView.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ListViewItem.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ScrollBar.xaml"/>
+                <ResourceDictionary Source="UI/Controls/ScrollViewer.xaml"/>
                 <ResourceDictionary Source="UI/Controls/TextBlock.xaml"/>
                 <ResourceDictionary Source="UI/Controls/TextBox.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ToggleButton.xaml"/>

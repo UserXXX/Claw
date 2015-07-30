@@ -31,6 +31,7 @@ namespace Claw.Logic
         }
 
         private IIconsPresenter iconsPresenter;
+        private ICommandsPresenter commandsPresenter;
 
         private MadCatzProfile activeProfile;
         public MadCatzProfile ActiveProfile
@@ -41,10 +42,16 @@ namespace Claw.Logic
         public void SetView(IMainView mainView)
         {
             view = mainView;
+
             iconsPresenter = new IconsPresenter(this);
             IIconsView iconsView = view.IconsView;
             iconsPresenter.SetView(iconsView);
             iconsView.SetPresenter(iconsPresenter);
+
+            commandsPresenter = new CommandsPresenter(this);
+            ICommandsView commandsView = view.CommandsView;
+            commandsPresenter.SetView(commandsView);
+            commandsView.SetPresenter(commandsPresenter);
         }
 
         public void SetModel(IClawModel clawModel)
@@ -241,6 +248,7 @@ namespace Claw.Logic
         {
             activeProfile = profile;
             iconsPresenter.ActiveProfileChanged(profile);
+            commandsPresenter.ActiveProfileChanged(profile);
         }
 
         public void ForwardError(string errorMessage)

@@ -85,33 +85,12 @@ namespace Claw.UI.Panels
             btAdd.IsEnabled = true;
             foreach (Blast blast in activeProfile.Blasts)
             {
-                BitmapImage image = CreateImage(blast.GetData());
+                BitmapImage image = ImageHelper.CreateImage(blast.GetData());
                 var imageControl = new Image();
                 imageControl.Source = image;
                 imageControl.Tag = blast;
                 lvIcons.Items.Add(imageControl);
             }
-        }
-
-        /// <summary>
-        /// Creates a BitmapImage from the data array.
-        /// </summary>
-        /// <param name="data">The base data.</param>
-        /// <returns></returns>
-        private static BitmapImage CreateImage(byte[] data)
-        {
-            var image = new BitmapImage();
-            using (var stream = new MemoryStream(data))
-            {
-                image.BeginInit();
-                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = null;
-                image.StreamSource = stream;
-                image.EndInit();
-            }
-            image.Freeze();
-            return image;
         }
 
         /// <summary>

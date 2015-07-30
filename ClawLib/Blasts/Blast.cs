@@ -54,6 +54,14 @@ namespace Claw.Blasts
         #endregion
         
         private Guid uuid;
+        /// <summary>
+        /// The UUID used to identify this blast.
+        /// </summary>
+        internal Guid Uuid
+        {
+            get { return uuid; }
+        }
+
         private byte[] data;
 
         /// <summary>

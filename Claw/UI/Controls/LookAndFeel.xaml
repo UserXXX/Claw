@@ -25,6 +25,8 @@
     <SolidColorBrush x:Key="DisabledMidBrush" Color="{DynamicResource DisabledMidColor}"/>
 
     <SolidColorBrush x:Key="SemiTransparentMidBrush" Color="{DynamicResource MidColor}" Opacity="0.5"/>
+    <SolidColorBrush x:Key="SemiTransparentSelectedBrush" Color="{DynamicResource SelectedColor}" Opacity="0.65"/>
+    <SolidColorBrush x:Key="SemiTransparentHoverBrush" Color="{DynamicResource HoverColor}" Opacity="0.5"/>
     <SolidColorBrush x:Key="SemiTransparentBrush" Color="{StaticResource SemiTransparentColor}"/>
 
     <!-- Images for the ClawWindow. -->

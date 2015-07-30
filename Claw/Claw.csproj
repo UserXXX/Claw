@@ -63,10 +63,13 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IClawModel.cs" />
+    <Compile Include="Interfaces\ICommandsPresenter.cs" />
+    <Compile Include="Interfaces\ICommandsView.cs" />
     <Compile Include="Interfaces\IIconsPresenter.cs" />
     <Compile Include="Interfaces\IIconsView.cs" />
     <Compile Include="Interfaces\IMainPresenter.cs" />
     <Compile Include="Logic\ClawValidationReport.cs" />
+    <Compile Include="Logic\CommandsPresenter.cs" />
     <Compile Include="Logic\IconsPresenter.cs" />
     <Compile Include="Logic\MainPresenter.cs" />
     <Compile Include="Model\ClawModel.cs" />
@@ -82,6 +85,9 @@
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\CommandsPanel.xaml.cs">
+      <DependentUpon>CommandsPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\EditorPanel.xaml.cs">
       <DependentUpon>EditorPanel.xaml</DependentUpon>
     </Compile>
@@ -91,6 +97,7 @@
     <Compile Include="UI\Controls\ProfileButtonContentPanel.xaml.cs">
       <DependentUpon>ProfileButtonContentPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\ImageHelper.cs" />
     <Compile Include="UI\Windows\TextQuestionWindow.xaml.cs">
       <DependentUpon>TextQuestionWindow.xaml</DependentUpon>
     </Compile>
@@ -118,6 +125,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Controls\CheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\ListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\ListBoxItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Controls\ListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +157,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Controls\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Controls\TextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Panels\CommandsPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

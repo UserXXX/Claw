@@ -24,9 +24,29 @@ namespace Claw.Commands
         private Guid uuid;
         private string name;
         /// <summary>
+        /// The commands name.
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                CheckValid(name);
+                name = value;
+            }
+        }
+
+        /// <summary>
         /// Uuid referring the icon, this is optional.
         /// </summary>
         private Guid iconUuid;
+        /// <summary>
+        /// The UUID of the icon associated with this command.
+        /// </summary>
+        internal Guid IconUuid
+        {
+            get { return iconUuid; }
+        }
 
         /// <summary>
         /// Creates a new Command from the given node.
