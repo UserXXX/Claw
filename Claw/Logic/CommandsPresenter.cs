@@ -1,4 +1,5 @@
-﻿using Claw.Interfaces;
+﻿using Claw.Commands;
+using Claw.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,12 @@ namespace Claw.Logic
         public void ActiveProfileChanged(MadCatzProfile profile)
         {
             view.ActiveProfileChanged(profile);
+        }
+
+        public void OnNameChangeRequested(Command command, string newName)
+        {
+            mainPresenter.Model.ChangeCommandName(mainPresenter.ActiveProfile, command, newName);
+            view.CommandNameChanged(command);
         }
     }
 }

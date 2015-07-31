@@ -3,7 +3,9 @@ using Claw.Commands;
 using Claw.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,6 +54,8 @@ namespace Claw.UI.Panels
                 item.Tag = command;
                 lbCommands.Items.Add(item);
             }
+
+            SortCommandList();
         }
 
         /// <summary>
@@ -131,6 +135,76 @@ namespace Claw.UI.Panels
             {
                 bImage.SetResourceReference(Border.BorderBrushProperty, "DisabledMidBrush");
             }
+        }
+
+        /// <summary>
+        /// Event handler for the preview text input event of the name text box.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnNamePreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // If the user typed a ', we stop calling other events.
+            e.Handled = e.Text == "\'";
+        }
+
+        /// <summary>
+        /// Event handler for the pasting event of the name text box.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnNamePasting(object sender, DataObjectPastingEventArgs e)
+        {
+            // If there was a ' pasted into the textbox, we cancel that action.
+            if (e.DataObject.GetData(typeof(string)).ToString().Contains('\''))
+            {
+                e.CancelCommand();
+                SystemSounds.Exclamation.Play();
+            }
+        }
+
+        /// <summary>
+        /// Event handler for the text changed event of the name text box.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnNameTextChanged(object sender, TextChangedEventArgs e)
+        {
+            presenter.OnNameChangeRequested((Command)((ListBoxItem)lbCommands.SelectedItem).Tag, tbName.Text);
+        }
+        
+        public void CommandNameChanged(Command command)
+        {
+            ListBoxItem item = GetItemByCommand(command);
+            item.Content = command.Name;
+            item.InvalidateVisual();
+            SortCommandList();
+        }
+
+        /// <summary>
+        /// Sorts the items in the list box for commands.
+        /// </summary>
+        private void SortCommandList()
+        {
+            lbCommands.Items.SortDescriptions.Clear();
+            lbCommands.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Ascending));
+        }
+
+        /// <summary>
+        /// Searches the list box item associated with the given command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <returns>The list box item or null if none was found.</returns>
+        private ListBoxItem GetItemByCommand(Command command)
+        {
+            foreach (object obj in lbCommands.Items)
+            {
+                if (command == ((ListBoxItem)obj).Tag)
+                {
+                    return (ListBoxItem)obj;
+                }
+            }
+            return null;
         }
     }
 }

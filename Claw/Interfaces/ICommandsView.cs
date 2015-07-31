@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Claw.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,11 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="activeProfile">The new active profile. If null is passed, the UI is cleared.</param>
         void ActiveProfileChanged(MadCatzProfile activeProfile);
+
+        /// <summary>
+        /// Notifies the view that the command name changed and the display for the user needs to be adapted.
+        /// </summary>
+        /// <param name="command">The changed command.</param>
+        void CommandNameChanged(Command command);
     }
 }

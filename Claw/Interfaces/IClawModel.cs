@@ -1,4 +1,5 @@
 ﻿using Claw.Blasts;
+using Claw.Commands;
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
@@ -89,5 +90,13 @@ namespace Claw.Interfaces
         /// <param name="profile">The profile to remove from.</param>
         /// <param name="blast">The icon to remove.</param>
         void RemoveIcon(MadCatzProfile profile, Blast blast);
+
+        /// <summary>
+        /// Changes the name of the given command to the new name.
+        /// </summary>
+        /// <param name="profile">The profile associated with the command.</param>
+        /// <param name="command">The command to edit.</param>
+        /// <param name="newName">The new name.</param>
+        void ChangeCommandName(MadCatzProfile profile, Command command, string newName);
     }
 }

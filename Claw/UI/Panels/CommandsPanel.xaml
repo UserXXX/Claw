@@ -38,7 +38,7 @@
         <ListBox x:Name="lbCommands" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="180" Margin="45,5,0,5" SelectionMode="Extended" SelectionChanged="OnCommandSelectionChanged"/>
 
         <TextBlock Text="{DynamicResource NameText}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,7,0,0"/>
-        <TextBox x:Name="tbName" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="280,5,5,0" IsEnabled="False"/>
+        <TextBox x:Name="tbName" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="280,5,5,0" IsEnabled="False" PreviewTextInput="OnNamePreviewTextInput" DataObject.Pasting="OnNamePasting" TextChanged="OnNameTextChanged"/>
         
         <TextBlock Text="{DynamicResource IconText}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,34,0,0"/>
         <Border x:Name="bImage" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="100" Margin="280,35,0,0" BorderBrush="{DynamicResource DisabledMidBrush}" BorderThickness="1">

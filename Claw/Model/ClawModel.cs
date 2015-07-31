@@ -1,4 +1,5 @@
 ﻿using Claw.Blasts;
+using Claw.Commands;
 using Claw.Interfaces;
 using Claw.Validation;
 using System;
@@ -104,6 +105,12 @@ namespace Claw.Model
             }
 
             profile.Blasts.Remove(blast);
+            profileInfos[profile].Edited = true;
+        }
+
+        public void ChangeCommandName(MadCatzProfile profile, Command command, string newName)
+        {
+            command.Name = newName;
             profileInfos[profile].Edited = true;
         }
     }
