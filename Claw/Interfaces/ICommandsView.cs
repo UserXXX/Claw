@@ -28,5 +28,11 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="command">The changed command.</param>
         void CommandNameChanged(Command command);
+
+        /// <summary>
+        /// Notifies the view that the command icon changed and the display needs to be adapted.
+        /// </summary>
+        /// <param name="command">The command thats icon changed.</param>
+        void CommandIconChanged(Command command);
     }
 }

@@ -97,7 +97,11 @@
     <Compile Include="UI\Controls\ProfileButtonContentPanel.xaml.cs">
       <DependentUpon>ProfileButtonContentPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\ImageHelper.cs" />
+    <Compile Include="UI\Helper\ImageHelper.cs" />
+    <Compile Include="UI\Windows\ChooseIconWindow.xaml.cs">
+      <DependentUpon>ChooseIconWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Windows\ChooseIconWindowResult.cs" />
     <Compile Include="UI\Windows\TextQuestionWindow.xaml.cs">
       <DependentUpon>TextQuestionWindow.xaml</DependentUpon>
     </Compile>
@@ -190,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Controls\ProfileButtonContentPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\ChooseIconWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -98,5 +98,13 @@ namespace Claw.Interfaces
         /// <param name="command">The command to edit.</param>
         /// <param name="newName">The new name.</param>
         void ChangeCommandName(MadCatzProfile profile, Command command, string newName);
+
+        /// <summary>
+        /// Changes the icon for the given command within the given profile to the given icon.
+        /// </summary>
+        /// <param name="profile">The profile.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="blast">The icon.</param>
+        void ChangeCommandIcon(MadCatzProfile profile, Command command, Blast blast);
     }
 }

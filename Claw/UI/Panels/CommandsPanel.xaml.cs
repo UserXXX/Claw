@@ -1,6 +1,8 @@
 ﻿using Claw.Blasts;
 using Claw.Commands;
 using Claw.Interfaces;
+using Claw.UI.Helper;
+using Claw.UI.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -225,6 +227,34 @@ namespace Claw.UI.Panels
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Event handler for the mouse down event on the icon display.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnChooseIconMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (lbCommands.SelectedItem == null)
+            {
+                return;
+            }
+
+            ChooseIconWindowResult result = ChooseIconWindow.ShowDialog(presenter.ActiveProfile.Blasts,
+                presenter.ActiveProfile.Blasts.GetBlastForCommand((Command)((ListBoxItem)lbCommands.SelectedItem).Tag));
+
+            if (result.Canceled)
+            {
+                return;
+            }
+
+            presenter.OnIconChangeRequested((Command)((ListBoxItem)lbCommands.SelectedItem).Tag, result.Selected);
+        }
+
+        public void CommandIconChanged(Command command)
+        {
+            ShowCommandDetails(command);
         }
     }
 }

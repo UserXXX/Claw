@@ -44,6 +44,7 @@
     <clr:String x:Key="DeleteCommandsToolTipText">Delete the selected commands</clr:String>
     <clr:String x:Key="ImportCommandsFromDBToolTipText">Import commands from the database</clr:String>
     <clr:String x:Key="ExportCommandsToDBToolTipText">Export the selected commands to the database</clr:String>
+    <clr:String x:Key="SelectIconText">Choose an icon:</clr:String>
 
     <!-- Message and dialog titles. -->
     <clr:String x:Key="MessageTitleClaw">Claw</clr:String>
@@ -53,6 +54,7 @@
     <clr:String x:Key="DialogTitleOpenProfiles">Claw - Open profiles</clr:String>
     <clr:String x:Key="DialogTitleSaveProfile">Claw - Save profile</clr:String>
     <clr:String x:Key="DialogTitleNewProfile">Claw - Create new profile</clr:String>
+    <clr:String x:Key="DialogTitleSelectIcon">Claw - Choose an icon</clr:String>
     
     <!-- Error messages. -->
     <clr:String x:Key="InvalidPr0Files">The following files aren't valid profile files:</clr:String>

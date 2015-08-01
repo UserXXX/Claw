@@ -1,4 +1,5 @@
-﻿using Claw.Commands;
+﻿using Claw.Blasts;
+using Claw.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,5 +35,12 @@ namespace Claw.Interfaces
         /// <param name="command">The command thats name shall be changed.</param>
         /// <param name="newName">The new name for the command.</param>
         void OnNameChangeRequested(Command command, string newName);
+
+        /// <summary>
+        /// Notifies the presenter that the user wants to change the icon of the given command.
+        /// </summary>
+        /// <param name="command">The command tahts icon shall be changed.</param>
+        /// <param name="blast">The blast to set as icon.</param>
+        void OnIconChangeRequested(Command command, Blast blast);
     }
 }

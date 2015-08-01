@@ -1,4 +1,5 @@
-﻿using Claw.Documents;
+﻿using Claw.Blasts;
+using Claw.Documents;
 using Claw.Validation;
 using System;
 
@@ -106,5 +107,19 @@ namespace Claw.Commands
         /// </summary>
         /// <param name="node">Node to fill.</param>
         internal abstract void FillNode(Node node);
+
+        /// <summary>
+        /// Sets the icon associated with this command.
+        /// </summary>
+        /// <param name="blast">The blast containing the icon data.</param>
+        public void SetIcon(Blast blast)
+        {
+            if (blast == null)
+            {
+                throw new ArgumentNullException("blast");
+            }
+
+            iconUuid = blast.Uuid;
+        }
     }
 }

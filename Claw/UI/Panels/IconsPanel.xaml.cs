@@ -1,5 +1,6 @@
 ﻿using Claw.Blasts;
 using Claw.Interfaces;
+using Claw.UI.Helper;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -85,9 +86,7 @@ namespace Claw.UI.Panels
             btAdd.IsEnabled = true;
             foreach (Blast blast in activeProfile.Blasts)
             {
-                BitmapImage image = ImageHelper.CreateImage(blast.GetData());
-                var imageControl = new Image();
-                imageControl.Source = image;
+                var imageControl = ImageHelper.CreateImageControl(blast.GetData());
                 imageControl.Tag = blast;
                 lvIcons.Items.Add(imageControl);
             }

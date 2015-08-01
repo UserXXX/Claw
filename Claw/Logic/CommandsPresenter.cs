@@ -1,4 +1,5 @@
-﻿using Claw.Commands;
+﻿using Claw.Blasts;
+using Claw.Commands;
 using Claw.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,12 @@ namespace Claw.Logic
         {
             mainPresenter.Model.ChangeCommandName(mainPresenter.ActiveProfile, command, newName);
             view.CommandNameChanged(command);
+        }
+
+        public void OnIconChangeRequested(Command command, Blast blast)
+        {
+            mainPresenter.Model.ChangeCommandIcon(ActiveProfile, command, blast);
+            view.CommandIconChanged(command);
         }
     }
 }
