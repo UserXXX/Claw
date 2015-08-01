@@ -42,5 +42,10 @@ namespace Claw.Interfaces
         /// <param name="command">The command tahts icon shall be changed.</param>
         /// <param name="blast">The blast to set as icon.</param>
         void OnIconChangeRequested(Command command, Blast blast);
+
+        /// <summary>
+        /// Notifies the presenter that the user wants to create a new command.
+        /// </summary>
+        void OnCreateCommandRequested();
     }
 }

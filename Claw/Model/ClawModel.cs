@@ -129,5 +129,28 @@ namespace Claw.Model
             command.SetIcon(blast);
             profileInfos[profile].Edited = true;
         }
+       
+        public Command CreateNewCommand(MadCatzProfile profile, string defaultName)
+        {
+            Command command = null;
+            if (profile.Commands.GetCommandByName(defaultName) == null)
+            {
+                command = new ActionCommand(defaultName);
+            }
+            else
+            {
+                int counter = 1;
+                while (profile.Commands.GetCommandByName(defaultName + counter) != null)
+                {
+                    counter++;
+                }
+                command = new ActionCommand(defaultName + counter);
+            }
+
+            profile.Commands.Add(command);
+            profileInfos[profile].Edited = true;
+
+            return command;
+        }
     }
 }

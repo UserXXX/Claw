@@ -256,5 +256,21 @@ namespace Claw.UI.Panels
         {
             ShowCommandDetails(command);
         }
+
+        /// <summary>
+        /// Handler for the click event on the create command button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments-</param>
+        private void OnCreateCommandClick(object sender, RoutedEventArgs e)
+        {
+            presenter.OnCreateCommandRequested();
+        }
+
+        public void SetActiveCommand(Command command)
+        {
+            ListBoxItem item = GetItemByCommand(command);
+            lbCommands.SelectedItem = item;
+        }
     }
 }

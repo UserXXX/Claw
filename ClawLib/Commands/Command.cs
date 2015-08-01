@@ -50,6 +50,17 @@ namespace Claw.Commands
         }
 
         /// <summary>
+        /// Creates a new command.
+        /// </summary>
+        /// <param name="commandName">The name of the command.</param>
+        public Command(string commandName)
+            : base()
+        {
+            name = commandName;
+            uuid = Guid.NewGuid();
+        }
+
+        /// <summary>
         /// Creates a new Command from the given node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>
@@ -111,15 +122,17 @@ namespace Claw.Commands
         /// <summary>
         /// Sets the icon associated with this command.
         /// </summary>
-        /// <param name="blast">The blast containing the icon data.</param>
+        /// <param name="blast">The blast containing the icon data or null to specify that no icon is associated.</param>
         public void SetIcon(Blast blast)
         {
             if (blast == null)
             {
-                throw new ArgumentNullException("blast");
+                iconUuid = Guid.Empty;
             }
-
-            iconUuid = blast.Uuid;
+            else
+            {
+                iconUuid = blast.Uuid;
+            }
         }
     }
 }

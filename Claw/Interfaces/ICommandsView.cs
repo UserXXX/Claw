@@ -34,5 +34,11 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="command">The command thats icon changed.</param>
         void CommandIconChanged(Command command);
+
+        /// <summary>
+        /// Sets the currently edited command.
+        /// </summary>
+        /// <param name="command">The command that shall be edited.</param>
+        void SetActiveCommand(Command command);
     }
 }

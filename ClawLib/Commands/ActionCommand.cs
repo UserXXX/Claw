@@ -58,6 +58,14 @@ namespace Claw.Commands
         /// <summary>
         /// Creates a new ActionCommand.
         /// </summary>
+        /// <param name="commandName">The name of the command.</param>
+        public ActionCommand(string commandName)
+            : base(commandName)
+        { }
+
+        /// <summary>
+        /// Creates a new ActionCommand.
+        /// </summary>
         /// <param name="validator">The validator to use for validation.</param>
         /// <param name="node">The "actioncommand" node.</param>
         internal ActionCommand(NodeValidator validator, Node node)

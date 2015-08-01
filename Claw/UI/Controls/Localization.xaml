@@ -22,7 +22,7 @@
 
     <!-- Editor panel. -->
     <clr:String x:Key="IconsText">Icons</clr:String>
-    <clr:String x:Key="IconsToolTipText">Switches to the icons view, that allows to im-/and export icons</clr:String>
+    <clr:String x:Key="IconsToolTipText">Switches to the icons view, that allows to im- and export icons</clr:String>
     <clr:String x:Key="CommandsText">Commands</clr:String>
     <clr:String x:Key="CommandsToolTipText">Switches to the commands view, that allows to create commands</clr:String>
     <clr:String x:Key="AssignText">Assignments</clr:String>
@@ -45,6 +45,7 @@
     <clr:String x:Key="ImportCommandsFromDBToolTipText">Import commands from the database</clr:String>
     <clr:String x:Key="ExportCommandsToDBToolTipText">Export the selected commands to the database</clr:String>
     <clr:String x:Key="SelectIconText">Choose an icon:</clr:String>
+    <clr:String x:Key="DefaultCommandName">New Command</clr:String>
 
     <!-- Message and dialog titles. -->
     <clr:String x:Key="MessageTitleClaw">Claw</clr:String>

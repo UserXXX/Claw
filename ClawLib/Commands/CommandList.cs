@@ -87,5 +87,22 @@ namespace Claw.Commands
             }
             return node;
         }
+
+        /// <summary>
+        /// Gets a command by name.
+        /// </summary>
+        /// <param name="name">The name to search for.</param>
+        /// <returns>The command if found, otherwise null.</returns>
+        public Command GetCommandByName(string name)
+        {
+            foreach (Command command in this)
+            {
+                if (command.Name == name)
+                {
+                    return command;
+                }
+            }
+            return null;
+        }
     }
 }

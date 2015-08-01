@@ -106,5 +106,13 @@ namespace Claw.Interfaces
         /// <param name="command">The command.</param>
         /// <param name="blast">The icon.</param>
         void ChangeCommandIcon(MadCatzProfile profile, Command command, Blast blast);
+
+        /// <summary>
+        /// Creates a new command for the given profile.
+        /// </summary>
+        /// <param name="profile">The profile to create a command for.</param>
+        /// <param name="defaultName">The default name for a new command.</param>
+        /// <returns>The created command.</returns>
+        Command CreateNewCommand(MadCatzProfile profile, string defaultName);
     }
 }

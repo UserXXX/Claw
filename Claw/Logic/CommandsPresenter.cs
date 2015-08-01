@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace Claw.Logic
 {
@@ -13,6 +14,8 @@ namespace Claw.Logic
     /// </summary>
     public class CommandsPresenter : ICommandsPresenter
     {
+        private const string DEFAULT_COMMAND_NAME = "DefaultCommandName";
+
         private ICommandsView view;
 
         private IMainPresenter mainPresenter;
@@ -51,6 +54,13 @@ namespace Claw.Logic
         {
             mainPresenter.Model.ChangeCommandIcon(ActiveProfile, command, blast);
             view.CommandIconChanged(command);
+        }
+
+        public void OnCreateCommandRequested()
+        {
+            Command command = mainPresenter.Model.CreateNewCommand(ActiveProfile, (string)Application.Current.FindResource(DEFAULT_COMMAND_NAME));
+            view.ActiveProfileChanged(ActiveProfile);
+            view.SetActiveCommand(command);
         }
     }
 }
