@@ -26,6 +26,11 @@ namespace Claw.UI.Panels
     {
         private ICommandsPresenter presenter;
 
+        /// <summary>
+        /// Specifies whether the editing of the command name is a user action and can thus be handled or not.
+        /// </summary>
+        private bool canHandleNameChange = true;
+
         public CommandsPanel()
         {
             InitializeComponent();
@@ -65,6 +70,8 @@ namespace Claw.UI.Panels
         /// <param name="e">Event arguments.</param>
         private void OnCommandSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            canHandleNameChange = false;
+
             SetSingleSelectControlsEnabled(lbCommands.SelectedItems.Count == 1);
             SetMultiSelectControlsEnabled(lbCommands.SelectedItems.Count > 0);
 
@@ -77,6 +84,8 @@ namespace Claw.UI.Panels
             {
                 ShowCommandDetails(null);
             }
+
+            canHandleNameChange = true;
         }
 
         /// <summary>
@@ -170,6 +179,11 @@ namespace Claw.UI.Panels
         /// <param name="e">Event arguments.</param>
         private void OnNameTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (!canHandleNameChange)
+            {
+                return;
+            }
+
             presenter.OnNameChangeRequested((Command)((ListBoxItem)lbCommands.SelectedItem).Tag, tbName.Text);
         }
         
