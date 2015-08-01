@@ -28,6 +28,7 @@ namespace Claw.UI
     public partial class MainWindow : ClawWindow, IMainView
     {
         private const string BASE_PROFILES_DIRECTORY = "C:\\Users\\Public\\Documents\\SmartTechnology Profiles";
+        private const string APPLICATION_NAME = "ApplicationName";
         private const string MESSAGE_TITLE_CLAW = "MessageTitleClaw";
         private const string MESSAGE_TITLE_CLAW_ERROR = "MessageTitleClawError";
         private const string DIALOG_TITLE_OPEN_PROFILES = "DialogTitleOpenProfiles";
@@ -257,7 +258,7 @@ namespace Claw.UI
 
         public bool? ShowYesNoAbortQuestion(string message)
         {
-            MessageBoxResult result = MessageBox.Show(message, "Claw", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
+            MessageBoxResult result = MessageBox.Show(message, (string)Application.Current.FindResource(APPLICATION_NAME), MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
             switch (result)
             {
                 case MessageBoxResult.Yes:
@@ -379,17 +380,17 @@ namespace Claw.UI
             presenter.CreateNewProfileRequested();
         }
 
-        public string ShowTextQuestion(string title, string message, char[] forbiddenChars)
+        public string ShowTextQuestion(string title, string message, char[] forbiddenSigns)
         {
             return TextQuestionWindow.Show(title, message,
                 (string)App.Current.FindResource(OK_TEXT),
                 (string)App.Current.FindResource(CANCEL_TEXT),
-                forbiddenChars);
+                forbiddenSigns);
         }
 
         public bool ShowYesNoQuestion(string question)
         {
-            MessageBoxResult result = MessageBox.Show(question, "Claw", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            MessageBoxResult result = MessageBox.Show(question, (string)Application.Current.FindResource(APPLICATION_NAME), MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
             if (result == MessageBoxResult.Yes)
             {
                 return true;

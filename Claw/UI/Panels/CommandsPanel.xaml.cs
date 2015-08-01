@@ -175,6 +175,11 @@ namespace Claw.UI.Panels
         
         public void CommandNameChanged(Command command)
         {
+            if (command == null)
+            {
+                throw new ArgumentNullException("command");
+            }
+
             ListBoxItem item = GetItemByCommand(command);
             item.Content = command.Name;
             item.InvalidateVisual();
@@ -199,9 +204,10 @@ namespace Claw.UI.Panels
         {
             foreach (object obj in lbCommands.Items)
             {
-                if (command == ((ListBoxItem)obj).Tag)
+                ListBoxItem item = (ListBoxItem)obj;
+                if (command == item.Tag)
                 {
-                    return (ListBoxItem)obj;
+                    return item;
                 }
             }
             return null;

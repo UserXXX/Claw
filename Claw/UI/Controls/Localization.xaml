@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:clr="clr-namespace:System;assembly=mscorlib">
+    <!-- Application resources. -->
+    <clr:String x:Key="ApplicationName">Claw</clr:String>
+    
     <!-- Window resources. -->
     <clr:String x:Key="CloseText">Close</clr:String>
     <clr:String x:Key="MaximizeText">Maximize</clr:String>

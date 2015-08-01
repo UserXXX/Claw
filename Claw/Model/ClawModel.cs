@@ -110,6 +110,11 @@ namespace Claw.Model
 
         public void ChangeCommandName(MadCatzProfile profile, Command command, string newName)
         {
+            if (command == null)
+            {
+                throw new ArgumentNullException("command");
+            }
+
             command.Name = newName;
             profileInfos[profile].Edited = true;
         }

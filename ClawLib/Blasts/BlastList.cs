@@ -96,6 +96,11 @@ namespace Claw.Blasts
         /// <returns>The blast or null if none exists.</returns>
         public Blast GetBlastForCommand(Command command)
         {
+            if (command == null)
+            {
+                throw new ArgumentNullException("command");
+            }
+
             Guid blastUuid = command.IconUuid;
             foreach (Blast blast in this)
             {
