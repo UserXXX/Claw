@@ -47,5 +47,11 @@ namespace Claw.Interfaces
         /// Notifies the presenter that the user wants to create a new command.
         /// </summary>
         void OnCreateCommandRequested();
+
+        /// <summary>
+        /// Notifies the presenter, that the user wants to delete the given commands.
+        /// </summary>
+        /// <param name="commands">The commands to delete.</param>
+        void OnDeleteCommandsRequested(Command[] commands);
     }
 }

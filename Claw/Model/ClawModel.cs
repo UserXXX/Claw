@@ -152,5 +152,11 @@ namespace Claw.Model
 
             return command;
         }
+
+        public void RemoveCommand(MadCatzProfile profile, Command command)
+        {
+            profile.Commands.Remove(command);
+            profileInfos[profile].Edited = true;
+        }
     }
 }

@@ -272,5 +272,24 @@ namespace Claw.UI.Panels
             ListBoxItem item = GetItemByCommand(command);
             lbCommands.SelectedItem = item;
         }
+
+        /// <summary>
+        /// Event handler for clicks on the delete command button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnDeleteCommandClick(object sender, RoutedEventArgs e)
+        {
+            var commands = new Command[lbCommands.SelectedItems.Count];
+
+            int counter = 0;
+            foreach (object obj in lbCommands.SelectedItems)
+            {
+                commands[counter] = (Command)((ListBoxItem)obj).Tag;
+                counter++;
+            }
+
+            presenter.OnDeleteCommandsRequested(commands);
+        }
     }
 }

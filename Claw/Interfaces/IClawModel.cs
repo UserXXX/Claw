@@ -114,5 +114,12 @@ namespace Claw.Interfaces
         /// <param name="defaultName">The default name for a new command.</param>
         /// <returns>The created command.</returns>
         Command CreateNewCommand(MadCatzProfile profile, string defaultName);
+
+        /// <summary>
+        /// Removes the given command from the given profile.
+        /// </summary>
+        /// <param name="profile">The profile to remove from.</param>
+        /// <param name="command">The command to remove.</param>
+        void RemoveCommand(MadCatzProfile profile, Command command);
     }
 }

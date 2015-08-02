@@ -15,6 +15,7 @@ namespace Claw.Logic
     public class CommandsPresenter : ICommandsPresenter
     {
         private const string DEFAULT_COMMAND_NAME = "DefaultCommandName";
+        private const string QUESTION_SURE_TO_DELETE_COMMANDS = "SureToRemoveCommands";
 
         private ICommandsView view;
 
@@ -61,6 +62,21 @@ namespace Claw.Logic
             Command command = mainPresenter.Model.CreateNewCommand(ActiveProfile, (string)Application.Current.FindResource(DEFAULT_COMMAND_NAME));
             view.ActiveProfileChanged(ActiveProfile);
             view.SetActiveCommand(command);
+        }
+
+        public void OnDeleteCommandsRequested(Command[] commands)
+        {
+            if (!mainPresenter.ForwardYesNoQuestion((string)Application.Current.FindResource(QUESTION_SURE_TO_DELETE_COMMANDS)))
+            {
+                return;
+            }
+
+            foreach (Command command in commands)
+            {
+                mainPresenter.Model.RemoveCommand(ActiveProfile, command);
+            }
+
+            view.ActiveProfileChanged(ActiveProfile);
         }
     }
 }

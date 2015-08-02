@@ -13,7 +13,7 @@
             <!--TODO: Create icon.-->
             <Image />
         </Button>
-        <Button x:Name="btDelete" IsEnabled="False" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,40,5,5">
+        <Button x:Name="btDelete" IsEnabled="False" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,40,5,5" Click="OnDeleteCommandClick">
             <Button.ToolTip>
                 <TextBlock Text="{DynamicResource DeleteCommandsToolTipText}" Foreground="{DynamicResource BackBrush}"/>
             </Button.ToolTip>
