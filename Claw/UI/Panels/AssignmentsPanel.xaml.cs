@@ -156,6 +156,11 @@ namespace Claw.UI.Panels
         /// <param name="e">Event arguments.</param>
         private void OnSelectedDeviceChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (cbDevice.SelectedItem == null)
+            {
+                return;
+            }
+
             Guid selectedId = (Guid)((ComboBoxItem)cbDevice.SelectedItem).Tag;
             Controller selected = activeProfile.Controllers.GetControllerByIdentifier(selectedId);
             if (selected == null)
