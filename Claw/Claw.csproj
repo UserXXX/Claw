@@ -80,15 +80,15 @@
     <Compile Include="Model\ProfileInfo.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Native\Windows.cs" />
-    <Compile Include="UI\Controls\ClawWindow.cs" />
-    <Compile Include="UI\Controls\ClawWindowAnimator.cs" />
-    <Compile Include="UI\Controls\ClawWindowRenderer.cs" />
-    <Compile Include="UI\Controls\LookAndFeel.cs" />
+    <Compile Include="UI\Style\ClawWindow.cs" />
+    <Compile Include="UI\Style\ClawWindowAnimator.cs" />
+    <Compile Include="UI\Style\ClawWindowRenderer.cs" />
+    <Compile Include="UI\Style\LookAndFeel.cs" />
     <Compile Include="Interfaces\IMainView.cs" />
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\AssignmentListBoxItemContent.xaml.cs">
+    <Compile Include="UI\Controls\AssignmentListBoxItemContent.xaml.cs">
       <DependentUpon>AssignmentListBoxItemContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\AssignmentsPanel.xaml.cs">
@@ -134,59 +134,59 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UI\Controls\Button.xaml">
+    <Page Include="UI\Style\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\CheckBox.xaml">
+    <Page Include="UI\Style\CheckBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\ComboBox.xaml">
+    <Page Include="UI\Style\ComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\ListBox.xaml">
+    <Page Include="UI\Style\ListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\ListBoxItem.xaml">
+    <Page Include="UI\Style\ListBoxItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\ListView.xaml">
+    <Page Include="UI\Style\ListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\ListViewItem.xaml">
+    <Page Include="UI\Style\ListViewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\Localization.xaml">
+    <Page Include="UI\Localization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\LookAndFeel.xaml">
+    <Page Include="UI\Style\LookAndFeel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\ScrollBar.xaml">
+    <Page Include="UI\Style\ScrollBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\ScrollViewer.xaml">
+    <Page Include="UI\Style\ScrollViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\TextBlock.xaml">
+    <Page Include="UI\Style\TextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\TextBox.xaml">
+    <Page Include="UI\Style\TextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Controls\ToggleButton.xaml">
+    <Page Include="UI\Style\ToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,7 +194,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Panels\AssignmentListBoxItemContent.xaml">
+    <Page Include="UI\Controls\AssignmentListBoxItemContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

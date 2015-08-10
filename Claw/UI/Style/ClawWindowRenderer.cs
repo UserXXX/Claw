@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
-namespace Claw.UI.Controls
+namespace Claw.UI.Style
 {
     /// <summary>
     /// Renderer for ClawWindows.

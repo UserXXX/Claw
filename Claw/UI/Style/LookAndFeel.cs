@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media;
 
-namespace Claw.UI.Controls
+namespace Claw.UI.Style
 {
     /// <summary>
     /// Look and feel for all visual components.

@@ -6,22 +6,22 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- Localization resources. -->
-                <ResourceDictionary Source="UI/Controls/Localization.xaml"/>
+                <ResourceDictionary Source="UI/Localization.xaml"/>
                 
                 <!-- Look and feel resources. -->
-                <ResourceDictionary Source="UI/Controls/LookAndFeel.xaml"/>
-                <ResourceDictionary Source="UI/Controls/Button.xaml"/>
-                <ResourceDictionary Source="UI/Controls/CheckBox.xaml"/>
-                <ResourceDictionary Source="UI/Controls/ComboBox.xaml"/>
-                <ResourceDictionary Source="UI/Controls/ListBox.xaml"/>
-                <ResourceDictionary Source="UI/Controls/ListBoxItem.xaml"/>
-                <ResourceDictionary Source="UI/Controls/ListView.xaml"/>
-                <ResourceDictionary Source="UI/Controls/ListViewItem.xaml"/>
-                <ResourceDictionary Source="UI/Controls/ScrollBar.xaml"/>
-                <ResourceDictionary Source="UI/Controls/ScrollViewer.xaml"/>
-                <ResourceDictionary Source="UI/Controls/TextBlock.xaml"/>
-                <ResourceDictionary Source="UI/Controls/TextBox.xaml"/>
-                <ResourceDictionary Source="UI/Controls/ToggleButton.xaml"/>
+                <ResourceDictionary Source="UI/Style/LookAndFeel.xaml"/>
+                <ResourceDictionary Source="UI/Style/Button.xaml"/>
+                <ResourceDictionary Source="UI/Style/CheckBox.xaml"/>
+                <ResourceDictionary Source="UI/Style/ComboBox.xaml"/>
+                <ResourceDictionary Source="UI/Style/ListBox.xaml"/>
+                <ResourceDictionary Source="UI/Style/ListBoxItem.xaml"/>
+                <ResourceDictionary Source="UI/Style/ListView.xaml"/>
+                <ResourceDictionary Source="UI/Style/ListViewItem.xaml"/>
+                <ResourceDictionary Source="UI/Style/ScrollBar.xaml"/>
+                <ResourceDictionary Source="UI/Style/ScrollViewer.xaml"/>
+                <ResourceDictionary Source="UI/Style/TextBlock.xaml"/>
+                <ResourceDictionary Source="UI/Style/TextBox.xaml"/>
+                <ResourceDictionary Source="UI/Style/ToggleButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

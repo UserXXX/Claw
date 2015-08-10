@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace Claw.UI.Controls
+namespace Claw.UI.Style
 {
     /// <summary>
     /// Animates one ClawWindow. There is always one instance of this class associated with one ClawWindow instance.

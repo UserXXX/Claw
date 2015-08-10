@@ -8,7 +8,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace Claw.UI.Controls
+namespace Claw.UI.Style
 {
     /// <summary>
     /// Base class of all windows used by Claw.

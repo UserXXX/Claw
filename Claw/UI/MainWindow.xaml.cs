@@ -1,5 +1,6 @@
 ﻿using Claw.Interfaces;
 using Claw.UI.Controls;
+using Claw.UI.Style;
 using Claw.UI.Windows;
 using Microsoft.Win32;
 using System;

@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ClawControl = Claw.Controllers.Controls.Control;
 
-namespace Claw.UI.Panels
+namespace Claw.UI.Controls
 {
     /// <summary>
     /// Logic for AssignmentListBoxItemContent.xaml

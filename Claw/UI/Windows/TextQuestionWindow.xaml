@@ -1,7 +1,7 @@
 ﻿<base:ClawWindow x:Class="Claw.UI.Windows.TextQuestionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:base="clr-namespace:Claw.UI.Controls"
+        xmlns:base="clr-namespace:Claw.UI.Style"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None"
         Title="" Height="160" Width="300"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
