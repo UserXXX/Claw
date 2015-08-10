@@ -43,7 +43,6 @@ namespace Claw.Documents
         internal Dictionary<string, string> Attributes
         {
             get { return attributes; }
-            set { attributes = value; }
         }
 
         /// <summary>
@@ -52,7 +51,6 @@ namespace Claw.Documents
         internal LinkedList<Node> Children
         {
             get { return children; }
-            set { children = value; }
         }
 
         /// <summary>

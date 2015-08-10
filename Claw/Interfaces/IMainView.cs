@@ -28,6 +28,14 @@ namespace Claw.Interfaces
         }
 
         /// <summary>
+        /// The assignment view associated with this view.
+        /// </summary>
+        IAssignmentView AssignmentView
+        {
+            get;
+        }
+
+        /// <summary>
         /// Sets the presenter for this view.
         /// </summary>
         /// <param name="mainPresenter">The presenter.</param>

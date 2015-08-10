@@ -47,6 +47,14 @@
     <clr:String x:Key="SelectIconText">Choose an icon:</clr:String>
     <clr:String x:Key="DefaultCommandName">New Command</clr:String>
 
+    <!-- Assignments panel. -->
+    <clr:String x:Key="DeviceText">Device:</clr:String>
+    <clr:String x:Key="ModeText">Mode:</clr:String>
+    <clr:String x:Key="ControlHeader">Control</clr:String>
+    <clr:String x:Key="CommandHeader">Command</clr:String>
+    <clr:String x:Key="ControlText">Control:</clr:String>
+    <clr:String x:Key="NoCommandAssignedText">&lt;None&gt;</clr:String>
+    
     <!-- Message and dialog titles. -->
     <clr:String x:Key="MessageTitleClaw">Claw</clr:String>
     <clr:String x:Key="MessageTitleClawError">Claw - Error</clr:String>

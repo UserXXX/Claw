@@ -1,4 +1,5 @@
-﻿using Claw.Documents;
+﻿using Claw.Commands;
+using Claw.Documents;
 using Claw.Validation;
 using System;
 using System.Globalization;
@@ -50,6 +51,29 @@ namespace Claw.Controllers.Assignments
 
         private uint identifier;
         private Guid commandUuid;
+        /// <summary>
+        /// The UUID of the associated command.
+        /// </summary>
+        internal Guid CommandUuid
+        {
+            get { return commandUuid; }
+        }
+
+        /// <summary>
+        /// Creates a new band for the given command.
+        /// </summary>
+        /// <param name="command">The command to bind to.</param>
+        public Band(Command command)
+            : base()
+        {
+            if (command == null)
+            {
+                throw new ArgumentNullException("command");
+            }
+
+            identifier = 1;
+            commandUuid = command.Uuid;
+        }
 
         /// <summary>
         /// Creates a new Band.

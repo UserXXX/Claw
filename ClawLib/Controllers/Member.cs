@@ -54,6 +54,14 @@ namespace Claw.Controllers
         private string shortName;
 
         /// <summary>
+        /// The members name, this is read-only.
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
+        }
+
+        /// <summary>
         /// Creates a new Member from the given node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>

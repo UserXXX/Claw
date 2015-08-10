@@ -1,4 +1,5 @@
-﻿using Claw.Documents;
+﻿using Claw.Controllers.Assignments;
+using Claw.Documents;
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
@@ -98,6 +99,28 @@ namespace Claw.Commands
             foreach (Command command in this)
             {
                 if (command.Name == name)
+                {
+                    return command;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the command for the given band.
+        /// </summary>
+        /// <param name="band">The band thats associated command is searched.</param>
+        /// <returns>The command if found, otherwise null.</returns>
+        public Command GetCommandForBand(Band band)
+        {
+            if (band == null)
+            {
+                throw new ArgumentNullException("band");
+            }
+
+            foreach (Command command in this)
+            {
+                if (command.Uuid.Equals(band.CommandUuid))
                 {
                     return command;
                 }

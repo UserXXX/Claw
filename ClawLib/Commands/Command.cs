@@ -23,6 +23,14 @@ namespace Claw.Commands
         #endregion
 
         private Guid uuid;
+        /// <summary>
+        /// The unique identifier for this command.
+        /// </summary>
+        internal Guid Uuid
+        {
+            get { return uuid; }
+        }
+
         private string name;
         /// <summary>
         /// The commands name.
@@ -53,7 +61,7 @@ namespace Claw.Commands
         /// Creates a new command.
         /// </summary>
         /// <param name="commandName">The name of the command.</param>
-        public Command(string commandName)
+        protected Command(string commandName)
             : base()
         {
             name = commandName;
@@ -133,6 +141,41 @@ namespace Claw.Commands
             {
                 iconUuid = blast.Uuid;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Command command = obj as Command;
+
+            if (command != null)
+            {
+                return Equals(command);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Checks if the given command is equal to this command.
+        /// </summary>
+        /// <param name="command">The command to compare to.</param>
+        /// <returns>Whether the given command and this command are equal.</returns>
+        public bool Equals(Command command)
+        {
+            if (command == null)
+            {
+                return false;
+            }
+
+            // The UUID is unique, it is enough to test for it.
+            return command.uuid.Equals(uuid);
+        }
+
+        public override int GetHashCode()
+        {
+            return uuid.GetHashCode();
         }
     }
 }

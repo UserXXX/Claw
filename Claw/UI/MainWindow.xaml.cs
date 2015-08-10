@@ -58,6 +58,11 @@ namespace Claw.UI
             get { return pEditor.CommandsPanel; }
         }
 
+        public IAssignmentView AssignmentView
+        {
+            get { return pEditor.AssignPanel; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -186,6 +191,7 @@ namespace Claw.UI
             {
                 pEditor.IconsPanel.ActiveProfileChanged(null);
                 pEditor.CommandsPanel.ActiveProfileChanged(null);
+                pEditor.AssignPanel.ActiveProfileChanged(null);
                 return;
             }
 

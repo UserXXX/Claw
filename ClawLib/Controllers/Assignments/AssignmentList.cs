@@ -1,4 +1,5 @@
-﻿using Claw.Documents;
+﻿using Claw.Controllers.Controls;
+using Claw.Documents;
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,13 @@ namespace Claw.Controllers.Assignments
         #endregion
 
         /// <summary>
+        /// Creates a new and empty assignment list.
+        /// </summary>
+        internal AssignmentList()
+            : base()
+        { }
+
+        /// <summary>
         /// Creates a new AssignmentList from the given node.
         /// </summary>
         /// <param name="validator">The validator to use for validation.</param>
@@ -68,7 +76,11 @@ namespace Claw.Controllers.Assignments
                         break;
 
                     case BUTTON_CHILD_NODE:
-                        Add(new ButtonAssignment(validator, child));
+                        var assignment = new ButtonAssignment(validator, child);
+                        if (assignment.Role == ButtonAssignmentRole.Bands)
+                        {
+                            Add(assignment);
+                        }
                         break;
                 }
             }
@@ -87,6 +99,41 @@ namespace Claw.Controllers.Assignments
                 node.Children.AddLast(assignment.CreateNodes());
             }
             return node;
+        }
+
+        /// <summary>
+        /// Gets the assignment for the given control.
+        /// </summary>
+        /// <param name="control">The control to search the assignment for.</param>
+        /// <returns>The assignment or null if nothing is assigned.</returns>
+        public Assignment GetAssignmentForControl(Control control)
+        {
+            if (control == null)
+            {
+                throw new ArgumentNullException("control");
+            }
+
+            foreach (Assignment assignment in this)
+            {
+                if (assignment.Identifier == control.Identifier)
+                {
+                    return assignment;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Removes the assignment for the given control.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        public void RemoveAssignmentForControl(Control control)
+        {
+            Assignment assignment = GetAssignmentForControl(control);
+            if (assignment != null)
+            {
+                Remove(assignment);
+            }
         }
     }
 }

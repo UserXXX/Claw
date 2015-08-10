@@ -61,16 +61,94 @@ namespace Claw.Controllers
 		}
 
         #endregion
-        
+
+        /// <summary>
+        /// Unique identifier for the R.A.T. mice.
+        /// </summary>
+        public static readonly Guid RatMiceIdentifier = new Guid("c9e4beb7-9967-4ce8-8fbc-02ca04f453d8");
+        /// <summary>
+        /// Unique identifier for the Strike 7 keyboards.
+        /// </summary>
+        public static readonly Guid Strike7Identifier = new Guid("7dd18c88-ccc8-4fe7-ae24-17fcb414aa53");
+        /// <summary>
+        /// Unique identifier for the Strike 5 keyboards.
+        /// </summary>
+        public static readonly Guid Strike5Identifier = new Guid("4ae960ae-0df5-4cf5-8d9a-f90a660afa73");
+        /// <summary>
+        /// Unique identifier for the R.A.T.M mice.
+        /// </summary>
+        public static readonly Guid RatMIdentifier = new Guid("6ad0bb35-7395-435c-a710-63ffb566aa0c");
+        /// <summary>
+        /// Unique identifier for the M.O.U.S.9 mice.
+        /// </summary>
+        public static readonly Guid Mous9Identifier = new Guid("e3d5b5a4-8391-430d-b538-0041c6934bb5");
+
+        /// <summary>
+        /// All known identifiers.
+        /// </summary>
+        private static readonly List<Guid> KNOWN_IDENTIFIERS = new List<Guid>()
+        {
+            RatMiceIdentifier,
+            Strike7Identifier,
+            Strike5Identifier,
+            RatMIdentifier,
+            Mous9Identifier,
+        };
+
+        /// <summary>
+        /// Mapping of identifiers (UUIDs) to the creation method.
+        /// </summary>
+        private static readonly Dictionary<Guid, Func<Controller>> IDENTIFIER_CREATE_MAPPING = new Dictionary<Guid, Func<Controller>>()
+        {
+            { RatMiceIdentifier, new Func<Controller>(CreateRATMouseController) },
+            { Strike7Identifier, new Func<Controller>(CreateStrike7KeyboardController) },
+            { Strike5Identifier, new Func<Controller>(CreateStrike5KeyboardController) },
+            { RatMIdentifier, new Func<Controller>(CreateRATMMouseController) },
+            { Mous9Identifier, new Func<Controller>(CreateMOUS9MouseController) },
+        };
+
         private Guid uuid;
         private DeviceGroup group;
         /// <summary>
         /// List of members (=devices) of this group.
-        /// Use LinkedList here as a Controller has members and the usage of this node is not to store members.
+        /// Use LinkedList here as a Controller has members and the usage of this node is not to store members (alternate
+        /// implementation would be inheriting from NodeListParser instead of NoeParser).
         /// </summary>
         private LinkedList<Member> members = new LinkedList<Member>();
         private ControlList controls;
         private ShiftList shifts;
+
+        /// <summary>
+        /// The unique identifier of this controller.
+        /// </summary>
+        public Guid Uuid
+        {
+            get { return uuid; }
+        }
+
+        /// <summary>
+        /// List of members (=devices) of this group.
+        /// </summary>
+        public LinkedList<Member> Members
+        {
+            get { return members; }
+        }
+
+        /// <summary>
+        /// The controls of this controller.
+        /// </summary>
+        public ControlList Controls
+        {
+            get { return controls; }
+        }
+
+        /// <summary>
+        /// Gets the available shifts (called "modes" by MadCatz).
+        /// </summary>
+        public ShiftList Shifts
+        {
+            get { return shifts; }
+        }
 
         /// <summary>
         /// Creates a new controller from the given node.
@@ -106,6 +184,15 @@ namespace Claw.Controllers
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Checks whether the conttoller group is one of the known groups.
+        /// </summary>
+        /// <returns>Whether the controller group is one of the known groups.</returns>
+        public bool IsKnown()
+        {
+            return KNOWN_IDENTIFIERS.Contains(uuid);
         }
 
 
@@ -236,6 +323,22 @@ namespace Claw.Controllers
                 CreateRATMMouseController(),
                 CreateMOUS9MouseController(),
             };
+        }
+
+        /// <summary>
+        /// Creates the default controller for the given UUID. Throws an ArgumentException if the given UUID is not one of
+        /// the default UUIDs.
+        /// </summary>
+        /// <param name="uuid">The UUID of the controller to create.</param>
+        /// <returns>The created controller.</returns>
+        public static Controller CreateDefaultById(Guid uuid)
+        {
+            if (!IDENTIFIER_CREATE_MAPPING.ContainsKey(uuid))
+            {
+                throw new ArgumentException("The requested UUID " + uuid.ToString() + " is unknwon.");
+            }
+
+            return IDENTIFIER_CREATE_MAPPING[uuid].Invoke();
         }
     }
 }

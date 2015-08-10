@@ -1,5 +1,7 @@
 ﻿using Claw.Blasts;
 using Claw.Commands;
+using Claw.Controllers;
+using Claw.Controllers.Controls;
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
@@ -121,5 +123,23 @@ namespace Claw.Interfaces
         /// <param name="profile">The profile to remove from.</param>
         /// <param name="command">The command to remove.</param>
         void RemoveCommand(MadCatzProfile profile, Command command);
+
+        /// <summary>
+        /// Tries to insert the default controller for the given UUID into the profile. Throws an ArgumentException if the
+        /// given UUID is not one of the default UUIDs.
+        /// </summary>
+        /// <param name="profile">The profile to insert into.</param>
+        /// <param name="requestedUuid">The UUID identifying the controller to insert.</param>
+        /// <returns>The generated controller.</returns>
+        Controller TryInsertController(MadCatzProfile profile, Guid requestedUuid);
+
+        /// <summary>
+        /// Associates the given control with the given command.
+        /// </summary>
+        /// <param name="profile">The profile that contains the control.</param>
+        /// <param name="shift">The shift that shall be programmed.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="command">The command to associate.</param>
+        void AssociateCommand(MadCatzProfile profile, Shift shift, Control control, Command command);
     }
 }

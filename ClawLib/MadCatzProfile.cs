@@ -102,6 +102,14 @@ namespace Claw
         }
 
         /// <summary>
+        /// The controllers configured for this profile.
+        /// </summary>
+        public ControllerList Controllers
+        {
+            get { return controllers; }
+        }
+
+        /// <summary>
         /// Creates a new profile with the given name.
         /// </summary>
         /// <param name="profileName">The name of the profile.</param>

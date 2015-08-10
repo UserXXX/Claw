@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="UI/Controls/LookAndFeel.xaml"/>
                 <ResourceDictionary Source="UI/Controls/Button.xaml"/>
                 <ResourceDictionary Source="UI/Controls/CheckBox.xaml"/>
+                <ResourceDictionary Source="UI/Controls/ComboBox.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ListBox.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ListBoxItem.xaml"/>
                 <ResourceDictionary Source="UI/Controls/ListView.xaml"/>

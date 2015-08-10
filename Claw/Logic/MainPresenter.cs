@@ -1,4 +1,5 @@
-﻿using Claw.Interfaces;
+﻿using Claw.Commands;
+using Claw.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,6 +33,7 @@ namespace Claw.Logic
 
         private IIconsPresenter iconsPresenter;
         private ICommandsPresenter commandsPresenter;
+        private IAssignmentPresenter assignPresenter;
 
         private MadCatzProfile activeProfile;
         public MadCatzProfile ActiveProfile
@@ -52,6 +54,11 @@ namespace Claw.Logic
             ICommandsView commandsView = view.CommandsView;
             commandsPresenter.SetView(commandsView);
             commandsView.SetPresenter(commandsPresenter);
+
+            assignPresenter = new AssignmentPresenter(this);
+            IAssignmentView assignView = view.AssignmentView;
+            assignPresenter.SetView(assignView);
+            assignView.SetPresenter(assignPresenter);
         }
 
         public void SetModel(IClawModel clawModel)
@@ -249,6 +256,7 @@ namespace Claw.Logic
             activeProfile = profile;
             iconsPresenter.ActiveProfileChanged(profile);
             commandsPresenter.ActiveProfileChanged(profile);
+            assignPresenter.ActiveProfileChanged(profile);
         }
 
         public void ForwardError(string errorMessage)
@@ -259,6 +267,12 @@ namespace Claw.Logic
         public bool ForwardYesNoQuestion(string question)
         {
             return view.ShowYesNoQuestion(question);
+        }
+       
+        public void CommandNameChanged(Command command)
+        {
+            commandsPresenter.CommandNameChanged(command);
+            assignPresenter.CommandNameChanged(command);
         }
     }
 }

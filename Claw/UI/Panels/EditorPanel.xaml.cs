@@ -36,6 +36,14 @@ namespace Claw.UI.Panels
             get { return pCommands; }
         }
 
+        /// <summary>
+        /// The assignments panel.
+        /// </summary>
+        public IAssignmentView AssignPanel
+        {
+            get { return pAssignments; }
+        }
+
         public EditorPanel()
         {
             InitializeComponent();
@@ -50,6 +58,7 @@ namespace Claw.UI.Panels
         {
             pIcons.Visibility = Visibility.Visible;
             pCommands.Visibility = Visibility.Hidden;
+            pAssignments.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -61,6 +70,19 @@ namespace Claw.UI.Panels
         {
             pIcons.Visibility = Visibility.Hidden;
             pCommands.Visibility = Visibility.Visible;
+            pAssignments.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Event handler for clicks on the assignments button.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnAssignCommandsClick(object sender, RoutedEventArgs e)
+        {
+            pIcons.Visibility = Visibility.Hidden;
+            pCommands.Visibility = Visibility.Hidden;
+            pAssignments.Visibility = Visibility.Visible;
         }
     }
 }

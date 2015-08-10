@@ -62,12 +62,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\IAssignmentPresenter.cs" />
+    <Compile Include="Interfaces\IAssignmentView.cs" />
     <Compile Include="Interfaces\IClawModel.cs" />
     <Compile Include="Interfaces\ICommandsPresenter.cs" />
     <Compile Include="Interfaces\ICommandsView.cs" />
     <Compile Include="Interfaces\IIconsPresenter.cs" />
     <Compile Include="Interfaces\IIconsView.cs" />
     <Compile Include="Interfaces\IMainPresenter.cs" />
+    <Compile Include="Logic\AssignmentPresenter.cs" />
     <Compile Include="Logic\ClawValidationReport.cs" />
     <Compile Include="Logic\CommandsPresenter.cs" />
     <Compile Include="Logic\IconsPresenter.cs" />
@@ -84,6 +87,12 @@
     <Compile Include="Interfaces\IMainView.cs" />
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\AssignmentListBoxItemContent.xaml.cs">
+      <DependentUpon>AssignmentListBoxItemContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\AssignmentsPanel.xaml.cs">
+      <DependentUpon>AssignmentsPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\CommandsPanel.xaml.cs">
       <DependentUpon>CommandsPanel.xaml</DependentUpon>
@@ -133,6 +142,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Controls\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Controls\ListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,6 +191,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Panels\AssignmentListBoxItemContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Panels\AssignmentsPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

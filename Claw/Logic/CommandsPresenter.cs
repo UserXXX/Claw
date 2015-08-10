@@ -48,6 +48,11 @@ namespace Claw.Logic
         public void OnNameChangeRequested(Command command, string newName)
         {
             mainPresenter.Model.ChangeCommandName(mainPresenter.ActiveProfile, command, newName);
+            mainPresenter.CommandNameChanged(command);
+        }
+        
+        public void CommandNameChanged(Command command)
+        {
             view.CommandNameChanged(command);
         }
 
@@ -66,6 +71,11 @@ namespace Claw.Logic
 
         public void OnDeleteCommandsRequested(Command[] commands)
         {
+            if (commands == null)
+            {
+                throw new ArgumentNullException("commands");
+            }
+
             if (!mainPresenter.ForwardYesNoQuestion((string)Application.Current.FindResource(QUESTION_SURE_TO_DELETE_COMMANDS)))
             {
                 return;

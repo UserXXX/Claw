@@ -1,4 +1,6 @@
-﻿using Claw.Documents;
+﻿using Claw.Commands;
+using Claw.Controllers.Controls;
+using Claw.Documents;
 using Claw.Validation;
 using System;
 
@@ -28,6 +30,16 @@ namespace Claw.Controllers.Assignments
         }
 
         #endregion
+
+        /// <summary>
+        /// Creates a new empty assignment for the given control.
+        /// </summary>
+        /// <param name="control">The control this assignment assigns to.</param>
+        internal Assignment(Control control)
+            : base()
+        {
+            identifier = control.Identifier;
+        }
 
         /// <summary>
         /// Creates a new Assignment.

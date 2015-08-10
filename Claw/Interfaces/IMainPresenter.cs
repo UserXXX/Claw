@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Claw.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -82,5 +83,11 @@ namespace Claw.Interfaces
         /// <param name="question">The question to ask.</param>
         /// <returns>true if the yes option was chosen, otherwise false.</returns>
         bool ForwardYesNoQuestion(string question);
+
+        /// <summary>
+        /// Notifies the presenter that the name of the given command changed.
+        /// </summary>
+        /// <param name="command">The changed command.</param>
+        void CommandNameChanged(Command command);
     }
 }

@@ -22,6 +22,22 @@ namespace Claw.Controllers.Controls
 		}
         
         #endregion
+
+        /// <summary>
+        /// The controls unique identifier.
+        /// </summary>
+        internal uint Identifier
+        {
+            get { return identifier; }
+        }
+
+        /// <summary>
+        /// The name of the control. This is read-only.
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
+        }
     
         /// <summary>
         /// Creates a new Control.
@@ -70,5 +86,36 @@ namespace Claw.Controllers.Controls
         /// </summary>
         /// <param name="node">The node to fill.</param>
         internal abstract void FillNode(Node node);
+
+        public override bool Equals(object obj)
+        {
+            Control control = obj as Control;
+            if (control != null)
+            {
+                return Equals(control);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Compares the given conrol to this control.
+        /// </summary>
+        /// <param name="control">The other control.</param>
+        /// <returns>Whether the given control is equal to this control.</returns>
+        public bool Equals(Control control)
+        {
+            if (control == null)
+            {
+                throw new ArgumentNullException("control");
+            }
+
+            return control.identifier == identifier && control.name == name;
+        }
+
+        public override int GetHashCode()
+        {
+            return identifier.GetHashCode() + name.GetHashCode();
+        }
     }
 }

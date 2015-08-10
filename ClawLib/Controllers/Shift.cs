@@ -68,11 +68,27 @@ namespace Claw.Controllers
 
         /// <summary>
         /// "selectionset" node. This is a readonly hardware configuration. The given data is only relevant for drivers.
-        /// This node is optional.
+        /// This node is required.
         /// </summary>
         private Node selectionset;
 
         private AssignmentList assignments;
+
+        /// <summary>
+        /// The name of the shift.
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
+        }
+
+        /// <summary>
+        /// The assignments made for this shift.
+        /// </summary>
+        public AssignmentList Assignments
+        {
+            get { return assignments; }
+        }
 
         /// <summary>
         /// Creates a new Shift from the given node.
@@ -107,6 +123,11 @@ namespace Claw.Controllers
                         assignments = new AssignmentList(validator, child);
                         break;
                 }
+            }
+
+            if (assignments == null)
+            {
+                assignments = new AssignmentList();
             }
         }
 

@@ -1,5 +1,8 @@
 ﻿using Claw.Blasts;
 using Claw.Commands;
+using Claw.Controllers;
+using Claw.Controllers.Assignments;
+using Claw.Controllers.Controls;
 using Claw.Interfaces;
 using Claw.Validation;
 using System;
@@ -132,6 +135,11 @@ namespace Claw.Model
        
         public Command CreateNewCommand(MadCatzProfile profile, string defaultName)
         {
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
             Command command = null;
             if (profile.Commands.GetCommandByName(defaultName) == null)
             {
@@ -155,8 +163,90 @@ namespace Claw.Model
 
         public void RemoveCommand(MadCatzProfile profile, Command command)
         {
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
             profile.Commands.Remove(command);
             profileInfos[profile].Edited = true;
+        }
+
+        public Controller TryInsertController(MadCatzProfile profile, Guid requestedUuid)
+        {
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            Controller controller = Controller.CreateDefaultById(requestedUuid);
+
+            profile.Controllers.Add(controller);
+            profileInfos[profile].Edited = true;
+
+            return controller;
+        }
+
+        public void AssociateCommand(MadCatzProfile profile, Shift shift, Control control, Command command)
+        {
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+            if (shift == null)
+            {
+                throw new ArgumentNullException("shift");
+            }
+
+            if (!(control is ButtonControl))
+            {
+                throw new InvalidOperationException("Can't associate a command to a non-button control.");
+            }
+
+            if (command != null && !profile.Commands.Contains(command))
+            {
+                throw new ArgumentException("The given command needs to be in the same profile as the given control.");
+            }
+
+            profileInfos[profile].Edited = true;
+
+            if (command == null)
+            {
+                shift.Assignments.RemoveAssignmentForControl(control);
+                return;
+            }
+
+            var band = new Band(command);
+
+            ButtonAssignment buttonAssignment = GetButtonAssignment(shift, control);
+            buttonAssignment.Bands.Clear();
+            buttonAssignment.Bands.Add(band);
+        }
+
+        /// <summary>
+        /// Gets the button assignment for the given control in the given shift, creates a new one if none exists.
+        /// </summary>
+        /// <param name="shift">The parent shift of the control.</param>
+        /// <param name="control">The control to get a button assignment for.</param>
+        /// <returns>The new or existing button assignment.</returns>
+        private static ButtonAssignment GetButtonAssignment(Shift shift, Control control)
+        {
+            Assignment assignment = shift.Assignments.GetAssignmentForControl(control);
+
+            if (assignment == null)
+            {
+                var buttonAssignment = new ButtonAssignment(control);
+                shift.Assignments.Add(buttonAssignment);
+                return buttonAssignment;
+            }
+
+            ButtonAssignment button = assignment as ButtonAssignment;
+
+            if (button == null)
+            {
+                throw new InvalidOperationException("Profile structure is corrupted! A button control also needs a button assignment!");
+            }
+            return button;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Claw.Documents;
+﻿using Claw.Controllers.Controls;
+using Claw.Documents;
 using Claw.Validation;
 using System;
 using System.Collections.Generic;
@@ -55,10 +56,38 @@ namespace Claw.Controllers.Assignments
 
         private BandList bands;
 
+        /// <summary>
+        /// The bands of this assignment.
+        /// </summary>
+        public BandList Bands
+        {
+            get { return bands; }
+        }
+
+        /// <summary>
+        /// The role of the button. Internal as unprogrammed buttons are not read at all and their data is nonsense, all
+        /// assignments available from extern have ButtonAssignmentRole.Bands.
+        /// </summary>
+        internal ButtonAssignmentRole Role
+        {
+            get { return role; }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Profile files need lowercase strings.")]
         protected override string NodeName
         {
             get { return AssignmentList.BUTTON_CHILD_NODE.ToLowerInvariant(); }
+        }
+
+        /// <summary>
+        /// Creates a new button assignment for the given control.
+        /// </summary>
+        /// <param name="control">The control this assignment will assign to.</param>
+        public ButtonAssignment(Control control)
+            : base(control)
+        {
+            role = ButtonAssignmentRole.Bands;
+            bands = new BandList();
         }
 
         /// <summary>

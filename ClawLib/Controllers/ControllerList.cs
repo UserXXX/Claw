@@ -86,5 +86,22 @@ namespace Claw.Controllers
             }
             return node;
         }
+
+        /// <summary>
+        /// Gets the controller for the given identifier if it exists.
+        /// </summary>
+        /// <param name="identifier">The identifier to search for.</param>
+        /// <returns>The controller with the given identifier or null if there is none in this collection.</returns>
+        public Controller GetControllerByIdentifier(Guid identifier)
+        {
+            foreach (Controller controller in this)
+            {
+                if (controller.Uuid.Equals(identifier))
+                {
+                    return controller;
+                }
+            }
+            return null;
+        }
     }
 }

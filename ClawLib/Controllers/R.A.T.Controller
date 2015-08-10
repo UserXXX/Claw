@@ -1,51 +1,51 @@
 ﻿[controller=c9e4beb7-9967-4ce8-8fbc-02ca04f453d8 group=Mice
   [member=cdafc361-948a-4973-989a-29affdef280f name='Call Of Duty: Black Ops - Stealth Mouse' shortname='Call Of Duty: Mouse']
-    [controls
-      [mousepointer=0x00010030 name=Cursor
-        [mouseaxis=0x00010030 name='X Axis']
-        [mouseaxis=0x00010031 name='Y Axis']]
-      [mouseaxis=0x00010038 name='Scroll Wheel']
-      [button=0x00090003 name='Scroll Button']
-      [button=0x00090004 name='Back Button']
-      [button=0x00090005 name='Forwards Button']
-      [button=0x00090006 name='Thumb Clockwise']
-      [button=0x00090007 name='Thumb Anticlockwise']
-      [button=0x00090008 name='Precision Aim']
-      [slider=0x00090009 name=Mode
-        [button=0x00090009 name='Mode 1' latchable=false]
-        [button=0x0009000A name='Mode 2' latchable=false]
-        [button=0x0009000B name='Mode 3' latchable=false]]]
-    [shifts
-      [shift=469e0eec-57b9-4d94-ae08-968aa4cddfcd name='Mode 1'
-        [selectionset
-          [buttoncombo
-            [buttonhid=0x00090009]]]
-        [assignments
-          [mousepointer=0x00010030
-            [mouseaxis=0x00010030 envelope=sensitivity
-              [sensitivity=29]]
-            [mouseaxis=0x00010031 envelope=sensitivity
-              [sensitivity=29]]]]]
-      [shift=cd957a00-26bf-4577-89ff-676166fe3b28 fallback=469e0eec-57b9-4d94-ae08-968aa4cddfcd name='Mode 2'
-        [selectionset
-          [buttoncombo
-            [buttonhid=0x0009000A]]]
-        [assignments
-          [mousepointer=0x00010030
-            [mouseaxis=0x00010030 envelope=sensitivity
-              [sensitivity=29]]
-            [mouseaxis=0x00010031 envelope=sensitivity
-              [sensitivity=29]]]]]
-      [shift=ccb88344-c0d5-4ad2-b35d-70ebf6e80171 fallback=469e0eec-57b9-4d94-ae08-968aa4cddfcd name='Mode 3'
-        [selectionset
-          [buttoncombo
-            [buttonhid=0x0009000B]]]
-        [assignments
-          [mousepointer=0x00010030
-            [mouseaxis=0x00010030 envelope=sensitivity
-              [sensitivity=29]]
-            [mouseaxis=0x00010031 envelope=sensitivity
-              [sensitivity=29]]]]]]
+  [controls
+    [mousepointer=0x00010030 name=Cursor
+      [mouseaxis=0x00010030 name='X Axis']
+      [mouseaxis=0x00010031 name='Y Axis']]
+    [mouseaxis=0x00010038 name='Scroll Wheel']
+    [button=0x00090003 name='Scroll Button']
+    [button=0x00090004 name='Back Button']
+    [button=0x00090005 name='Forwards Button']
+    [button=0x00090006 name='Thumb Clockwise']
+    [button=0x00090007 name='Thumb Anticlockwise']
+    [button=0x00090008 name='Precision Aim']
+    [slider=0x00090009 name=Mode
+      [button=0x00090009 name='Mode 1' latchable=false]
+      [button=0x0009000A name='Mode 2' latchable=false]
+      [button=0x0009000B name='Mode 3' latchable=false]]]
+  [shifts
+    [shift=469e0eec-57b9-4d94-ae08-968aa4cddfcd name='Mode 1'
+      [selectionset
+        [buttoncombo
+          [buttonhid=0x00090009]]]
+      [assignments
+        [mousepointer=0x00010030
+          [mouseaxis=0x00010030 envelope=sensitivity
+            [sensitivity=29]]
+          [mouseaxis=0x00010031 envelope=sensitivity
+            [sensitivity=29]]]]]
+    [shift=cd957a00-26bf-4577-89ff-676166fe3b28 fallback=469e0eec-57b9-4d94-ae08-968aa4cddfcd name='Mode 2'
+      [selectionset
+        [buttoncombo
+          [buttonhid=0x0009000A]]]
+      [assignments
+        [mousepointer=0x00010030
+          [mouseaxis=0x00010030 envelope=sensitivity
+            [sensitivity=29]]
+          [mouseaxis=0x00010031 envelope=sensitivity
+            [sensitivity=29]]]]]
+    [shift=ccb88344-c0d5-4ad2-b35d-70ebf6e80171 fallback=469e0eec-57b9-4d94-ae08-968aa4cddfcd name='Mode 3'
+      [selectionset
+        [buttoncombo
+          [buttonhid=0x0009000B]]]
+      [assignments
+        [mousepointer=0x00010030
+          [mouseaxis=0x00010030 envelope=sensitivity
+            [sensitivity=29]]
+          [mouseaxis=0x00010031 envelope=sensitivity
+            [sensitivity=29]]]]]]
     [member=9089e681-30ab-4a7f-901b-20e9634ce580 name='Cyborg R.A.T. 5' shortname='Cyborg R.A.T. 5']
     [member=fa5bd368-039f-4360-882d-6aae5d56557e name='Cyborg R.A.T.7' shortname='Cyborg R.A.T.7']
     [member=2f5bfa24-2ef9-4cb1-becb-3fbdc054962b name=Contagion shortname=Contagion]

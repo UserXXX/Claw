@@ -53,5 +53,11 @@ namespace Claw.Interfaces
         /// </summary>
         /// <param name="commands">The commands to delete.</param>
         void OnDeleteCommandsRequested(Command[] commands);
+
+        /// <summary>
+        /// Notifies this presenter that the name of the given command changed.
+        /// </summary>
+        /// <param name="command">The changed command.</param>
+        void CommandNameChanged(Command command);
     }
 }
