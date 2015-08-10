@@ -53,6 +53,7 @@
     <clr:String x:Key="ControlHeader">Control</clr:String>
     <clr:String x:Key="CommandHeader">Command</clr:String>
     <clr:String x:Key="ControlText">Control:</clr:String>
+    <clr:String x:Key="AssignedCommandText">Assigned command:</clr:String>
     <clr:String x:Key="NoCommandAssignedText">&lt;None&gt;</clr:String>
     
     <!-- Message and dialog titles. -->
