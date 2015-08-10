@@ -287,16 +287,14 @@ namespace Claw.UI.Panels
             cbAssigned.IsEnabled = true;
 
             AssignmentListBoxItemContent content = (AssignmentListBoxItemContent)((ListBoxItem)lbControls.SelectedItem).Content;
+            tbSelectedControl.Text = (string)Application.Current.FindResource(CONTROL_TEXT) + " " + content.ControlName;
             if (content.Command == null)
             {
                 // The index 0 is always the empty item.
                 cbAssigned.SelectedIndex = 0;
-                tbSelectedControl.Text = (string)Application.Current.FindResource(CONTROL_TEXT);
                 blockChangeEvent = false;
                 return;
             }
-
-            tbSelectedControl.Text = (string)Application.Current.FindResource(CONTROL_TEXT) + " " + content.ControlName;
 
             foreach (ComboBoxItem item in cbAssigned.Items)
             {
