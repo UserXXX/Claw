@@ -80,6 +80,12 @@
     <Compile Include="Model\ProfileInfo.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Native\Windows.cs" />
+    <Compile Include="UI\Controls\BlockEditor.xaml.cs">
+      <DependentUpon>BlockEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\CommandEditor.xaml.cs">
+      <DependentUpon>CommandEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Style\ClawWindow.cs" />
     <Compile Include="UI\Style\ClawWindowAnimator.cs" />
     <Compile Include="UI\Style\ClawWindowRenderer.cs" />
@@ -134,6 +140,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\Controls\BlockEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\CommandEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Style\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -175,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Style\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Style\TabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

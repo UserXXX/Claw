@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="UI/Style/ListViewItem.xaml"/>
                 <ResourceDictionary Source="UI/Style/ScrollBar.xaml"/>
                 <ResourceDictionary Source="UI/Style/ScrollViewer.xaml"/>
+                <ResourceDictionary Source="UI/Style/TabControl.xaml"/>
                 <ResourceDictionary Source="UI/Style/TextBlock.xaml"/>
                 <ResourceDictionary Source="UI/Style/TextBox.xaml"/>
                 <ResourceDictionary Source="UI/Style/ToggleButton.xaml"/>
